@@ -1,0 +1,1 @@
+"""FreightGuard AI backend package."""

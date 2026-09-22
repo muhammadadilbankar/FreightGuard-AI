@@ -1,0 +1,15 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+backend/data/output/*
+!backend/data/output/.gitkeep
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
