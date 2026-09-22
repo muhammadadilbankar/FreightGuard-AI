@@ -86,3 +86,48 @@
   `load_input_bundle`; dedicated loaders are the only canonical CSV readers.
 - **Consequences:** File handling, validation, reports, and normalization remain
   independently testable and consistent.
+
+## ADR-011: Aggregate numerator and denominator before division
+
+- **Status:** Accepted
+- **Context:** Averaging shipment-level rates gives small and large shipments equal
+  influence and violates the mathematical contract.
+- **Decision:** Sum freight cost and tonne-kilometres for each route, route type,
+  and week, then divide the aggregated totals.
+- **Consequences:** Weekly rates are correctly weighted by freight-distance.
+
+## ADR-012: Retain weekly audit fields
+
+- **Status:** Accepted
+- **Context:** Every rate must be explainable and independently recalculable.
+- **Decision:** Retain shipment count, total freight cost, total quantity, and total
+  tonne-kilometres beside each calculated rate.
+- **Consequences:** Reconciliation and later investigation can prove each result's
+  numerator, denominator, and contributing volume.
+
+## ADR-013: Keep canonical analytics numeric and unrounded
+
+- **Status:** Accepted
+- **Context:** Early rounding can change later baselines and anomaly boundaries.
+- **Decision:** Preserve floating-point values at their available precision and
+  defer formatting to export or presentation layers.
+- **Consequences:** Tests use explicit tolerances and later phases receive the full
+  calculated precision.
+
+## ADR-014: Sort weekly metrics deterministically
+
+- **Status:** Accepted
+- **Context:** Reproducible downstream calculations require stable row and summation
+  order independent of source ordering.
+- **Decision:** Canonically order working rows by group key and shipment ID, then
+  stably sort results by route, route type, and week with a reset index.
+- **Consequences:** Shuffled logical inputs produce identical weekly tables.
+
+## ADR-015: Keep analytics independent from I/O and API routes
+
+- **Status:** Accepted
+- **Context:** Calculation code should remain independently testable and reusable.
+- **Decision:** The analytics service accepts only a normalized DataFrame. The
+  inspection CLI composes ingestion and analytics without adding persistence.
+- **Consequences:** No CSV access, HTTP concern, cache, or hidden write exists in
+  the canonical calculation function.

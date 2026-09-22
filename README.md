@@ -6,12 +6,11 @@ evidence so every result is reproducible and auditable.
 
 ## Status
 
-Phase 2 (data ingestion and validation) is implemented. The repository provides a
-typed FastAPI foundation plus strict CSV contracts, structured validation errors,
-copy-based in-memory normalization, and derived `route`, Monday `week_of`, and
-`tonne_km` shipment fields. Weekly aggregation, anomaly detection, evidence
-retrieval, AI wording, and the dashboard belong to later phases and are not
-implemented yet.
+Phase 3 (weekly cost analytics) is implemented. The repository provides a typed
+FastAPI foundation, strict CSV ingestion, copy-based normalization, and deterministic
+weekly route metrics with reconciliation audit fields. Historical and peer
+baselines, anomaly flags, evidence retrieval, AI wording, and the dashboard belong
+to later phases and are not implemented yet.
 
 The unchanged challenge CSV files are stored in `backend/data/input/`. Their
 recorded byte sizes and SHA-256 hashes are documented in
@@ -55,6 +54,7 @@ optional. A real `.env` is ignored by Git.
 python -m pytest backend/tests -q
 python -m ruff check backend
 python -m backend.scripts.validate_inputs
+python -m backend.scripts.inspect_weekly_metrics
 python backend/run.py
 ```
 
@@ -72,6 +72,28 @@ Result: PASS
 The warning identifies an illustrative sample-output row containing an unquoted
 comma. The exact eight-column header remains authoritative and the supplied file is
 not repaired or rewritten.
+
+The inspection command consumes the validated in-memory shipment frame and prints:
+
+```text
+Validated shipments: 2940
+Weekly route groups: 728
+Directional routes: 7
+Route types: 3
+Distinct weeks: 104
+week_of range: 2024-01-01 to 2025-12-22
+Reconciliation: PASS
+```
+
+For each `route + route_type + week_of`, the canonical weekly rate is:
+
+```text
+sum(freight_cost_inr) / sum(quantity_tonnes * distance_km)
+```
+
+The numerator and denominator are aggregated before division. This is intentionally
+not the mean of shipment-level rates. Canonical totals and rates remain numeric and
+unrounded; display formatting belongs to a later export or UI phase.
 
 With the API running, open <http://127.0.0.1:8000/health>. It returns service
 status, name, version, and environment without reading shipment data or calling an
