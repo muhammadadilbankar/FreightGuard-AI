@@ -6,14 +6,14 @@ evidence so every result is reproducible and auditable.
 
 ## Status
 
-Phase 6 (context-note compiler) is implemented. The repository
+Phase 7 (hybrid retrieval and Evidence Gate) is implemented. The repository
 provides a typed FastAPI foundation, strict CSV ingestion, deterministic weekly
 route metrics, leak-free own-history and self-excluding peer baselines, full-
 precision percentage comparisons, configurable candidate detection, and an exact
 eight-column preliminary CSV. It also compiles source context notes into immutable,
-versioned evidence claims without accepting them as evidence. Retrieval, final
-verdicts, AI wording, and the dashboard belong to later phases and are not
-implemented yet.
+versioned evidence claims, discovers candidate evidence with local hybrid retrieval,
+and applies deterministic validity gates before producing reviewed decisions. AI
+wording and the dashboard belong to later phases and are not implemented yet.
 
 The unchanged challenge CSV files are stored in `backend/data/input/`. Their
 recorded byte sizes and SHA-256 hashes are documented in
@@ -61,6 +61,8 @@ python -m backend.scripts.inspect_weekly_metrics
 python -m backend.scripts.inspect_baselines
 python -m backend.scripts.generate_candidate_output
 python -m backend.scripts.compile_context_notes
+python -m backend.scripts.prepare_embedding_model
+python -m backend.scripts.review_candidate_evidence
 python backend/run.py
 ```
 
@@ -187,7 +189,39 @@ cost keywords.
 
 Compiled claims are not accepted evidence, candidate-note matches, or final
 verdicts. Phase 6 does not alter `candidate_anomalies.csv`; retrieval and the strict
-Evidence Gate remain Phase 7 work.
+Evidence Gate own those decisions in Phase 7.
+
+Phase 7 uses two discovery channels: deterministic TF-IDF sparse retrieval and a
+revision-pinned, CPU-only Sentence Transformers model. Weighted Reciprocal Rank
+Fusion combines their ranks, while exact route/time structured recall ensures a
+low-similarity but structurally applicable note still reaches validation. Similarity
+only discovers notes; it never decides whether evidence is valid.
+
+Prepare the pinned model explicitly, then run the review from the repository root:
+
+```bash
+python -m backend.scripts.prepare_embedding_model
+python -m backend.scripts.review_candidate_evidence
+```
+
+The second command is local-only by default. It checks dataset scope, exact route
+direction, inclusive date overlap, explicit transport-cost increase, impact
+direction, negation, and explanatory scope. Exact-route evidence can fully justify
+a candidate. Global evidence remains partial for a peer-driven anomaly because it
+cannot explain why one route is more expensive than comparable routes. A justified
+decision clears the flag and populates `matched_note_id`; partial or rejected-only
+evidence leaves the candidate flagged.
+
+The supplied data produces 19 decisions: 3 justified, 12 partially explained, and
+4 unexplained. The validated outputs are:
+
+- `backend/data/output/evidence_gate_audit.jsonl`, which retains discovery metadata
+  and every gate rejection reason.
+- `backend/data/output/evidence_reviewed_anomalies.csv`, which preserves all 19
+  candidates in the authoritative eight-column format.
+
+Phase 8 still owns any final generated explanation wording. Phase 7 emits only
+deterministic reason templates and validated evidence allowlists.
 
 With the API running, open <http://127.0.0.1:8000/health>. It returns service
 status, name, version, and environment without reading shipment data or calling an

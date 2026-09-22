@@ -11,3 +11,11 @@ class OutputContractError(ReportingError):
 
 class CompiledNotesSerializationError(ReportingError):
     """A compiled-note JSONL artifact violates its serialization contract."""
+
+
+class EvidenceAuditError(ReportingError):
+    """The evidence audit JSONL violates its contract."""
+
+
+class EvidenceOutputContractError(ReportingError):
+    """The evidence-reviewed CSV violates its contract."""

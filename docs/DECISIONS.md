@@ -301,3 +301,66 @@
   flag, or issues an evidence verdict.
 - **Consequences:** Phase 7 remains the sole owner of route, date, direction, impact,
   and explanatory-scope acceptance.
+
+## ADR-034: Use hybrid sparse and dense retrieval for note discovery
+
+- **Status:** Accepted
+- **Decision:** Search compiled notes with deterministic TF-IDF and local semantic
+  embeddings.
+- **Consequences:** Exact wording and semantic similarity can both aid discovery,
+  while neither channel has verdict authority.
+
+## ADR-035: Fuse discovery channels with deterministic Reciprocal Rank Fusion
+
+- **Status:** Accepted
+- **Decision:** Combine one-based sparse and dense ranks using configured weighted
+  Reciprocal Rank Fusion and stable note-ID tie-breaking.
+- **Consequences:** Incomparable raw score scales cannot distort fusion, and repeated
+  runs preserve ordering.
+
+## ADR-036: Union retrieval with structured route/time recall
+
+- **Status:** Accepted
+- **Decision:** Add every exact-route or global note whose inclusive interval
+  overlaps the candidate week to the fused top-k set.
+- **Consequences:** A valid low-similarity note cannot be lost before hard evidence
+  validation; no-impact notes remain visible for audit.
+
+## ADR-037: Give the Evidence Gate sole authority over verdicts
+
+- **Status:** Accepted
+- **Decision:** Validate compiled consistency, dataset scope, route direction, time,
+  explicit transport-cost impact, direction, negation, and explanatory scope with
+  deterministic rules.
+- **Consequences:** Similarity scores can affect discovery order but cannot accept an
+  invalid claim or clear a candidate.
+
+## ADR-038: Keep global evidence partial for peer-driven anomalies
+
+- **Status:** Accepted
+- **Decision:** Treat applicable global increases as partial when the peer threshold
+  was breached; use the configured magnitude tolerance for own-only anomalies.
+- **Consequences:** Market-wide context cannot explain a route-specific peer premium.
+
+## ADR-039: Populate matched note ID only for full justification
+
+- **Status:** Accepted
+- **Decision:** Select exactly one deterministic full-evidence note for justified
+  decisions and leave `matched_note_id` blank for partial and unexplained results.
+- **Consequences:** The challenge output never presents partial context as conclusive.
+
+## ADR-040: Preserve rejected-note reasons in a deterministic audit trail
+
+- **Status:** Accepted
+- **Decision:** Write every assessed note, retrieval provenance, gate outcome, and
+  sorted rejection code to versioned, atomically written JSONL.
+- **Consequences:** Reviewers can reconstruct why each discovered note was accepted
+  or rejected without changing the eight-column submission contract.
+
+## ADR-041: Use local pinned embeddings without a vector database
+
+- **Status:** Accepted
+- **Decision:** Prepare one exact Sentence Transformers revision explicitly and load
+  its repository-local files lazily on CPU with remote custom code disabled.
+- **Consequences:** Evidence review runs offline after preparation, tests inject fake
+  providers, and the small note corpus needs no persistent vector infrastructure.

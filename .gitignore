@@ -9,6 +9,8 @@ htmlcov/
 .ruff_cache/
 backend/data/output/*
 !backend/data/output/.gitkeep
+backend/data/models/*
+!backend/data/models/.gitkeep
 node_modules/
 dist/
 .DS_Store
