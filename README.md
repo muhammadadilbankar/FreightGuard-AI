@@ -6,10 +6,10 @@ evidence so every result is reproducible and auditable.
 
 ## Status
 
-Phase 3 (weekly cost analytics) is implemented. The repository provides a typed
-FastAPI foundation, strict CSV ingestion, copy-based normalization, and deterministic
-weekly route metrics with reconciliation audit fields. Historical and peer
-baselines, anomaly flags, evidence retrieval, AI wording, and the dashboard belong
+Phase 4 (baseline engine) is implemented. The repository provides a typed FastAPI
+foundation, strict CSV ingestion, deterministic weekly route metrics, and leak-free
+own-history and self-excluding peer baselines with audit counts. Percentage
+deviations, anomaly flags, evidence retrieval, AI wording, and the dashboard belong
 to later phases and are not implemented yet.
 
 The unchanged challenge CSV files are stored in `backend/data/input/`. Their
@@ -55,6 +55,7 @@ python -m pytest backend/tests -q
 python -m ruff check backend
 python -m backend.scripts.validate_inputs
 python -m backend.scripts.inspect_weekly_metrics
+python -m backend.scripts.inspect_baselines
 python backend/run.py
 ```
 
@@ -94,6 +95,32 @@ sum(freight_cost_inr) / sum(quantity_tonnes * distance_km)
 The numerator and denominator are aggregated before division. This is intentionally
 not the mean of shipment-level rates. Canonical totals and rates remain numeric and
 unrounded; display formatting belongs to a later export or UI phase.
+
+For each route and route type, the own-history baseline is the arithmetic mean of
+at most the previous eight available observed route weeks. The current week is
+shifted out before rolling; missing calendar weeks are neither synthesized nor
+padded. The first observation therefore has a missing baseline and a
+`history_weeks_used` value of zero.
+
+The peer baseline is the unweighted arithmetic mean of other route-level rates with
+the same route type and week. The current route is excluded. If no peer exists, the
+baseline remains numerically missing and `peer_routes_used` is zero.
+
+The baseline inspection command reports:
+
+```text
+Weekly route groups: 728
+Own-history baselines available: 721
+Own-history baselines unavailable: 7
+Rows using full 8-week history: 672
+Peer baselines available: 728
+Peer baselines unavailable: 0
+Peer routes used: min 1, max 2
+No-look-ahead checks: PASS
+Self-exclusion checks: PASS
+```
+
+Percentage deviations and candidate flags remain Phase 5 work.
 
 With the API running, open <http://127.0.0.1:8000/health>. It returns service
 status, name, version, and environment without reading shipment data or calling an

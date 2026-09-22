@@ -131,3 +131,49 @@
   inspection CLI composes ingestion and analytics without adding persistence.
 - **Consequences:** No CSV access, HTTP concern, cache, or hidden write exists in
   the canonical calculation function.
+
+## ADR-016: Shift before applying the history window
+
+- **Status:** Accepted
+- **Context:** Including the current week would leak the value being evaluated into
+  its own comparison baseline.
+- **Decision:** Shift each route and route-type cost series by one observation before
+  applying the trailing eight-observation mean.
+- **Consequences:** Only strictly earlier observations contribute to own history.
+
+## ADR-017: Use available observations without padding
+
+- **Status:** Accepted
+- **Context:** Routes may have calendar weeks without shipments.
+- **Decision:** Use up to eight prior observed route weeks and never synthesize,
+  interpolate, or pad missing calendar weeks.
+- **Consequences:** Audit counts state the actual amount of history used, including
+  fewer than eight observations during early history.
+
+## ADR-018: Average peer route-level rates without weighting
+
+- **Status:** Accepted
+- **Context:** The peer contract compares route-level weekly costs, not pooled
+  shipment volumes.
+- **Decision:** Calculate a simple arithmetic mean of eligible peer route rates.
+- **Consequences:** Shipment count, quantity, and tonne-kilometres do not alter a
+  peer route's influence.
+
+## ADR-019: Exclude the current route from its peer baseline
+
+- **Status:** Accepted
+- **Context:** Self-inclusion would dilute route-specific differences.
+- **Decision:** Subtract the current route rate and one route from each same-week,
+  same-type peer group before calculating its average.
+- **Consequences:** Two-route groups compare each route directly with the other;
+  one-route groups have no available peer baseline.
+
+## ADR-020: Represent unavailable baselines with missing values and counts
+
+- **Status:** Accepted
+- **Context:** Zero is a valid numeric value in comparisons but does not mean that a
+  comparison source exists.
+- **Decision:** Keep unavailable baselines as numeric missing values and record zero
+  in the corresponding history or peer count.
+- **Consequences:** Later phases can distinguish unavailable comparisons without
+  guessing, strings, or sentinel numbers.
