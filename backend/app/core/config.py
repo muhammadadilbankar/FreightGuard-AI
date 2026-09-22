@@ -1,11 +1,13 @@
 """Typed application settings with repository-relative path resolution."""
 
 from functools import lru_cache
+from datetime import date
+from decimal import Decimal
 from pathlib import Path
 from typing import Self
 import math
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -43,10 +45,41 @@ class Settings(BaseSettings):
     )
     embedding_local_only: bool = True
     global_magnitude_tolerance_percent: float = Field(default=2.0, ge=0)
+    explanation_mode: str = "template"
+    explanation_provider: str = "openai"
+    explanation_model: str = ""
+    explanation_prompt_version: str = "fg-explanation-v1"
+    explanation_temperature: float = 0.0
+    explanation_temperature_supported: bool = False
+    explanation_max_output_tokens: int = Field(default=220, ge=64, le=2048)
+    explanation_timeout_seconds: float = Field(default=30.0, gt=0, le=120)
+    explanation_max_attempts: int = Field(default=2, ge=1, le=5)
+    explanation_max_concurrency: int = Field(default=3, ge=1, le=16)
+    explanation_cache_enabled: bool = True
+    explanation_cache_path: Path = Path(
+        "backend/data/output/explanation_cache.jsonl"
+    )
+    model_input_cost_per_1m_usd: Decimal | None = None
+    model_cached_input_cost_per_1m_usd: Decimal | None = None
+    model_output_cost_per_1m_usd: Decimal | None = None
+    model_pricing_snapshot_date: date | None = None
+    openai_api_key: SecretStr | None = None
 
     @field_validator("embedding_model_path", mode="before")
     @classmethod
     def empty_model_path_is_none(cls, value: object) -> object:
+        return None if value == "" else value
+
+    @field_validator(
+        "model_input_cost_per_1m_usd",
+        "model_cached_input_cost_per_1m_usd",
+        "model_output_cost_per_1m_usd",
+        "model_pricing_snapshot_date",
+        "openai_api_key",
+        mode="before",
+    )
+    @classmethod
+    def empty_optional_values_are_none(cls, value: object) -> object:
         return None if value == "" else value
 
     @model_validator(mode="after")
@@ -56,6 +89,7 @@ class Settings(BaseSettings):
             "input_data_dir",
             "output_data_dir",
             "embedding_model_path",
+            "explanation_cache_path",
         ):
             value = getattr(self, field_name)
             if value is None:
@@ -73,6 +107,25 @@ class Settings(BaseSettings):
             raise ValueError("Embedding model name must not be blank.")
         if not self.embedding_model_revision.strip():
             raise ValueError("Embedding model revision must not be blank.")
+        if self.explanation_mode not in {"template", "live", "replay"}:
+            raise ValueError("Explanation mode must be template, live, or replay.")
+        if self.explanation_provider != "openai":
+            raise ValueError("Only the openai explanation provider is supported.")
+        if not self.explanation_prompt_version.strip():
+            raise ValueError("Explanation prompt version must not be blank.")
+        if not math.isfinite(self.explanation_temperature):
+            raise ValueError("Explanation temperature must be finite.")
+        if not math.isfinite(self.explanation_timeout_seconds):
+            raise ValueError("Explanation timeout must be finite.")
+        rates = (
+            self.model_input_cost_per_1m_usd,
+            self.model_cached_input_cost_per_1m_usd,
+            self.model_output_cost_per_1m_usd,
+        )
+        if any(rate is not None and (not rate.is_finite() or rate < 0) for rate in rates):
+            raise ValueError("Model cost rates must be finite and non-negative.")
+        if any(rate is not None for rate in rates) and self.model_pricing_snapshot_date is None:
+            raise ValueError("A pricing snapshot date is required with model cost rates.")
         return self
 
 

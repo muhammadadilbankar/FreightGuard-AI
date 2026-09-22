@@ -6,14 +6,16 @@ evidence so every result is reproducible and auditable.
 
 ## Status
 
-Phase 7 (hybrid retrieval and Evidence Gate) is implemented. The repository
+Phase 8 (grounded explanation generation) is implemented. The repository
 provides a typed FastAPI foundation, strict CSV ingestion, deterministic weekly
 route metrics, leak-free own-history and self-excluding peer baselines, full-
 precision percentage comparisons, configurable candidate detection, and an exact
 eight-column preliminary CSV. It also compiles source context notes into immutable,
 versioned evidence claims, discovers candidate evidence with local hybrid retrieval,
-and applies deterministic validity gates before producing reviewed decisions. AI
-wording and the dashboard belong to later phases and are not implemented yet.
+and applies deterministic validity gates before producing reviewed decisions. A
+provider-independent wording layer now produces strictly validated explanations or
+safe deterministic fallbacks without changing any canonical decision. Evaluation
+reports and the dashboard belong to later phases and are not implemented yet.
 
 The unchanged challenge CSV files are stored in `backend/data/input/`. Their
 recorded byte sizes and SHA-256 hashes are documented in
@@ -63,6 +65,7 @@ python -m backend.scripts.generate_candidate_output
 python -m backend.scripts.compile_context_notes
 python -m backend.scripts.prepare_embedding_model
 python -m backend.scripts.review_candidate_evidence
+python -m backend.scripts.generate_final_submission
 python backend/run.py
 ```
 
@@ -220,8 +223,41 @@ The supplied data produces 19 decisions: 3 justified, 12 partially explained, an
 - `backend/data/output/evidence_reviewed_anomalies.csv`, which preserves all 19
   candidates in the authoritative eight-column format.
 
-Phase 8 still owns any final generated explanation wording. Phase 7 emits only
-deterministic reason templates and validated evidence allowlists.
+Phase 8 consumes only those validated evidence packets. The model is a wording
+component: it cannot recalculate values, change verdicts, select notes, or alter
+flags. Requests contain only selected or accepted supporting evidence, and source
+note text is isolated as untrusted JSON data.
+
+Three modes are supported through `EXPLANATION_MODE`:
+
+- `template` is the default, deterministic offline mode and needs no credentials.
+- `live` uses the configured OpenAI Responses API model after a cache lookup. Set
+  `EXPLANATION_MODEL` and `OPENAI_API_KEY`; model pricing remains optional external
+  configuration.
+- `replay` is network-free and requires a complete previously validated live cache.
+
+Unexplained candidates never call a model. Live responses must pass strict schema,
+identity, verdict, note-ID, numeric-grounding, wording, formatting, and length
+validation. A refusal, provider failure, or invalid response uses the appropriate
+deterministic fallback without a repair prompt. Only fully validated provider
+responses enter the content-addressed cache; changing the prompt, model, response
+schema, or grounded request changes the cache key.
+
+Generate the final submission with:
+
+```bash
+python -m backend.scripts.generate_final_submission
+```
+
+The command reports provider attempts, cache hits, validation failures, provider-
+reported token usage, and an estimated cost when date-stamped pricing rates are
+configured. It writes:
+
+- `backend/data/output/explanation_generation_audit.jsonl`
+- `backend/data/output/final_submission.csv`
+
+The supplied data remains 19 rows with 3 justified, 12 partially explained, and 4
+unexplained decisions. Phase 9 still owns the formal three-run evaluation report.
 
 With the API running, open <http://127.0.0.1:8000/health>. It returns service
 status, name, version, and environment without reading shipment data or calling an

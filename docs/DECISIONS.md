@@ -364,3 +364,65 @@
   its repository-local files lazily on CPU with remote custom code disabled.
 - **Consequences:** Evidence review runs offline after preparation, tests inject fake
   providers, and the small note corpus needs no persistent vector infrastructure.
+
+## ADR-042: Restrict model authority to explanation wording
+
+- **Status:** Accepted
+- **Decision:** Treat every Phase 7 number, verdict, flag, and evidence identifier as
+  immutable; a model may supply only validated reason wording and citations.
+- **Consequences:** Model behavior cannot change the canonical investigation result.
+
+## ADR-043: Generate only from Phase 7 validated evidence packets
+
+- **Status:** Accepted
+- **Decision:** Build minimal requests exclusively from selected and accepted
+  supporting evidence in `ValidatedEvidencePacket` objects.
+- **Consequences:** Rejected notes and retrieval internals never enter a prompt.
+
+## ADR-044: Skip model calls for unexplained candidates
+
+- **Status:** Accepted
+- **Decision:** Render the unexplained template directly when no evidence passed.
+- **Consequences:** The system avoids speculative causation and unnecessary cost.
+
+## ADR-045: Require structured output plus deterministic post-validation
+
+- **Status:** Accepted
+- **Decision:** Use a strict Pydantic response schema and independently validate
+  identity, verdict, citations, numbers, wording, format, and length.
+- **Consequences:** Schema compliance alone cannot bypass grounding controls.
+
+## ADR-046: Enforce note-ID and numeric-claim allowlists
+
+- **Status:** Accepted
+- **Decision:** Reject cited or prose-mentioned note IDs outside the packet and
+  numeric claims absent from approved display facts or evidence magnitudes.
+- **Consequences:** Fabricated citations and quantitative details cannot reach CSV.
+
+## ADR-047: Fall back without repair prompting on invalid content
+
+- **Status:** Accepted
+- **Decision:** Use the verdict-aware deterministic template immediately after a
+  refusal or content-validation failure; retry only transient transport failures.
+- **Consequences:** Unsafe output never becomes new prompt context or multiplies calls.
+
+## ADR-048: Cache only fully validated model output by content hash
+
+- **Status:** Accepted
+- **Decision:** Key cached provider output by prompt, provider/model, request, and
+  response-schema identity, and revalidate it before reuse.
+- **Consequences:** Cache invalidation is automatic and corrupt entries are untrusted.
+
+## ADR-049: Support template, live, and replay generation modes
+
+- **Status:** Accepted
+- **Decision:** Default to offline templates, allow cache-first live generation, and
+  provide network-free cache-only replay.
+- **Consequences:** CI and demos remain safe while production wording is optional.
+
+## ADR-050: Keep pricing configuration external and date-stamped
+
+- **Status:** Accepted
+- **Decision:** Calculate estimates with `Decimal` and configured per-million-token
+  rates tied to a pricing snapshot date.
+- **Consequences:** Missing rates yield unavailable cost instead of stale fake values.

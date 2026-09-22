@@ -15,9 +15,9 @@ phase plan remain authoritative for detailed completion gates.
    configurable deterministic rule, and validated preliminary eight-column output.
 6. **Context-note compiler (complete):** Deterministic typed claims, inclusive
    effective intervals, preserved source text, and validated versioned JSONL.
-7. **Hybrid retrieval and Evidence Gate:** Semantic candidates followed by strict
+7. **Hybrid retrieval and Evidence Gate (complete):** Semantic candidates followed by strict
    route, date, direction, impact, and scope validation.
-8. **Grounded explanation generation:** Provider-independent constrained wording,
+8. **Grounded explanation generation (complete):** Provider-independent constrained wording,
    schema checks, fallback templates, and usage logging.
 9. **Evaluation and reproducibility:** Adversarial cases, regressions, three-run
    byte identity, recorded hashes, and a readable report.

@@ -19,3 +19,11 @@ class EvidenceAuditError(ReportingError):
 
 class EvidenceOutputContractError(ReportingError):
     """The evidence-reviewed CSV violates its contract."""
+
+
+class ExplanationAuditError(ReportingError):
+    """The explanation-generation audit JSONL violates its contract."""
+
+
+class FinalSubmissionError(ReportingError):
+    """The final Phase 8 CSV violates its reconciliation contract."""
