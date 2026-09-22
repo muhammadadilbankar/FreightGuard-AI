@@ -11,3 +11,7 @@ class AnalyticsInputError(AnalyticsError):
 
 class AnalyticsInvariantError(AnalyticsError):
     """An internal aggregation or reconciliation invariant failed."""
+
+
+class CandidateDetectionError(AnalyticsError):
+    """A percentage comparison or candidate-rule contract was violated."""

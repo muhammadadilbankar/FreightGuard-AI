@@ -6,11 +6,12 @@ evidence so every result is reproducible and auditable.
 
 ## Status
 
-Phase 4 (baseline engine) is implemented. The repository provides a typed FastAPI
-foundation, strict CSV ingestion, deterministic weekly route metrics, and leak-free
-own-history and self-excluding peer baselines with audit counts. Percentage
-deviations, anomaly flags, evidence retrieval, AI wording, and the dashboard belong
-to later phases and are not implemented yet.
+Phase 5 (candidate detection and preliminary output) is implemented. The repository
+provides a typed FastAPI foundation, strict CSV ingestion, deterministic weekly
+route metrics, leak-free own-history and self-excluding peer baselines, full-
+precision percentage comparisons, configurable candidate detection, and an exact
+eight-column preliminary CSV. Context evidence, final verdicts, AI wording, and the
+dashboard belong to later phases and are not implemented yet.
 
 The unchanged challenge CSV files are stored in `backend/data/input/`. Their
 recorded byte sizes and SHA-256 hashes are documented in
@@ -56,6 +57,7 @@ python -m ruff check backend
 python -m backend.scripts.validate_inputs
 python -m backend.scripts.inspect_weekly_metrics
 python -m backend.scripts.inspect_baselines
+python -m backend.scripts.generate_candidate_output
 python backend/run.py
 ```
 
@@ -120,7 +122,44 @@ No-look-ahead checks: PASS
 Self-exclusion checks: PASS
 ```
 
-Percentage deviations and candidate flags remain Phase 5 work.
+Phase 5 calculates these unrounded percentage deviations:
+
+```text
+vs_own_history_pct = (current cost / own-history baseline - 1) * 100
+vs_similar_routes_pct = (current cost / peer baseline - 1) * 100
+```
+
+The configured threshold defaults to `20.0` percent because the challenge does not
+prescribe one. It can be changed with `ANOMALY_THRESHOLD_PERCENT`. The exact rule is:
+
+```text
+candidate = own deviation is available and > 0
+            and (own deviation >= threshold
+                 or available peer deviation >= threshold)
+```
+
+Threshold comparisons use full-precision values; one- and two-decimal formatting is
+applied only to the generated display fields. A missing own baseline remains missing
+and prevents a candidate decision because rising movement cannot be established. A
+missing peer baseline remains missing and evaluates only the peer rule component as
+false, so a sufficiently elevated own-history comparison may still qualify.
+
+Generate the preliminary candidate output from the repository root with:
+
+```bash
+python -m backend.scripts.generate_candidate_output
+```
+
+The supplied data evaluates 728 route-week groups and produces 19 candidate rows in
+`backend/data/output/candidate_anomalies.csv`. The file uses the authoritative exact
+eight-column header, deterministic ordering and bytes, RFC-compliant quoting, and is
+read back for contract validation after an atomic write. Generated output remains
+ignored by Git.
+
+This is deliberately a preliminary Phase 5 artifact: context notes have not been
+evaluated. Every candidate is therefore `flagged = Yes`, every `matched_note_id` is
+blank, and the reason states that context review is pending. It is not a final
+evidence-reviewed submission.
 
 With the API running, open <http://127.0.0.1:8000/health>. It returns service
 status, name, version, and environment without reading shipment data or calling an

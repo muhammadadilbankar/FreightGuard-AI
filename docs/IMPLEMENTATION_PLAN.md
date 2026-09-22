@@ -11,8 +11,8 @@ phase plan remain authoritative for detailed completion gates.
 3. **Weekly cost analytics:** Weighted route-week aggregation with full precision.
 4. **Baseline engine:** Prior-eight-available-week history and same-week peer
    baselines with audit fields.
-5. **Candidate detection and CSV:** Configurable rule and exact deterministic
-   submission schema.
+5. **Candidate detection and CSV (complete):** Full-precision comparisons,
+   configurable deterministic rule, and validated preliminary eight-column output.
 6. **Context-note compiler:** Traceable structured claims retaining original text.
 7. **Hybrid retrieval and Evidence Gate:** Semantic candidates followed by strict
    route, date, direction, impact, and scope validation.

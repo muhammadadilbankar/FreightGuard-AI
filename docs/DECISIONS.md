@@ -177,3 +177,60 @@
   in the corresponding history or peer count.
 - **Consequences:** Later phases can distinguish unavailable comparisons without
   guessing, strings, or sentinel numbers.
+
+## ADR-021: Require positive own-history movement before candidate flagging
+
+- **Status:** Accepted
+- **Context:** A route can be expensive relative to peers while falling versus its
+  own history, but the challenge asks for rising costs.
+- **Decision:** Require an available, strictly positive own-history deviation before
+  either threshold component can produce a candidate.
+- **Consequences:** Missing, zero, or negative own movement cannot be flagged solely
+  by a high peer comparison.
+
+## ADR-022: Use inclusive configurable thresholds on own or peer deviation
+
+- **Status:** Accepted
+- **Context:** The challenge defines baselines but no anomaly threshold.
+- **Decision:** Inject one finite non-negative threshold, defaulting to 20 percent,
+  and treat equality on either available comparison as a breach.
+- **Consequences:** Sensitivity is auditable and configurable without changing rule
+  code; own and peer boundaries have identical semantics.
+
+## ADR-023: Apply thresholds before display rounding
+
+- **Status:** Accepted
+- **Context:** A value below 20 percent can display as `+20.0%` at one decimal.
+- **Decision:** Calculate and evaluate numeric deviations at full precision, then
+  format only the preliminary output fields.
+- **Consequences:** Presentation rounding cannot change a candidate decision.
+
+## ADR-024: Export candidate rows only using the exact contract
+
+- **Status:** Accepted
+- **Context:** The preliminary artifact must match the challenge header without
+  implying that every weekly row is anomalous.
+- **Decision:** Export only `candidate_anomaly = True` rows using the authoritative
+  Phase 2 eight-column contract and stable route/week ordering.
+- **Consequences:** The Phase 5 CSV is compact, deterministic, and directly
+  reconcilable to the canonical candidate set.
+
+## ADR-025: Keep preliminary candidates flagged until evidence evaluation
+
+- **Status:** Accepted
+- **Context:** Phase 5 has not searched or validated context notes.
+- **Decision:** Set every candidate to `Yes`, leave `matched_note_id` blank, and use
+  wording that explicitly says context review is pending.
+- **Consequences:** The artifact makes no unsupported claim about evidence and cannot
+  be mistaken for a final evidence-reviewed verdict.
+
+## ADR-026: Validate generated CSV through an independent round trip
+
+- **Status:** Accepted
+- **Context:** Correct in-memory columns do not prove that quoting, blank cells, or
+  serialized records satisfy the file contract.
+- **Decision:** Read the written CSV through the standard library and validate its
+  exact header, field counts, row count, order, fixed Phase 5 fields, numeric costs,
+  ISO dates, and non-empty comparisons.
+- **Consequences:** Serialization failures stop the command instead of leaving a
+  misleading artifact; commas, quotes, and embedded newlines remain safe.
