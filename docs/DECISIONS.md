@@ -40,3 +40,49 @@
   before its designated phase.
 - **Consequences:** Phase 1 installs quickly and cannot accidentally blur layer
   boundaries.
+
+## ADR-006: Reject malformed values instead of silently coercing them
+
+- **Status:** Accepted
+- **Context:** Silent coercion can turn bad source values into plausible results.
+- **Decision:** Collect stable, row-addressable validation issues and reject the
+  dataset before normalization when blocking problems exist.
+- **Consequences:** Users can repair multiple errors in one pass, and downstream
+  code never receives partially valid data.
+
+## ADR-007: Preserve raw inputs and normalize only in memory
+
+- **Status:** Accepted
+- **Context:** Source traceability requires byte-stable challenge inputs.
+- **Decision:** Load strings strictly, validate them, then normalize a deep working
+  copy without writing corrected source or normalized output files.
+- **Consequences:** Raw files remain auditable; every later phase consumes a clean
+  `InputBundle` rather than mutating source-backed frames.
+
+## ADR-008: Treat the sample output header as authoritative
+
+- **Status:** Accepted
+- **Context:** Illustrative body rows contain natural-language commas that are not
+  consistently quoted.
+- **Decision:** Validate the first CSV record as the exact output contract and emit
+  non-blocking diagnostics for inconsistent body field counts.
+- **Consequences:** A malformed example does not invalidate the correct schema and
+  is never silently repaired.
+
+## ADR-009: Use strict ISO dates and derive Monday weeks
+
+- **Status:** Accepted
+- **Context:** Locale inference and inconsistent week starts undermine repeatability.
+- **Decision:** Accept only valid `YYYY-MM-DD` values and derive `week_of` through
+  weekday calendar arithmetic.
+- **Consequences:** Dates are timezone-naive and every derived week begins Monday.
+
+## ADR-010: Centralize CSV access through the ingestion service
+
+- **Status:** Accepted
+- **Context:** Scattered `read_csv` calls would duplicate rules and weaken the input
+  boundary.
+- **Decision:** Later phases obtain a validated `InputBundle` from
+  `load_input_bundle`; dedicated loaders are the only canonical CSV readers.
+- **Consequences:** File handling, validation, reports, and normalization remain
+  independently testable and consistent.
