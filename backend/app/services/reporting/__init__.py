@@ -9,10 +9,15 @@ from .candidate_csv import (
     validate_candidate_csv,
     write_candidate_csv,
 )
-from .errors import OutputContractError, ReportingError
+from .errors import (
+    CompiledNotesSerializationError,
+    OutputContractError,
+    ReportingError,
+)
 
 __all__ = [
     "CANDIDATE_OUTPUT_FILENAME",
+    "CompiledNotesSerializationError",
     "OutputContractError",
     "PEER_UNAVAILABLE_TEXT",
     "PRELIMINARY_REASON",

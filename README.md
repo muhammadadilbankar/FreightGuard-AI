@@ -6,12 +6,14 @@ evidence so every result is reproducible and auditable.
 
 ## Status
 
-Phase 5 (candidate detection and preliminary output) is implemented. The repository
+Phase 6 (context-note compiler) is implemented. The repository
 provides a typed FastAPI foundation, strict CSV ingestion, deterministic weekly
 route metrics, leak-free own-history and self-excluding peer baselines, full-
 precision percentage comparisons, configurable candidate detection, and an exact
-eight-column preliminary CSV. Context evidence, final verdicts, AI wording, and the
-dashboard belong to later phases and are not implemented yet.
+eight-column preliminary CSV. It also compiles source context notes into immutable,
+versioned evidence claims without accepting them as evidence. Retrieval, final
+verdicts, AI wording, and the dashboard belong to later phases and are not
+implemented yet.
 
 The unchanged challenge CSV files are stored in `backend/data/input/`. Their
 recorded byte sizes and SHA-256 hashes are documented in
@@ -58,6 +60,7 @@ python -m backend.scripts.validate_inputs
 python -m backend.scripts.inspect_weekly_metrics
 python -m backend.scripts.inspect_baselines
 python -m backend.scripts.generate_candidate_output
+python -m backend.scripts.compile_context_notes
 python backend/run.py
 ```
 
@@ -161,6 +164,31 @@ evaluated. Every candidate is therefore `flagged = Yes`, every `matched_note_id`
 blank, and the reason states that context review is pending. It is not a final
 evidence-reviewed submission.
 
+Phase 6 deterministically compiles the validated context-note frame and an explicitly
+injected seven-route universe into typed claims. Each claim preserves the source
+text and records route scope, an inclusive effective interval, event type, cost-
+impact status, impact direction, negation, an exact magnitude phrase when present,
+and stable warning codes. Run it with:
+
+```bash
+python -m backend.scripts.compile_context_notes
+```
+
+The supplied data compiles all 10 notes and writes the schema-versioned diagnostic
+artifact to `backend/data/output/compiled_context_notes.jsonl`. The file is sorted
+by note ID, written atomically with deterministic JSON encoding, and validated by
+an independent typed readback.
+
+Transport-cost uncertainty is intentionally three-valued. Explicit increases or
+decreases derive `affects_transport_cost = true`; explicit no-impact, no-rate-change,
+or stable-operation claims derive `false`; and unstated or unresolved impact remains
+JSON `null`, never a guessed `false`. Explicit negation is evaluated before positive
+cost keywords.
+
+Compiled claims are not accepted evidence, candidate-note matches, or final
+verdicts. Phase 6 does not alter `candidate_anomalies.csv`; retrieval and the strict
+Evidence Gate remain Phase 7 work.
+
 With the API running, open <http://127.0.0.1:8000/health>. It returns service
 status, name, version, and environment without reading shipment data or calling an
 external service.
@@ -168,7 +196,7 @@ external service.
 ## Project structure
 
 ```text
-backend/app/          FastAPI application, configuration, schemas, routes, ingestion
+backend/app/          API foundation, domain contracts, ingestion, analytics, context
 backend/data/input/   Unmodified challenge inputs (supplied separately)
 backend/data/output/  Generated artifacts from future phases
 backend/scripts/      Local validation commands

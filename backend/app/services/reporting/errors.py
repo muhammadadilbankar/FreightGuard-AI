@@ -7,3 +7,7 @@ class ReportingError(Exception):
 
 class OutputContractError(ReportingError):
     """A candidate output or serialized CSV violates its contract."""
+
+
+class CompiledNotesSerializationError(ReportingError):
+    """A compiled-note JSONL artifact violates its serialization contract."""

@@ -234,3 +234,70 @@
   ISO dates, and non-empty comparisons.
 - **Consequences:** Serialization failures stop the command instead of leaving a
   misleading artifact; commas, quotes, and embedded newlines remain safe.
+
+## ADR-027: Compile context notes deterministically before retrieval
+
+- **Status:** Accepted
+- **Context:** Retrieval and evidence validation need stable structured claims rather
+  than repeatedly interpreting free text.
+- **Decision:** Compile notes once through explicit scope, time, event, impact,
+  negation, and magnitude rules before any candidate-specific retrieval.
+- **Consequences:** Later phases receive reproducible typed inputs without embedding
+  candidate matching or verdict logic in the compiler.
+
+## ADR-028: Preserve unknown transport-cost impact as null
+
+- **Status:** Accepted
+- **Context:** An unstated cost effect is not equivalent to an explicit no-impact
+  statement.
+- **Decision:** Derive `affects_transport_cost = null` for `not_stated` and
+  `unknown`, reserving false for explicit negation or normal/stable operations.
+- **Consequences:** Phase 7 can reject unsupported claims while retaining the reason
+  that support is unavailable.
+
+## ADR-029: Give explicit negation precedence over positive keywords
+
+- **Status:** Accepted
+- **Context:** Notes can mention compliance costs or disruptions while explicitly
+  saying freight rates did not change.
+- **Decision:** Evaluate no-rate-change, no-material-impact, and stable-operation
+  rules before positive cost rules; retain irreconcilable claims as unknown.
+- **Consequences:** Incidental positive words cannot override an explicit negation.
+
+## ADR-030: Represent effective intervals as inclusive typed ranges
+
+- **Status:** Accepted
+- **Context:** Candidate-week overlap requires unambiguous temporal boundaries.
+- **Decision:** Compile explicit ranges, weeks, calendar quarters, and continuing
+  states into inclusive dates, using null only for an open-ended end date.
+- **Consequences:** Unsupported wording falls back conservatively to the source date
+  with a warning instead of inventing a long duration.
+
+## ADR-031: Preserve source text with every structured claim
+
+- **Status:** Accepted
+- **Context:** Extracted fields must remain auditable against their exact source.
+- **Decision:** Store the original Phase 2 note text and normalized source metadata
+  unchanged beside every compiled claim.
+- **Consequences:** Later review can trace each field without relying on a summary or
+  lossy transformation.
+
+## ADR-032: Serialize compiled notes as versioned deterministic JSONL
+
+- **Status:** Accepted
+- **Context:** Compiled claims contain arrays, booleans, nulls, dates, and warnings
+  that are awkward to represent safely in CSV.
+- **Decision:** Write schema version `1.0` as compact UTF-8 JSONL in note-ID order,
+  atomically replace the artifact, and validate it through a typed readback.
+- **Consequences:** Identical inputs produce identical bytes and Phase 7 receives a
+  format that preserves domain types.
+
+## ADR-033: Keep evidence acceptance outside the note compiler
+
+- **Status:** Accepted
+- **Context:** Structured note meaning alone does not establish relevance to a
+  particular anomaly.
+- **Decision:** Phase 6 never retrieves notes, selects a match, changes a candidate
+  flag, or issues an evidence verdict.
+- **Consequences:** Phase 7 remains the sole owner of route, date, direction, impact,
+  and explanatory-scope acceptance.
