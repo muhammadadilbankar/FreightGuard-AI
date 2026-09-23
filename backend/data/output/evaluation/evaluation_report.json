@@ -1,0 +1,2372 @@
+{
+  "artifacts": [
+    {
+      "byte_size": 5119,
+      "relative_path": "runs/run_01/final_submission.csv",
+      "run_id": "run_01",
+      "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+    },
+    {
+      "byte_size": 14572,
+      "relative_path": "runs/run_01/explanation_generation_audit.jsonl",
+      "run_id": "run_01",
+      "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+    },
+    {
+      "byte_size": 47038,
+      "relative_path": "runs/run_01/operational_root_causes.json",
+      "run_id": "run_01",
+      "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+    },
+    {
+      "byte_size": 5119,
+      "relative_path": "runs/run_02/final_submission.csv",
+      "run_id": "run_02",
+      "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+    },
+    {
+      "byte_size": 14572,
+      "relative_path": "runs/run_02/explanation_generation_audit.jsonl",
+      "run_id": "run_02",
+      "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+    },
+    {
+      "byte_size": 47038,
+      "relative_path": "runs/run_02/operational_root_causes.json",
+      "run_id": "run_02",
+      "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+    },
+    {
+      "byte_size": 5119,
+      "relative_path": "runs/run_03/final_submission.csv",
+      "run_id": "run_03",
+      "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+    },
+    {
+      "byte_size": 14572,
+      "relative_path": "runs/run_03/explanation_generation_audit.jsonl",
+      "run_id": "run_03",
+      "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+    },
+    {
+      "byte_size": 47038,
+      "relative_path": "runs/run_03/operational_root_causes.json",
+      "run_id": "run_03",
+      "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+    }
+  ],
+  "checks": [
+    {
+      "actual": {
+        "own": 2.541351823620185,
+        "peer": 2.6861515905915425
+      },
+      "blocking": true,
+      "check_id": "baseline.golden.Ahmedabad-Mumbai.2025-01-20",
+      "description": "Baseline golden row",
+      "details": [],
+      "domain": "baseline_correctness",
+      "expected": {
+        "own": 2.541351823620185,
+        "peer": 2.6861515905915425
+      },
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": {
+        "own": 2.7253267565207007,
+        "peer": 2.5837434925863763
+      },
+      "blocking": true,
+      "check_id": "baseline.golden.Chennai-Bangalore.2025-02-24",
+      "description": "Baseline golden row",
+      "details": [],
+      "domain": "baseline_correctness",
+      "expected": {
+        "own": 2.7253267565207007,
+        "peer": 2.5837434925863763
+      },
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": {
+        "own": 3.079216557951722,
+        "peer": 3.447745798728505
+      },
+      "blocking": true,
+      "check_id": "baseline.golden.Delhi-Jaipur.2024-11-11",
+      "description": "Baseline golden row",
+      "details": [],
+      "domain": "baseline_correctness",
+      "expected": {
+        "own": 3.079216557951722,
+        "peer": 3.447745798728505
+      },
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": {
+        "own": null,
+        "peer": 3.000124589086287
+      },
+      "blocking": true,
+      "check_id": "baseline.golden.Mumbai-Pune.2024-01-01",
+      "description": "Baseline golden row",
+      "details": [],
+      "domain": "baseline_correctness",
+      "expected": {
+        "own": null,
+        "peer": 3.000124589086287
+      },
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": {
+        "own": 3.3012764038642617,
+        "peer": 3.053238844499479
+      },
+      "blocking": true,
+      "check_id": "baseline.golden.Mumbai-Pune.2024-01-08",
+      "description": "Baseline golden row",
+      "details": [],
+      "domain": "baseline_correctness",
+      "expected": {
+        "own": 3.3012764038642617,
+        "peer": 3.053238844499479
+      },
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": {
+        "own": 3.3380877267885767,
+        "peer": 3.0959226120172616
+      },
+      "blocking": true,
+      "check_id": "baseline.golden.Mumbai-Pune.2024-02-26",
+      "description": "Baseline golden row",
+      "details": [],
+      "domain": "baseline_correctness",
+      "expected": {
+        "own": 3.3380877267885767,
+        "peer": 3.0959226120172616
+      },
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": {
+        "own": 3.643772458181048,
+        "peer": 3.220063126502312
+      },
+      "blocking": true,
+      "check_id": "baseline.golden.Mumbai-Pune.2025-09-15",
+      "description": "Baseline golden row",
+      "details": [],
+      "domain": "baseline_correctness",
+      "expected": {
+        "own": 3.643772458181048,
+        "peer": 3.220063126502312
+      },
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": {
+        "history_counts": {
+          "0": 7,
+          "1": 7,
+          "2": 7,
+          "3": 7,
+          "4": 7,
+          "5": 7,
+          "6": 7,
+          "7": 7,
+          "8": 672
+        },
+        "history_missing": 7,
+        "peer_counts": {
+          "1": 416,
+          "2": 312
+        },
+        "rows": 728
+      },
+      "blocking": true,
+      "check_id": "baseline.summary",
+      "description": "Baseline summary counts",
+      "details": [],
+      "domain": "baseline_correctness",
+      "expected": "728 rows; history 7 missing; peer 416/312",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 5,
+      "blocking": true,
+      "check_id": "candidate.both_breaches",
+      "description": "Both-baseline breach count",
+      "details": [],
+      "domain": "candidate_detection",
+      "expected": 5,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 19,
+      "blocking": true,
+      "check_id": "candidate.count",
+      "description": "Exactly 19 supplied candidates",
+      "details": [],
+      "domain": "candidate_detection",
+      "expected": 19,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        [
+          "Ahmedabad-Mumbai",
+          "2025-01-20"
+        ],
+        [
+          "Chennai-Bangalore",
+          "2025-02-24"
+        ],
+        [
+          "Chennai-Bangalore",
+          "2025-03-03"
+        ],
+        [
+          "Chennai-Bangalore",
+          "2025-03-10"
+        ],
+        [
+          "Chennai-Bangalore",
+          "2025-03-17"
+        ],
+        [
+          "Delhi-Jaipur",
+          "2024-11-11"
+        ],
+        [
+          "Delhi-Jaipur",
+          "2024-11-18"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-06-23"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-09-15"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-10-06"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-10-20"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-10-27"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-11-03"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-11-17"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-11-24"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-12-01"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-12-08"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-12-15"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-12-22"
+        ]
+      ],
+      "blocking": true,
+      "check_id": "candidate.keys",
+      "description": "Candidate keys match checked-in fixture",
+      "details": [],
+      "domain": "candidate_detection",
+      "expected": [
+        [
+          "Ahmedabad-Mumbai",
+          "2025-01-20"
+        ],
+        [
+          "Chennai-Bangalore",
+          "2025-02-24"
+        ],
+        [
+          "Chennai-Bangalore",
+          "2025-03-03"
+        ],
+        [
+          "Chennai-Bangalore",
+          "2025-03-10"
+        ],
+        [
+          "Chennai-Bangalore",
+          "2025-03-17"
+        ],
+        [
+          "Delhi-Jaipur",
+          "2024-11-11"
+        ],
+        [
+          "Delhi-Jaipur",
+          "2024-11-18"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-06-23"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-09-15"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-10-06"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-10-20"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-10-27"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-11-03"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-11-17"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-11-24"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-12-01"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-12-08"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-12-15"
+        ],
+        [
+          "Mumbai-Pune",
+          "2025-12-22"
+        ]
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 6,
+      "blocking": true,
+      "check_id": "candidate.own_breaches",
+      "description": "Own-history breach count",
+      "details": [],
+      "domain": "candidate_detection",
+      "expected": 6,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 18,
+      "blocking": true,
+      "check_id": "candidate.peer_breaches",
+      "description": "Peer breach count",
+      "details": [],
+      "domain": "candidate_detection",
+      "expected": 18,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "candidate.rising",
+      "description": "All candidates have positive own-history movement",
+      "details": [],
+      "domain": "candidate_detection",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "candidate.unique_sorted",
+      "description": "Candidate rows are unique and sorted",
+      "details": [],
+      "domain": "candidate_detection",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 10,
+      "blocking": true,
+      "check_id": "compilation.count",
+      "description": "Exactly ten notes compile",
+      "details": [],
+      "domain": "context_compilation",
+      "expected": 10,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        {
+          "cost_impact_status": "explicit_increase",
+          "effective_to_open": false,
+          "note_id": "N001",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "explicit_increase",
+          "effective_to_open": false,
+          "note_id": "N002",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "explicit_increase",
+          "effective_to_open": true,
+          "note_id": "N003",
+          "scope_status": "in_dataset",
+          "scope_type": "global"
+        },
+        {
+          "cost_impact_status": "not_stated",
+          "effective_to_open": true,
+          "note_id": "N004",
+          "scope_status": "outside_dataset",
+          "scope_type": "global"
+        },
+        {
+          "cost_impact_status": "explicit_no_material_impact",
+          "effective_to_open": false,
+          "note_id": "N005",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "normal_or_stable_operations",
+          "effective_to_open": false,
+          "note_id": "N006",
+          "scope_status": "in_dataset",
+          "scope_type": "global"
+        },
+        {
+          "cost_impact_status": "not_stated",
+          "effective_to_open": true,
+          "note_id": "N007",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "normal_or_stable_operations",
+          "effective_to_open": false,
+          "note_id": "N008",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "normal_or_stable_operations",
+          "effective_to_open": true,
+          "note_id": "N009",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "explicit_no_rate_change",
+          "effective_to_open": true,
+          "note_id": "N010",
+          "scope_status": "in_dataset",
+          "scope_type": "global"
+        }
+      ],
+      "blocking": true,
+      "check_id": "compilation.fixture",
+      "description": "Compiled note classifications match golden fixture",
+      "details": [],
+      "domain": "context_compilation",
+      "expected": [
+        {
+          "cost_impact_status": "explicit_increase",
+          "effective_to_open": false,
+          "note_id": "N001",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "explicit_increase",
+          "effective_to_open": false,
+          "note_id": "N002",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "explicit_increase",
+          "effective_to_open": true,
+          "note_id": "N003",
+          "scope_status": "in_dataset",
+          "scope_type": "global"
+        },
+        {
+          "cost_impact_status": "not_stated",
+          "effective_to_open": true,
+          "note_id": "N004",
+          "scope_status": "outside_dataset",
+          "scope_type": "global"
+        },
+        {
+          "cost_impact_status": "explicit_no_material_impact",
+          "effective_to_open": false,
+          "note_id": "N005",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "normal_or_stable_operations",
+          "effective_to_open": false,
+          "note_id": "N006",
+          "scope_status": "in_dataset",
+          "scope_type": "global"
+        },
+        {
+          "cost_impact_status": "not_stated",
+          "effective_to_open": true,
+          "note_id": "N007",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "normal_or_stable_operations",
+          "effective_to_open": false,
+          "note_id": "N008",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "normal_or_stable_operations",
+          "effective_to_open": true,
+          "note_id": "N009",
+          "scope_status": "in_dataset",
+          "scope_type": "route"
+        },
+        {
+          "cost_impact_status": "explicit_no_rate_change",
+          "effective_to_open": true,
+          "note_id": "N010",
+          "scope_status": "in_dataset",
+          "scope_type": "global"
+        }
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": {
+        "explicit_increase": 3,
+        "explicit_no_material_impact": 1,
+        "explicit_no_rate_change": 1,
+        "normal_or_stable_operations": 3,
+        "not_stated": 2
+      },
+      "blocking": true,
+      "check_id": "compilation.impact_counts",
+      "description": "Impact classifications match supplied contract",
+      "details": [],
+      "domain": "context_compilation",
+      "expected": {
+        "explicit_increase": 3,
+        "explicit_no_material_impact": 1,
+        "explicit_no_rate_change": 1,
+        "normal_or_stable_operations": 3,
+        "not_stated": 2
+      },
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": {
+        "bounded": 5,
+        "open": 5
+      },
+      "blocking": true,
+      "check_id": "compilation.interval_counts",
+      "description": "Five bounded and five open-ended intervals",
+      "details": [],
+      "domain": "context_compilation",
+      "expected": {
+        "bounded": 5,
+        "open": 5
+      },
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [],
+      "blocking": true,
+      "check_id": "compilation.no_false_positive_notes",
+      "description": "No-impact/stable notes cannot become positive cost evidence",
+      "details": [],
+      "domain": "context_compilation",
+      "expected": [],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": "unknown",
+      "blocking": true,
+      "check_id": "compilation.no_inferred_decrease",
+      "description": "Improved roads do not infer a cost decrease",
+      "details": [],
+      "domain": "context_compilation",
+      "expected": "unknown",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": {
+        "global": 4,
+        "route": 6
+      },
+      "blocking": true,
+      "check_id": "compilation.scope_counts",
+      "description": "Four global and six route-scoped notes",
+      "details": [],
+      "domain": "context_compilation",
+      "expected": {
+        "global": 4,
+        "route": 6
+      },
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 20,
+      "blocking": true,
+      "check_id": "evidence.adversarial_fixture",
+      "description": "Mandatory adversarial case catalogue is present",
+      "details": [],
+      "domain": "evidence_gate",
+      "expected": 20,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": {
+        "justified": 3,
+        "partially_explained": 12,
+        "unexplained": 4
+      },
+      "blocking": true,
+      "check_id": "evidence.distribution",
+      "description": "Supplied verdict distribution remains 3/12/4",
+      "details": [],
+      "domain": "evidence_gate",
+      "expected": {
+        "justified": 3,
+        "partially_explained": 12,
+        "unexplained": 4
+      },
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 19,
+      "blocking": true,
+      "check_id": "evidence.fixture_mapping",
+      "description": "Full supplied verdict and evidence mapping matches fixture",
+      "details": [],
+      "domain": "evidence_gate",
+      "expected": 19,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 10,
+      "blocking": true,
+      "check_id": "explanation.adversarial_responses",
+      "description": "Adversarial provider responses are rejected and valid response is accepted",
+      "details": [],
+      "domain": "explanation_grounding",
+      "expected": 10,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 19,
+      "blocking": true,
+      "check_id": "explanation.record_count",
+      "description": "One explanation record exists per packet",
+      "details": [],
+      "domain": "explanation_grounding",
+      "expected": 19,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "explanation.unexplained_no_citations",
+      "description": "Unexplained outputs cite no notes",
+      "details": [],
+      "domain": "explanation_grounding",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 7,
+      "blocking": true,
+      "check_id": "input.directional_routes",
+      "description": "Seven directional routes exist",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": 7,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": "875c57a896ac3dfac0f712f8865b287bb5d2bd5423d26e798297b74dce87e6dc",
+      "blocking": true,
+      "check_id": "input.hash.context_notes.csv",
+      "description": "Approved SHA-256 for context_notes.csv",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": "875c57a896ac3dfac0f712f8865b287bb5d2bd5423d26e798297b74dce87e6dc",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": "1ea902faca37bef6816e0878dc17bdb509a88f9ff9d4f101373e3af03994201f",
+      "blocking": true,
+      "check_id": "input.hash.sample_output_format_v2.csv",
+      "description": "Approved SHA-256 for sample_output_format_v2.csv",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": "1ea902faca37bef6816e0878dc17bdb509a88f9ff9d4f101373e3af03994201f",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": "1a2b4d66c4dc694111ba37b966486b5b0650df9ec8687402f3434117b140f4b6",
+      "blocking": true,
+      "check_id": "input.hash.shipment_records.csv",
+      "description": "Approved SHA-256 for shipment_records.csv",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": "1a2b4d66c4dc694111ba37b966486b5b0650df9ec8687402f3434117b140f4b6",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        "note_id",
+        "date",
+        "applies_to",
+        "note"
+      ],
+      "blocking": true,
+      "check_id": "input.header.context_notes.csv",
+      "description": "Exact strict header for context_notes.csv",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": [
+        "note_id",
+        "date",
+        "applies_to",
+        "note"
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        "route",
+        "week_of",
+        "cost_per_tonne_km",
+        "vs_own_history",
+        "vs_similar_routes",
+        "flagged",
+        "matched_note_id",
+        "reason"
+      ],
+      "blocking": true,
+      "check_id": "input.header.sample_output_format_v2.csv",
+      "description": "Exact strict header for sample_output_format_v2.csv",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": [
+        "route",
+        "week_of",
+        "cost_per_tonne_km",
+        "vs_own_history",
+        "vs_similar_routes",
+        "flagged",
+        "matched_note_id",
+        "reason"
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        "shipment_id",
+        "origin",
+        "destination",
+        "route_type",
+        "material",
+        "quantity_tonnes",
+        "distance_km",
+        "freight_cost_inr",
+        "shipment_date",
+        "transporter"
+      ],
+      "blocking": true,
+      "check_id": "input.header.shipment_records.csv",
+      "description": "Exact strict header for shipment_records.csv",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": [
+        "shipment_id",
+        "origin",
+        "destination",
+        "route_type",
+        "material",
+        "quantity_tonnes",
+        "distance_km",
+        "freight_cost_inr",
+        "shipment_date",
+        "transporter"
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        "1a2b4d66c4dc694111ba37b966486b5b0650df9ec8687402f3434117b140f4b6",
+        "875c57a896ac3dfac0f712f8865b287bb5d2bd5423d26e798297b74dce87e6dc",
+        "1ea902faca37bef6816e0878dc17bdb509a88f9ff9d4f101373e3af03994201f"
+      ],
+      "blocking": true,
+      "check_id": "input.immutable_after_evaluation",
+      "description": "Source inputs are byte-identical after evaluation",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": [
+        "1a2b4d66c4dc694111ba37b966486b5b0650df9ec8687402f3434117b140f4b6",
+        "875c57a896ac3dfac0f712f8865b287bb5d2bd5423d26e798297b74dce87e6dc",
+        "1ea902faca37bef6816e0878dc17bdb509a88f9ff9d4f101373e3af03994201f"
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "input.note_ids_unique",
+      "description": "Note IDs are unique",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 10,
+      "blocking": true,
+      "check_id": "input.note_rows",
+      "description": "10 context notes load",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": 10,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "input.required_values",
+      "description": "Required normalized inputs contain no missing values",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "input.shipment_ids_unique",
+      "description": "Shipment IDs are unique",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 2940,
+      "blocking": true,
+      "check_id": "input.shipment_rows",
+      "description": "2,940 shipment rows load",
+      "details": [],
+      "domain": "input_integrity",
+      "expected": 2940,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.ambiguous_dates_clarified",
+      "description": "Ambiguous selections require clarification",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.canonical_outputs_unchanged",
+      "description": "Canonical snapshot records remain unchanged",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.citations_resolve",
+      "description": "All claim citations resolve",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.context_revalidated",
+      "description": "Context schema is snapshot-bound",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.evidence_classes_separated",
+      "description": "Operational and evidence answer templates remain distinct",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.facts_from_registry_only",
+      "description": "All answered claims pass registry grounding",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.no_arbitrary_tools",
+      "description": "Only closed enum tools execute",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.no_mutations",
+      "description": "Golden execution does not mutate the snapshot",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.numbers_match_snapshot",
+      "description": "Answer composers consume stored tool records",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.one_snapshot_per_request",
+      "description": "Evaluation supplies one captured snapshot per case",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.operational_boundary_present",
+      "description": "Operational answers state the non-evidence boundary",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.prompt_injection_contained",
+      "description": "Injection cases cannot expand authority",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.reproducible_template_answers",
+      "description": "Template planner is deterministic",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 40,
+      "blocking": true,
+      "check_id": "assistant.roadmap_examples_handled",
+      "description": "All golden plans match their expected semantics",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": 40,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.snapshot_change_resets_context",
+      "description": "Stale context is rejected by the service",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.supported_intents_covered",
+      "description": "Golden cases cover every supported intent",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.template_offline",
+      "description": "Template planning uses no hosted provider",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "assistant.unsupported_questions_honest",
+      "description": "Unsupported cases execute zero tools",
+      "details": [],
+      "domain": "investigation_assistant",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "metamorphic.irrelevant_note_injection",
+      "description": "Wrong-route/wrong-date positive note does not change decisions",
+      "details": [],
+      "domain": "metamorphic_invariants",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "metamorphic.no_impact_note_injection",
+      "description": "High-similarity no-rate-change note does not change decisions",
+      "details": [],
+      "domain": "metamorphic_invariants",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "metamorphic.note_permutation",
+      "description": "Context-note row permutation preserves compiled notes",
+      "details": [],
+      "domain": "metamorphic_invariants",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "metamorphic.note_permutation_decisions",
+      "description": "Note order does not change evidence decisions",
+      "details": [],
+      "domain": "metamorphic_invariants",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "metamorphic.output_directory_variation",
+      "description": "Output directory variation is covered by isolated reproducibility runs",
+      "details": [],
+      "domain": "metamorphic_invariants",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "metamorphic.shipment_permutation_candidates",
+      "description": "Shipment row permutation preserves candidate calculations",
+      "details": [],
+      "domain": "metamorphic_invariants",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "metamorphic.shipment_permutation_weekly",
+      "description": "Shipment row permutation preserves sorted weekly metrics",
+      "details": [],
+      "domain": "metamorphic_invariants",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 4,
+      "blocking": true,
+      "check_id": "root_cause.eligible_coverage",
+      "description": "Every unexplained anomaly has one operational analysis",
+      "details": [],
+      "domain": "operational_root_cause",
+      "expected": 4,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "root_cause.no_lookahead",
+      "description": "All reference weeks strictly precede their candidate week",
+      "details": [],
+      "domain": "operational_root_cause",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 6.661338147750939e-16,
+      "blocking": true,
+      "check_id": "root_cause.reconstruction",
+      "description": "Both independent lenses reconstruct the canonical own-history gap",
+      "details": [],
+      "domain": "operational_root_cause",
+      "expected": "absolute error <= 1e-09",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "root_cause.verdict_boundary",
+      "description": "Operational analyses retain the unexplained canonical verdict",
+      "details": [],
+      "domain": "operational_root_cause",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 19,
+      "blocking": true,
+      "check_id": "output.authoritative_reconciliation",
+      "description": "CSV values reconcile with typed pipeline output",
+      "details": [],
+      "domain": "output_contract",
+      "expected": 19,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "output.cost_format",
+      "description": "Costs use two decimal places",
+      "details": [],
+      "domain": "output_contract",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "output.dates",
+      "description": "Dates use YYYY-MM-DD",
+      "details": [],
+      "domain": "output_contract",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        8
+      ],
+      "blocking": true,
+      "check_id": "output.field_count",
+      "description": "Every logical record has eight fields",
+      "details": [],
+      "domain": "output_contract",
+      "expected": 8,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "output.flags",
+      "description": "Flags use only allowed values",
+      "details": [],
+      "domain": "output_contract",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        "route",
+        "week_of",
+        "cost_per_tonne_km",
+        "vs_own_history",
+        "vs_similar_routes",
+        "flagged",
+        "matched_note_id",
+        "reason"
+      ],
+      "blocking": true,
+      "check_id": "output.header",
+      "description": "Exact eight-column header and order",
+      "details": [],
+      "domain": "output_contract",
+      "expected": [
+        "route",
+        "week_of",
+        "cost_per_tonne_km",
+        "vs_own_history",
+        "vs_similar_routes",
+        "flagged",
+        "matched_note_id",
+        "reason"
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 1,
+      "blocking": true,
+      "check_id": "output.header_once",
+      "description": "Header appears exactly once",
+      "details": [],
+      "domain": "output_contract",
+      "expected": 1,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 10,
+      "blocking": true,
+      "check_id": "output.negative_controls",
+      "description": "All deliberate CSV corruptions are detected",
+      "details": [],
+      "domain": "output_contract",
+      "expected": 10,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "output.note_mapping",
+      "description": "Matched note appears only on justified rows",
+      "details": [],
+      "domain": "output_contract",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "output.percentage_format",
+      "description": "Percentage displays use explicit sign and one decimal",
+      "details": [],
+      "domain": "output_contract",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "output.readable",
+      "description": "CSV is valid UTF-8 and parseable",
+      "details": [],
+      "domain": "output_contract",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "output.reason_note_authority",
+      "description": "Reason note IDs agree with matched/supporting authority",
+      "details": [],
+      "domain": "output_contract",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "output.reasons",
+      "description": "Reasons are non-empty",
+      "details": [],
+      "domain": "output_contract",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 19,
+      "blocking": true,
+      "check_id": "output.row_count",
+      "description": "Exactly one row per authoritative candidate",
+      "details": [],
+      "domain": "output_contract",
+      "expected": 19,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": "sorted",
+      "blocking": true,
+      "check_id": "output.sorted",
+      "description": "Rows use deterministic route/week order",
+      "details": [],
+      "domain": "output_contract",
+      "expected": "sorted",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 19,
+      "blocking": true,
+      "check_id": "output.unique_keys",
+      "description": "Candidate keys are unique",
+      "details": [],
+      "domain": "output_contract",
+      "expected": 19,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": true,
+      "blocking": true,
+      "check_id": "reproducibility.final_csv_bytes",
+      "description": "All final CSV files are byte-identical",
+      "details": [],
+      "domain": "reproducibility",
+      "expected": true,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 3,
+      "blocking": true,
+      "check_id": "reproducibility.formal_run_count",
+      "description": "Formal evaluation uses exactly three runs",
+      "details": [],
+      "domain": "reproducibility",
+      "expected": 3,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        0,
+        0,
+        0
+      ],
+      "blocking": true,
+      "check_id": "reproducibility.processes_succeeded",
+      "description": "Every isolated pipeline subprocess exits zero",
+      "details": [],
+      "domain": "reproducibility",
+      "expected": [
+        0,
+        0,
+        0
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 1.0,
+      "blocking": true,
+      "check_id": "retrieval.every_accepted_reaches_gate",
+      "description": "Every selected/supporting supplied note reaches the Evidence Gate",
+      "details": [],
+      "domain": "retrieval_quality",
+      "expected": 1.0,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 15,
+      "blocking": true,
+      "check_id": "retrieval.labelled_set_nonempty",
+      "description": "Labelled supplied discovery set is non-empty",
+      "details": [],
+      "domain": "retrieval_quality",
+      "expected": 15,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "retrieval.scores_finite",
+      "description": "Hybrid retrieval scores are finite",
+      "details": [],
+      "domain": "retrieval_quality",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": "2024-01-01",
+      "blocking": true,
+      "check_id": "weekly.earliest",
+      "description": "Weekly earliest regression",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": "2024-01-01",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": null,
+      "blocking": true,
+      "check_id": "weekly.formula",
+      "description": "Every weekly rate equals aggregate freight divided by aggregate tonne-km",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": null,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 3.290367187391166,
+      "blocking": true,
+      "check_id": "weekly.golden.Ahmedabad-Mumbai.2025-01-20",
+      "description": "Weekly golden row",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 3.290367187391166,
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": 3.5828266015473207,
+      "blocking": true,
+      "check_id": "weekly.golden.Chennai-Bangalore.2025-02-24",
+      "description": "Weekly golden row",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 3.5828266015473207,
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": 4.1729570742422215,
+      "blocking": true,
+      "check_id": "weekly.golden.Delhi-Jaipur.2024-11-11",
+      "description": "Weekly golden row",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 4.1729570742422215,
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": 3.3012764038642617,
+      "blocking": true,
+      "check_id": "weekly.golden.Mumbai-Pune.2024-01-01",
+      "description": "Weekly golden row",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 3.3012764038642617,
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": 3.9808099888616932,
+      "blocking": true,
+      "check_id": "weekly.golden.Mumbai-Pune.2025-09-15",
+      "description": "Weekly golden row",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 3.9808099888616932,
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": 728,
+      "blocking": true,
+      "check_id": "weekly.groups",
+      "description": "Weekly groups regression",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 728,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": "2025-12-22",
+      "blocking": true,
+      "check_id": "weekly.latest",
+      "description": "Weekly latest regression",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": "2025-12-22",
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 81100955.0,
+      "blocking": true,
+      "check_id": "weekly.reconcile.total_freight_cost_inr",
+      "description": "Independent total_freight_cost_inr reconciliation",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 81100955.0,
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": 45697.700000000004,
+      "blocking": true,
+      "check_id": "weekly.reconcile.total_quantity_tonnes",
+      "description": "Independent total_quantity_tonnes reconciliation",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 45697.700000000004,
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": 34844260.45,
+      "blocking": true,
+      "check_id": "weekly.reconcile.total_tonne_km",
+      "description": "Independent total_tonne_km reconciliation",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 34844260.45,
+      "status": "pass",
+      "tolerance": {
+        "absolute": 1e-12,
+        "relative": 1e-12
+      }
+    },
+    {
+      "actual": 3,
+      "blocking": true,
+      "check_id": "weekly.route_types",
+      "description": "Weekly route_types regression",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 3,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 7,
+      "blocking": true,
+      "check_id": "weekly.routes",
+      "description": "Weekly routes regression",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 7,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": [
+        3,
+        5
+      ],
+      "blocking": true,
+      "check_id": "weekly.shipment_count_range",
+      "description": "Group shipment counts range from 3 through 5",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": [
+        3,
+        5
+      ],
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 2940,
+      "blocking": true,
+      "check_id": "weekly.shipments",
+      "description": "Weekly shipments regression",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 2940,
+      "status": "pass",
+      "tolerance": null
+    },
+    {
+      "actual": 104,
+      "blocking": true,
+      "check_id": "weekly.weeks",
+      "description": "Weekly weeks regression",
+      "details": [],
+      "domain": "weekly_analytics",
+      "expected": 104,
+      "status": "pass",
+      "tolerance": null
+    }
+  ],
+  "configuration_fingerprint": "ebea8117a90d5c2b67180e6130303f614b5723cf95ad1294077a8031e96c4706",
+  "environment": {
+    "architecture": "AMD64",
+    "dependency_lock_sha256": "f750d47ab88c44158246970e90e254bf9400dee020287770236231f2422ab818",
+    "dependency_versions": {
+      "numpy": "2.5.3",
+      "openai": "3.17.0",
+      "pandas": "2.3.1",
+      "pydantic": "2.11.7",
+      "scikit-learn": "1.7.2",
+      "sentence-transformers": "5.1.2"
+    },
+    "dirty_worktree": true,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "explanation_mode": "template",
+    "git_commit": "c91ae099f102741a633053f116a4d47bd7d4ac68",
+    "implementation": "CPython",
+    "locale": "LC_COLLATE=C;LC_CTYPE=English_India.1252;LC_MONETARY=C;LC_NUMERIC=C;LC_TIME=C",
+    "operating_system": "Windows",
+    "prompt_version": "fg-explanation-v1",
+    "provider_identity": "template",
+    "python": "3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]",
+    "timezone": "UTC"
+  },
+  "evaluation_mode": "template",
+  "inputs": [
+    {
+      "byte_size": 259523,
+      "relative_path": "backend/data/input/shipment_records.csv",
+      "sha256": "1a2b4d66c4dc694111ba37b966486b5b0650df9ec8687402f3434117b140f4b6"
+    },
+    {
+      "byte_size": 1715,
+      "relative_path": "backend/data/input/context_notes.csv",
+      "sha256": "875c57a896ac3dfac0f712f8865b287bb5d2bd5423d26e798297b74dce87e6dc"
+    },
+    {
+      "byte_size": 903,
+      "relative_path": "backend/data/input/sample_output_format_v2.csv",
+      "sha256": "1ea902faca37bef6816e0878dc17bdb509a88f9ff9d4f101373e3af03994201f"
+    }
+  ],
+  "metrics": [
+    {
+      "blocking": true,
+      "denominator": 15,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.accepted_evidence_precision",
+      "numerator": 15,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 15,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.accepted_evidence_recall",
+      "numerator": 15,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 16,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.false_clearance_rate",
+      "numerator": 0,
+      "target": 0.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 0.0
+    },
+    {
+      "blocking": true,
+      "denominator": 3,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.full_evidence_precision",
+      "numerator": 3,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 3,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.full_evidence_recall",
+      "numerator": 3,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 82,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.rejected_evidence_accuracy",
+      "numerator": 82,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 19,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.selected_note_accuracy",
+      "numerator": 19,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 82,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.unsafe_evidence_acceptance_rate",
+      "numerator": 0,
+      "target": 0.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 0.0
+    },
+    {
+      "blocking": true,
+      "denominator": 19,
+      "domain": "evidence_gate",
+      "metric_id": "evidence.verdict_accuracy",
+      "numerator": 19,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 19,
+      "domain": "explanation_grounding",
+      "metric_id": "explanation.authorized_citation_rate",
+      "numerator": 19,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 19,
+      "domain": "explanation_grounding",
+      "metric_id": "explanation.decision_invariance_rate",
+      "numerator": 19,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 19,
+      "domain": "explanation_grounding",
+      "metric_id": "explanation.fallback_coverage_rate",
+      "numerator": 19,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 19,
+      "domain": "explanation_grounding",
+      "metric_id": "explanation.identity_binding_accuracy",
+      "numerator": 19,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 19,
+      "domain": "explanation_grounding",
+      "metric_id": "explanation.unsupported_note_id_rate",
+      "numerator": 0,
+      "target": 0.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 0.0
+    },
+    {
+      "blocking": true,
+      "denominator": 19,
+      "domain": "explanation_grounding",
+      "metric_id": "explanation.unsupported_numeric_claim_rate",
+      "numerator": 0,
+      "target": 0.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 0.0
+    },
+    {
+      "blocking": true,
+      "denominator": 10,
+      "domain": "explanation_grounding",
+      "metric_id": "explanation.verdict_language_consistency_rate",
+      "numerator": 10,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    },
+    {
+      "blocking": true,
+      "denominator": 4,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.ambiguity_clarification_rate",
+      "numerator": 4,
+      "target": 100,
+      "target_relation": "gte",
+      "unit": "percent",
+      "value": 100.0
+    },
+    {
+      "blocking": false,
+      "denominator": null,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.average_citation_count",
+      "numerator": null,
+      "target": null,
+      "target_relation": "informational",
+      "unit": "citations/request",
+      "value": 3.875
+    },
+    {
+      "blocking": false,
+      "denominator": null,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.average_tool_count",
+      "numerator": null,
+      "target": null,
+      "target_relation": "informational",
+      "unit": "tools/request",
+      "value": 0.65
+    },
+    {
+      "blocking": true,
+      "denominator": 40,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.canonical_mutation_rate",
+      "numerator": 0,
+      "target": 0,
+      "target_relation": "eq",
+      "unit": "percent",
+      "value": 0.0
+    },
+    {
+      "blocking": true,
+      "denominator": 40,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.citation_validity_rate",
+      "numerator": 40,
+      "target": 100,
+      "target_relation": "gte",
+      "unit": "percent",
+      "value": 100.0
+    },
+    {
+      "blocking": true,
+      "denominator": 40,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.fact_grounding_rate",
+      "numerator": 40,
+      "target": 100,
+      "target_relation": "gte",
+      "unit": "percent",
+      "value": 100.0
+    },
+    {
+      "blocking": true,
+      "denominator": 40,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.intent_accuracy",
+      "numerator": 40,
+      "target": 100,
+      "target_relation": "gte",
+      "unit": "percent",
+      "value": 100.0
+    },
+    {
+      "blocking": true,
+      "denominator": 40,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.plan_validity_rate",
+      "numerator": 40,
+      "target": 100,
+      "target_relation": "gte",
+      "unit": "percent",
+      "value": 100.0
+    },
+    {
+      "blocking": true,
+      "denominator": 8,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.prohibited_tool_execution_rate",
+      "numerator": 0,
+      "target": 0,
+      "target_relation": "eq",
+      "unit": "percent",
+      "value": 0.0
+    },
+    {
+      "blocking": true,
+      "denominator": 8,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.prompt_injection_escape_rate",
+      "numerator": 0,
+      "target": 0,
+      "target_relation": "eq",
+      "unit": "percent",
+      "value": 0.0
+    },
+    {
+      "blocking": true,
+      "denominator": null,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.provider_call_count",
+      "numerator": null,
+      "target": 0,
+      "target_relation": "eq",
+      "unit": "calls",
+      "value": 0
+    },
+    {
+      "blocking": true,
+      "denominator": 40,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.snapshot_consistency_rate",
+      "numerator": 40,
+      "target": 100,
+      "target_relation": "gte",
+      "unit": "percent",
+      "value": 100.0
+    },
+    {
+      "blocking": true,
+      "denominator": 40,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.tool_allowlist_compliance",
+      "numerator": 40,
+      "target": 100,
+      "target_relation": "gte",
+      "unit": "percent",
+      "value": 100.0
+    },
+    {
+      "blocking": true,
+      "denominator": 8,
+      "domain": "investigation_assistant",
+      "metric_id": "assistant.unsupported_honesty_rate",
+      "numerator": 8,
+      "target": 100,
+      "target_relation": "gte",
+      "unit": "percent",
+      "value": 100.0
+    },
+    {
+      "blocking": true,
+      "denominator": 4,
+      "domain": "operational_root_cause",
+      "metric_id": "root_cause.analysis_count",
+      "numerator": 4,
+      "target": 4,
+      "target_relation": "eq",
+      "unit": "analyses",
+      "value": 4
+    },
+    {
+      "blocking": false,
+      "denominator": null,
+      "domain": "retrieval_quality",
+      "metric_id": "retrieval.hybrid_mean_reciprocal_rank",
+      "numerator": null,
+      "target": null,
+      "target_relation": "informational",
+      "unit": "ratio",
+      "value": 0.28888888888888886
+    },
+    {
+      "blocking": false,
+      "denominator": null,
+      "domain": "retrieval_quality",
+      "metric_id": "retrieval.hybrid_recall_at_1",
+      "numerator": null,
+      "target": 1.0,
+      "target_relation": "informational",
+      "unit": "ratio",
+      "value": 0.2
+    },
+    {
+      "blocking": false,
+      "denominator": null,
+      "domain": "retrieval_quality",
+      "metric_id": "retrieval.hybrid_recall_at_3",
+      "numerator": null,
+      "target": 1.0,
+      "target_relation": "informational",
+      "unit": "ratio",
+      "value": 0.4666666666666667
+    },
+    {
+      "blocking": false,
+      "denominator": null,
+      "domain": "retrieval_quality",
+      "metric_id": "retrieval.hybrid_recall_at_5",
+      "numerator": null,
+      "target": 1.0,
+      "target_relation": "informational",
+      "unit": "ratio",
+      "value": 0.4666666666666667
+    },
+    {
+      "blocking": true,
+      "denominator": 15,
+      "domain": "retrieval_quality",
+      "metric_id": "retrieval.structured_union_recall",
+      "numerator": 15,
+      "target": 1.0,
+      "target_relation": "eq",
+      "unit": "ratio",
+      "value": 1.0
+    }
+  ],
+  "overall_status": "pass",
+  "reproducibility": {
+    "comparisons": [
+      {
+        "artifact_name": "final_submission.csv",
+        "byte_sizes": [
+          5119,
+          5119,
+          5119
+        ],
+        "first_difference": null,
+        "hashes": [
+          "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7",
+          "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7",
+          "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+        ],
+        "identical": true
+      },
+      {
+        "artifact_name": "explanation_generation_audit.jsonl",
+        "byte_sizes": [
+          14572,
+          14572,
+          14572
+        ],
+        "first_difference": null,
+        "hashes": [
+          "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea",
+          "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea",
+          "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+        ],
+        "identical": true
+      },
+      {
+        "artifact_name": "operational_root_causes.json",
+        "byte_sizes": [
+          47038,
+          47038,
+          47038
+        ],
+        "first_difference": null,
+        "hashes": [
+          "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968",
+          "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968",
+          "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+        ],
+        "identical": true
+      }
+    ],
+    "formal": true,
+    "overall_reproducible": true,
+    "run_count": 3,
+    "runs": [
+      {
+        "artifacts": [
+          {
+            "byte_size": 5119,
+            "relative_path": "runs/run_01/final_submission.csv",
+            "run_id": "run_01",
+            "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+          },
+          {
+            "byte_size": 14572,
+            "relative_path": "runs/run_01/explanation_generation_audit.jsonl",
+            "run_id": "run_01",
+            "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+          },
+          {
+            "byte_size": 47038,
+            "relative_path": "runs/run_01/operational_root_causes.json",
+            "run_id": "run_01",
+            "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+          }
+        ],
+        "duration_ms": 12713,
+        "exit_code": 0,
+        "final_csv_columns": 8,
+        "final_csv_rows": 19,
+        "run_id": "run_01",
+        "stderr_tail": "2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validating dataset=shipments file=shipment_records.csv\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validated dataset=shipments rows=2940 columns=10 warnings=0 errors=0\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validating dataset=context_notes file=context_notes.csv\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validated dataset=context_notes rows=10 columns=4 warnings=0 errors=0\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validating dataset=output_contract file=sample_output_format_v2.csv\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validated dataset=output_contract header_columns=8 warnings=1 errors=0\n2026-09-23T18:09:00+0000 INFO freightguard.analytics Starting weekly analytics shipments=2940\n2026-09-23T18:09:00+0000 INFO freightguard.analytics Completed weekly analytics groups=728 routes=7 weeks=104 reconciliation=PASS\n2026-09-23T18:09:00+0000 INFO freightguard.baselines Starting baseline analytics weekly_rows=728\n2026-09-23T18:09:00+0000 INFO freightguard.baselines Completed baseline analytics rows=728 history_available=721 history_unavailable=7 peer_available=728 peer_unavailable=0 history_count_min=0 history_count_max=8 peer_count_min=1 peer_count_max=2 invariants=PASS\n2026-09-23T18:09:00+0000 INFO freightguard.comparisons Calculated percentage comparisons rows=728 own_available=721 peer_available=728 precision=full\n2026-09-23T18:09:00+0000 INFO freightguard.candidates Applied candidate rule rows=728 threshold=20 own_breaches=6 peer_breaches=19 candidates=19\n2026-09-23T18:09:00+0000 INFO freightguard.context_compiler Compiled context notes loaded=10 compiled=10 global=4 route=6 warnings=3\n2026-09-23T18:09:00+0000 INFO freightguard.evidence Starting evidence review candidates=19 notes=10 top_k=5 rrf_k=60 sparse_weight=1 dense_weight=1\n2026-09-23T18:09:08+0000 INFO freightguard.evidence Completed evidence review sparse_seconds=0.008501 dense_seconds=7.632218 structured_additions=29 verdicts={'justified': 3, 'partially_explained': 12, 'unexplained': 4} rejections={'cost_impact_not_positive': 82, 'cost_increase_negated': 61, 'date_no_overlap': 76, 'global_scope_cannot_explain_peer_premium': 12, 'impact_direction_not_increase': 82, 'route_mismatch': 56, 'scope_outside_dataset': 19}\n2026-09-23T18:09:08+0000 INFO freightguard.candidate_csv Wrote candidate CSV path=C:\\Users\\sahme\\OneDrive\\Desktop\\FreightGuard-AI\\backend\\data\\output\\evaluation\\runs\\run_01\\final_submission.csv rows=19\n",
+        "stdout_tail": "FreightGuard grounded explanation generation\nWeekly route groups: 728\nCandidates: 19\nMode: template\nJustified: 3\nPartially explained: 12\nUnexplained: 4\nEligible model requests: 15\nProvider attempts: 0\nAccepted model explanations: 0\nCache hits: 0\nFallbacks: 0\nDirect templates: 19\nValidation failures: none\nInput tokens: 0\nCached input tokens: 0\nOutput tokens: 0\nReasoning tokens: 0\nTotal tokens: 0\nEstimated cost: USD 0.000000\nAudit contract: PASS\nCSV contract: PASS\nAudit: backend/data/output/evaluation/runs/run_01/explanation_generation_audit.jsonl\nAudit SHA-256: 62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea\nFinal CSV: backend/data/output/evaluation/runs/run_01/final_submission.csv\nFinal CSV SHA-256: 73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7\n",
+        "timed_out": false
+      },
+      {
+        "artifacts": [
+          {
+            "byte_size": 5119,
+            "relative_path": "runs/run_02/final_submission.csv",
+            "run_id": "run_02",
+            "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+          },
+          {
+            "byte_size": 14572,
+            "relative_path": "runs/run_02/explanation_generation_audit.jsonl",
+            "run_id": "run_02",
+            "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+          },
+          {
+            "byte_size": 47038,
+            "relative_path": "runs/run_02/operational_root_causes.json",
+            "run_id": "run_02",
+            "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+          }
+        ],
+        "duration_ms": 11893,
+        "exit_code": 0,
+        "final_csv_columns": 8,
+        "final_csv_rows": 19,
+        "run_id": "run_02",
+        "stderr_tail": "2026-09-23T18:09:12+0000 INFO freightguard.ingestion Validating dataset=shipments file=shipment_records.csv\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validated dataset=shipments rows=2940 columns=10 warnings=0 errors=0\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validating dataset=context_notes file=context_notes.csv\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validated dataset=context_notes rows=10 columns=4 warnings=0 errors=0\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validating dataset=output_contract file=sample_output_format_v2.csv\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validated dataset=output_contract header_columns=8 warnings=1 errors=0\n2026-09-23T18:09:13+0000 INFO freightguard.analytics Starting weekly analytics shipments=2940\n2026-09-23T18:09:13+0000 INFO freightguard.analytics Completed weekly analytics groups=728 routes=7 weeks=104 reconciliation=PASS\n2026-09-23T18:09:13+0000 INFO freightguard.baselines Starting baseline analytics weekly_rows=728\n2026-09-23T18:09:13+0000 INFO freightguard.baselines Completed baseline analytics rows=728 history_available=721 history_unavailable=7 peer_available=728 peer_unavailable=0 history_count_min=0 history_count_max=8 peer_count_min=1 peer_count_max=2 invariants=PASS\n2026-09-23T18:09:13+0000 INFO freightguard.comparisons Calculated percentage comparisons rows=728 own_available=721 peer_available=728 precision=full\n2026-09-23T18:09:13+0000 INFO freightguard.candidates Applied candidate rule rows=728 threshold=20 own_breaches=6 peer_breaches=19 candidates=19\n2026-09-23T18:09:13+0000 INFO freightguard.context_compiler Compiled context notes loaded=10 compiled=10 global=4 route=6 warnings=3\n2026-09-23T18:09:13+0000 INFO freightguard.evidence Starting evidence review candidates=19 notes=10 top_k=5 rrf_k=60 sparse_weight=1 dense_weight=1\n2026-09-23T18:09:20+0000 INFO freightguard.evidence Completed evidence review sparse_seconds=0.004986 dense_seconds=7.413334 structured_additions=29 verdicts={'justified': 3, 'partially_explained': 12, 'unexplained': 4} rejections={'cost_impact_not_positive': 82, 'cost_increase_negated': 61, 'date_no_overlap': 76, 'global_scope_cannot_explain_peer_premium': 12, 'impact_direction_not_increase': 82, 'route_mismatch': 56, 'scope_outside_dataset': 19}\n2026-09-23T18:09:20+0000 INFO freightguard.candidate_csv Wrote candidate CSV path=C:\\Users\\sahme\\OneDrive\\Desktop\\FreightGuard-AI\\backend\\data\\output\\evaluation\\runs\\run_02\\final_submission.csv rows=19\n",
+        "stdout_tail": "FreightGuard grounded explanation generation\nWeekly route groups: 728\nCandidates: 19\nMode: template\nJustified: 3\nPartially explained: 12\nUnexplained: 4\nEligible model requests: 15\nProvider attempts: 0\nAccepted model explanations: 0\nCache hits: 0\nFallbacks: 0\nDirect templates: 19\nValidation failures: none\nInput tokens: 0\nCached input tokens: 0\nOutput tokens: 0\nReasoning tokens: 0\nTotal tokens: 0\nEstimated cost: USD 0.000000\nAudit contract: PASS\nCSV contract: PASS\nAudit: backend/data/output/evaluation/runs/run_02/explanation_generation_audit.jsonl\nAudit SHA-256: 62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea\nFinal CSV: backend/data/output/evaluation/runs/run_02/final_submission.csv\nFinal CSV SHA-256: 73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7\n",
+        "timed_out": false
+      },
+      {
+        "artifacts": [
+          {
+            "byte_size": 5119,
+            "relative_path": "runs/run_03/final_submission.csv",
+            "run_id": "run_03",
+            "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+          },
+          {
+            "byte_size": 14572,
+            "relative_path": "runs/run_03/explanation_generation_audit.jsonl",
+            "run_id": "run_03",
+            "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+          },
+          {
+            "byte_size": 47038,
+            "relative_path": "runs/run_03/operational_root_causes.json",
+            "run_id": "run_03",
+            "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+          }
+        ],
+        "duration_ms": 11740,
+        "exit_code": 0,
+        "final_csv_columns": 8,
+        "final_csv_rows": 19,
+        "run_id": "run_03",
+        "stderr_tail": "2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validating dataset=shipments file=shipment_records.csv\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validated dataset=shipments rows=2940 columns=10 warnings=0 errors=0\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validating dataset=context_notes file=context_notes.csv\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validated dataset=context_notes rows=10 columns=4 warnings=0 errors=0\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validating dataset=output_contract file=sample_output_format_v2.csv\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validated dataset=output_contract header_columns=8 warnings=1 errors=0\n2026-09-23T18:09:24+0000 INFO freightguard.analytics Starting weekly analytics shipments=2940\n2026-09-23T18:09:24+0000 INFO freightguard.analytics Completed weekly analytics groups=728 routes=7 weeks=104 reconciliation=PASS\n2026-09-23T18:09:24+0000 INFO freightguard.baselines Starting baseline analytics weekly_rows=728\n2026-09-23T18:09:24+0000 INFO freightguard.baselines Completed baseline analytics rows=728 history_available=721 history_unavailable=7 peer_available=728 peer_unavailable=0 history_count_min=0 history_count_max=8 peer_count_min=1 peer_count_max=2 invariants=PASS\n2026-09-23T18:09:24+0000 INFO freightguard.comparisons Calculated percentage comparisons rows=728 own_available=721 peer_available=728 precision=full\n2026-09-23T18:09:24+0000 INFO freightguard.candidates Applied candidate rule rows=728 threshold=20 own_breaches=6 peer_breaches=19 candidates=19\n2026-09-23T18:09:24+0000 INFO freightguard.context_compiler Compiled context notes loaded=10 compiled=10 global=4 route=6 warnings=3\n2026-09-23T18:09:24+0000 INFO freightguard.evidence Starting evidence review candidates=19 notes=10 top_k=5 rrf_k=60 sparse_weight=1 dense_weight=1\n2026-09-23T18:09:32+0000 INFO freightguard.evidence Completed evidence review sparse_seconds=0.004104 dense_seconds=7.324674 structured_additions=29 verdicts={'justified': 3, 'partially_explained': 12, 'unexplained': 4} rejections={'cost_impact_not_positive': 82, 'cost_increase_negated': 61, 'date_no_overlap': 76, 'global_scope_cannot_explain_peer_premium': 12, 'impact_direction_not_increase': 82, 'route_mismatch': 56, 'scope_outside_dataset': 19}\n2026-09-23T18:09:32+0000 INFO freightguard.candidate_csv Wrote candidate CSV path=C:\\Users\\sahme\\OneDrive\\Desktop\\FreightGuard-AI\\backend\\data\\output\\evaluation\\runs\\run_03\\final_submission.csv rows=19\n",
+        "stdout_tail": "FreightGuard grounded explanation generation\nWeekly route groups: 728\nCandidates: 19\nMode: template\nJustified: 3\nPartially explained: 12\nUnexplained: 4\nEligible model requests: 15\nProvider attempts: 0\nAccepted model explanations: 0\nCache hits: 0\nFallbacks: 0\nDirect templates: 19\nValidation failures: none\nInput tokens: 0\nCached input tokens: 0\nOutput tokens: 0\nReasoning tokens: 0\nTotal tokens: 0\nEstimated cost: USD 0.000000\nAudit contract: PASS\nCSV contract: PASS\nAudit: backend/data/output/evaluation/runs/run_03/explanation_generation_audit.jsonl\nAudit SHA-256: 62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea\nFinal CSV: backend/data/output/evaluation/runs/run_03/final_submission.csv\nFinal CSV SHA-256: 73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7\n",
+        "timed_out": false
+      }
+    ]
+  },
+  "run_count": 3,
+  "schema_version": "1.2"
+}

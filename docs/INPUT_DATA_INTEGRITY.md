@@ -1,7 +1,7 @@
 # Input data integrity record
 
 The challenge files were supplied directly in `backend/data/input/` on
-2026-09-22. Phase 1 does not parse, clean, normalize, or rewrite them. The initial
+2026-09-22. The repository does not clean or rewrite them in place. The initial
 measurement made before final verification was:
 
 | File | Bytes | SHA-256 |

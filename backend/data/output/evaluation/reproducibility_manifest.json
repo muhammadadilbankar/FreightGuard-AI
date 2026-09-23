@@ -1,0 +1,187 @@
+{
+  "canonical_artifact_comparisons": [
+    {
+      "artifact_name": "final_submission.csv",
+      "byte_sizes": [
+        5119,
+        5119,
+        5119
+      ],
+      "first_difference": null,
+      "hashes": [
+        "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7",
+        "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7",
+        "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+      ],
+      "identical": true
+    },
+    {
+      "artifact_name": "explanation_generation_audit.jsonl",
+      "byte_sizes": [
+        14572,
+        14572,
+        14572
+      ],
+      "first_difference": null,
+      "hashes": [
+        "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea",
+        "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea",
+        "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+      ],
+      "identical": true
+    },
+    {
+      "artifact_name": "operational_root_causes.json",
+      "byte_sizes": [
+        47038,
+        47038,
+        47038
+      ],
+      "first_difference": null,
+      "hashes": [
+        "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968",
+        "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968",
+        "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+      ],
+      "identical": true
+    }
+  ],
+  "configuration_fingerprint": "ebea8117a90d5c2b67180e6130303f614b5723cf95ad1294077a8031e96c4706",
+  "environment_fingerprint": {
+    "architecture": "AMD64",
+    "dependency_lock_sha256": "f750d47ab88c44158246970e90e254bf9400dee020287770236231f2422ab818",
+    "dependency_versions": {
+      "numpy": "2.5.3",
+      "openai": "3.17.0",
+      "pandas": "2.3.1",
+      "pydantic": "2.11.7",
+      "scikit-learn": "1.7.2",
+      "sentence-transformers": "5.1.2"
+    },
+    "dirty_worktree": true,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "explanation_mode": "template",
+    "git_commit": "c91ae099f102741a633053f116a4d47bd7d4ac68",
+    "implementation": "CPython",
+    "locale": "LC_COLLATE=C;LC_CTYPE=English_India.1252;LC_MONETARY=C;LC_NUMERIC=C;LC_TIME=C",
+    "operating_system": "Windows",
+    "prompt_version": "fg-explanation-v1",
+    "provider_identity": "template",
+    "python": "3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]",
+    "timezone": "UTC"
+  },
+  "evaluation_mode": "template",
+  "formal_run_count": 3,
+  "input_fingerprints": [
+    {
+      "byte_size": 259523,
+      "relative_path": "backend/data/input/shipment_records.csv",
+      "sha256": "1a2b4d66c4dc694111ba37b966486b5b0650df9ec8687402f3434117b140f4b6"
+    },
+    {
+      "byte_size": 1715,
+      "relative_path": "backend/data/input/context_notes.csv",
+      "sha256": "875c57a896ac3dfac0f712f8865b287bb5d2bd5423d26e798297b74dce87e6dc"
+    },
+    {
+      "byte_size": 903,
+      "relative_path": "backend/data/input/sample_output_format_v2.csv",
+      "sha256": "1ea902faca37bef6816e0878dc17bdb509a88f9ff9d4f101373e3af03994201f"
+    }
+  ],
+  "overall_reproducible": true,
+  "runs": [
+    {
+      "artifacts": [
+        {
+          "byte_size": 5119,
+          "relative_path": "runs/run_01/final_submission.csv",
+          "run_id": "run_01",
+          "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+        },
+        {
+          "byte_size": 14572,
+          "relative_path": "runs/run_01/explanation_generation_audit.jsonl",
+          "run_id": "run_01",
+          "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+        },
+        {
+          "byte_size": 47038,
+          "relative_path": "runs/run_01/operational_root_causes.json",
+          "run_id": "run_01",
+          "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+        }
+      ],
+      "duration_ms": 12713,
+      "exit_code": 0,
+      "final_csv_columns": 8,
+      "final_csv_rows": 19,
+      "run_id": "run_01",
+      "stderr_tail": "2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validating dataset=shipments file=shipment_records.csv\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validated dataset=shipments rows=2940 columns=10 warnings=0 errors=0\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validating dataset=context_notes file=context_notes.csv\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validated dataset=context_notes rows=10 columns=4 warnings=0 errors=0\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validating dataset=output_contract file=sample_output_format_v2.csv\n2026-09-23T18:09:00+0000 INFO freightguard.ingestion Validated dataset=output_contract header_columns=8 warnings=1 errors=0\n2026-09-23T18:09:00+0000 INFO freightguard.analytics Starting weekly analytics shipments=2940\n2026-09-23T18:09:00+0000 INFO freightguard.analytics Completed weekly analytics groups=728 routes=7 weeks=104 reconciliation=PASS\n2026-09-23T18:09:00+0000 INFO freightguard.baselines Starting baseline analytics weekly_rows=728\n2026-09-23T18:09:00+0000 INFO freightguard.baselines Completed baseline analytics rows=728 history_available=721 history_unavailable=7 peer_available=728 peer_unavailable=0 history_count_min=0 history_count_max=8 peer_count_min=1 peer_count_max=2 invariants=PASS\n2026-09-23T18:09:00+0000 INFO freightguard.comparisons Calculated percentage comparisons rows=728 own_available=721 peer_available=728 precision=full\n2026-09-23T18:09:00+0000 INFO freightguard.candidates Applied candidate rule rows=728 threshold=20 own_breaches=6 peer_breaches=19 candidates=19\n2026-09-23T18:09:00+0000 INFO freightguard.context_compiler Compiled context notes loaded=10 compiled=10 global=4 route=6 warnings=3\n2026-09-23T18:09:00+0000 INFO freightguard.evidence Starting evidence review candidates=19 notes=10 top_k=5 rrf_k=60 sparse_weight=1 dense_weight=1\n2026-09-23T18:09:08+0000 INFO freightguard.evidence Completed evidence review sparse_seconds=0.008501 dense_seconds=7.632218 structured_additions=29 verdicts={'justified': 3, 'partially_explained': 12, 'unexplained': 4} rejections={'cost_impact_not_positive': 82, 'cost_increase_negated': 61, 'date_no_overlap': 76, 'global_scope_cannot_explain_peer_premium': 12, 'impact_direction_not_increase': 82, 'route_mismatch': 56, 'scope_outside_dataset': 19}\n2026-09-23T18:09:08+0000 INFO freightguard.candidate_csv Wrote candidate CSV path=C:\\Users\\sahme\\OneDrive\\Desktop\\FreightGuard-AI\\backend\\data\\output\\evaluation\\runs\\run_01\\final_submission.csv rows=19\n",
+      "stdout_tail": "FreightGuard grounded explanation generation\nWeekly route groups: 728\nCandidates: 19\nMode: template\nJustified: 3\nPartially explained: 12\nUnexplained: 4\nEligible model requests: 15\nProvider attempts: 0\nAccepted model explanations: 0\nCache hits: 0\nFallbacks: 0\nDirect templates: 19\nValidation failures: none\nInput tokens: 0\nCached input tokens: 0\nOutput tokens: 0\nReasoning tokens: 0\nTotal tokens: 0\nEstimated cost: USD 0.000000\nAudit contract: PASS\nCSV contract: PASS\nAudit: backend/data/output/evaluation/runs/run_01/explanation_generation_audit.jsonl\nAudit SHA-256: 62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea\nFinal CSV: backend/data/output/evaluation/runs/run_01/final_submission.csv\nFinal CSV SHA-256: 73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7\n",
+      "timed_out": false
+    },
+    {
+      "artifacts": [
+        {
+          "byte_size": 5119,
+          "relative_path": "runs/run_02/final_submission.csv",
+          "run_id": "run_02",
+          "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+        },
+        {
+          "byte_size": 14572,
+          "relative_path": "runs/run_02/explanation_generation_audit.jsonl",
+          "run_id": "run_02",
+          "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+        },
+        {
+          "byte_size": 47038,
+          "relative_path": "runs/run_02/operational_root_causes.json",
+          "run_id": "run_02",
+          "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+        }
+      ],
+      "duration_ms": 11893,
+      "exit_code": 0,
+      "final_csv_columns": 8,
+      "final_csv_rows": 19,
+      "run_id": "run_02",
+      "stderr_tail": "2026-09-23T18:09:12+0000 INFO freightguard.ingestion Validating dataset=shipments file=shipment_records.csv\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validated dataset=shipments rows=2940 columns=10 warnings=0 errors=0\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validating dataset=context_notes file=context_notes.csv\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validated dataset=context_notes rows=10 columns=4 warnings=0 errors=0\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validating dataset=output_contract file=sample_output_format_v2.csv\n2026-09-23T18:09:13+0000 INFO freightguard.ingestion Validated dataset=output_contract header_columns=8 warnings=1 errors=0\n2026-09-23T18:09:13+0000 INFO freightguard.analytics Starting weekly analytics shipments=2940\n2026-09-23T18:09:13+0000 INFO freightguard.analytics Completed weekly analytics groups=728 routes=7 weeks=104 reconciliation=PASS\n2026-09-23T18:09:13+0000 INFO freightguard.baselines Starting baseline analytics weekly_rows=728\n2026-09-23T18:09:13+0000 INFO freightguard.baselines Completed baseline analytics rows=728 history_available=721 history_unavailable=7 peer_available=728 peer_unavailable=0 history_count_min=0 history_count_max=8 peer_count_min=1 peer_count_max=2 invariants=PASS\n2026-09-23T18:09:13+0000 INFO freightguard.comparisons Calculated percentage comparisons rows=728 own_available=721 peer_available=728 precision=full\n2026-09-23T18:09:13+0000 INFO freightguard.candidates Applied candidate rule rows=728 threshold=20 own_breaches=6 peer_breaches=19 candidates=19\n2026-09-23T18:09:13+0000 INFO freightguard.context_compiler Compiled context notes loaded=10 compiled=10 global=4 route=6 warnings=3\n2026-09-23T18:09:13+0000 INFO freightguard.evidence Starting evidence review candidates=19 notes=10 top_k=5 rrf_k=60 sparse_weight=1 dense_weight=1\n2026-09-23T18:09:20+0000 INFO freightguard.evidence Completed evidence review sparse_seconds=0.004986 dense_seconds=7.413334 structured_additions=29 verdicts={'justified': 3, 'partially_explained': 12, 'unexplained': 4} rejections={'cost_impact_not_positive': 82, 'cost_increase_negated': 61, 'date_no_overlap': 76, 'global_scope_cannot_explain_peer_premium': 12, 'impact_direction_not_increase': 82, 'route_mismatch': 56, 'scope_outside_dataset': 19}\n2026-09-23T18:09:20+0000 INFO freightguard.candidate_csv Wrote candidate CSV path=C:\\Users\\sahme\\OneDrive\\Desktop\\FreightGuard-AI\\backend\\data\\output\\evaluation\\runs\\run_02\\final_submission.csv rows=19\n",
+      "stdout_tail": "FreightGuard grounded explanation generation\nWeekly route groups: 728\nCandidates: 19\nMode: template\nJustified: 3\nPartially explained: 12\nUnexplained: 4\nEligible model requests: 15\nProvider attempts: 0\nAccepted model explanations: 0\nCache hits: 0\nFallbacks: 0\nDirect templates: 19\nValidation failures: none\nInput tokens: 0\nCached input tokens: 0\nOutput tokens: 0\nReasoning tokens: 0\nTotal tokens: 0\nEstimated cost: USD 0.000000\nAudit contract: PASS\nCSV contract: PASS\nAudit: backend/data/output/evaluation/runs/run_02/explanation_generation_audit.jsonl\nAudit SHA-256: 62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea\nFinal CSV: backend/data/output/evaluation/runs/run_02/final_submission.csv\nFinal CSV SHA-256: 73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7\n",
+      "timed_out": false
+    },
+    {
+      "artifacts": [
+        {
+          "byte_size": 5119,
+          "relative_path": "runs/run_03/final_submission.csv",
+          "run_id": "run_03",
+          "sha256": "73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7"
+        },
+        {
+          "byte_size": 14572,
+          "relative_path": "runs/run_03/explanation_generation_audit.jsonl",
+          "run_id": "run_03",
+          "sha256": "62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea"
+        },
+        {
+          "byte_size": 47038,
+          "relative_path": "runs/run_03/operational_root_causes.json",
+          "run_id": "run_03",
+          "sha256": "dd584659bea3e9bac3455eecd946f4f3911ae57a49a829711ced064ab6149968"
+        }
+      ],
+      "duration_ms": 11740,
+      "exit_code": 0,
+      "final_csv_columns": 8,
+      "final_csv_rows": 19,
+      "run_id": "run_03",
+      "stderr_tail": "2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validating dataset=shipments file=shipment_records.csv\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validated dataset=shipments rows=2940 columns=10 warnings=0 errors=0\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validating dataset=context_notes file=context_notes.csv\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validated dataset=context_notes rows=10 columns=4 warnings=0 errors=0\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validating dataset=output_contract file=sample_output_format_v2.csv\n2026-09-23T18:09:24+0000 INFO freightguard.ingestion Validated dataset=output_contract header_columns=8 warnings=1 errors=0\n2026-09-23T18:09:24+0000 INFO freightguard.analytics Starting weekly analytics shipments=2940\n2026-09-23T18:09:24+0000 INFO freightguard.analytics Completed weekly analytics groups=728 routes=7 weeks=104 reconciliation=PASS\n2026-09-23T18:09:24+0000 INFO freightguard.baselines Starting baseline analytics weekly_rows=728\n2026-09-23T18:09:24+0000 INFO freightguard.baselines Completed baseline analytics rows=728 history_available=721 history_unavailable=7 peer_available=728 peer_unavailable=0 history_count_min=0 history_count_max=8 peer_count_min=1 peer_count_max=2 invariants=PASS\n2026-09-23T18:09:24+0000 INFO freightguard.comparisons Calculated percentage comparisons rows=728 own_available=721 peer_available=728 precision=full\n2026-09-23T18:09:24+0000 INFO freightguard.candidates Applied candidate rule rows=728 threshold=20 own_breaches=6 peer_breaches=19 candidates=19\n2026-09-23T18:09:24+0000 INFO freightguard.context_compiler Compiled context notes loaded=10 compiled=10 global=4 route=6 warnings=3\n2026-09-23T18:09:24+0000 INFO freightguard.evidence Starting evidence review candidates=19 notes=10 top_k=5 rrf_k=60 sparse_weight=1 dense_weight=1\n2026-09-23T18:09:32+0000 INFO freightguard.evidence Completed evidence review sparse_seconds=0.004104 dense_seconds=7.324674 structured_additions=29 verdicts={'justified': 3, 'partially_explained': 12, 'unexplained': 4} rejections={'cost_impact_not_positive': 82, 'cost_increase_negated': 61, 'date_no_overlap': 76, 'global_scope_cannot_explain_peer_premium': 12, 'impact_direction_not_increase': 82, 'route_mismatch': 56, 'scope_outside_dataset': 19}\n2026-09-23T18:09:32+0000 INFO freightguard.candidate_csv Wrote candidate CSV path=C:\\Users\\sahme\\OneDrive\\Desktop\\FreightGuard-AI\\backend\\data\\output\\evaluation\\runs\\run_03\\final_submission.csv rows=19\n",
+      "stdout_tail": "FreightGuard grounded explanation generation\nWeekly route groups: 728\nCandidates: 19\nMode: template\nJustified: 3\nPartially explained: 12\nUnexplained: 4\nEligible model requests: 15\nProvider attempts: 0\nAccepted model explanations: 0\nCache hits: 0\nFallbacks: 0\nDirect templates: 19\nValidation failures: none\nInput tokens: 0\nCached input tokens: 0\nOutput tokens: 0\nReasoning tokens: 0\nTotal tokens: 0\nEstimated cost: USD 0.000000\nAudit contract: PASS\nCSV contract: PASS\nAudit: backend/data/output/evaluation/runs/run_03/explanation_generation_audit.jsonl\nAudit SHA-256: 62a7db940c895dc306d56848c65a950990f88e200a641d4f00178879e3722dea\nFinal CSV: backend/data/output/evaluation/runs/run_03/final_submission.csv\nFinal CSV SHA-256: 73fad5f7244fe4e016dee055b96da98d90107da93fdd46d09b092a1975d678f7\n",
+      "timed_out": false
+    }
+  ],
+  "schema_version": "1.0"
+}

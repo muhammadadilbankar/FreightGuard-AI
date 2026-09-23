@@ -19,7 +19,11 @@ from ..domain.evaluation import (
 )
 from .outputs import evaluate_final_csv
 
-CANONICAL_ARTIFACTS = ("final_submission.csv", "operational_root_causes.json")
+CANONICAL_ARTIFACTS = (
+    "final_submission.csv",
+    "explanation_generation_audit.jsonl",
+    "operational_root_causes.json",
+)
 
 
 def run_reproducibility(

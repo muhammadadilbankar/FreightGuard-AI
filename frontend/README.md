@@ -1,7 +1,10 @@
 # FreightGuard investigation dashboard
 
-Phase 11 is a React 19 + TypeScript + Vite investigation interface over the
-Phase 10 API. The browser renders backend-owned calculations, Evidence Gate
+The root [README](../README.md) is the canonical setup and evaluation guide. This
+file contains frontend-specific commands only.
+
+This React 19 + TypeScript + Vite investigation interface consumes the FreightGuard
+API. The browser renders backend-owned calculations, Evidence Gate
 decisions, evaluation results, and exact CSV exports; it does not recalculate
 canonical values or verdicts.
 

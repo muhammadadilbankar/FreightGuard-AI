@@ -15,3 +15,10 @@ def test_generated_manifest_has_three_identical_final_hashes_when_present() -> N
     )
     assert comparison["identical"] is True
     assert len(set(comparison["hashes"])) == 1
+    audit = next(
+        item
+        for item in manifest["canonical_artifact_comparisons"]
+        if item["artifact_name"] == "explanation_generation_audit.jsonl"
+    )
+    assert audit["identical"] is True
+    assert len(set(audit["hashes"])) == 1

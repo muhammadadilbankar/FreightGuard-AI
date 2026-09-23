@@ -1,4 +1,7 @@
 .env
+.env.*
+!.env.example
+!frontend/.env.example
 .venv/
 venv/
 __pycache__/
@@ -7,8 +10,16 @@ __pycache__/
 .coverage
 htmlcov/
 .ruff_cache/
+.mypy_cache/
 backend/data/output/*
 !backend/data/output/.gitkeep
+!backend/data/output/final_submission.csv
+!backend/data/output/run_usage_report.json
+!backend/data/output/evaluation/
+backend/data/output/evaluation/*
+!backend/data/output/evaluation/evaluation_report.json
+!backend/data/output/evaluation/evaluation_report.md
+!backend/data/output/evaluation/reproducibility_manifest.json
 backend/data/models/*
 !backend/data/models/.gitkeep
 node_modules/
@@ -16,8 +27,16 @@ dist/
 coverage/
 playwright-report/
 test-results/
+*.log
+*.pid
+*.lock.pid
+tmp/
+release/
 .DS_Store
 Thumbs.db
 # Internal AI implementation documents
 FREIGHTGUARD_MASTER_IMPLEMENTATION_ROADMAP.md
 FREIGHTGUARD_PHASE_*_PLAN.md
+/docs/IMPLEMENTATION_PLAN.md
+/docs/PHASE_*_COMPLETION.md
+/docs/DECISIONS.md
