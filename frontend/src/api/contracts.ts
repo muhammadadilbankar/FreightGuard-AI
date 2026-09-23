@@ -20,6 +20,10 @@ export type RootCauseEnvelope = Schemas['DataEnvelope_RootCauseData_']
 export type RootCause = Schemas['RootCauseData']
 export type DecompositionLens = Schemas['DecompositionLensData']
 export type CategoryContribution = Schemas['CategoryContributionData']
+export type AssistantRequest = Schemas['AssistantRequest']
+export type AssistantResponse = Schemas['AssistantResponseEnvelope']
+export type AssistantContext = Schemas['AssistantConversationContext']
+export type AssistantCitation = Schemas['Citation']
 
 export type Verdict = 'justified' | 'partially_explained' | 'unexplained'
 export type Trigger = 'own_history' | 'peer' | 'both'

@@ -51,3 +51,16 @@ Phase 10 deliberately does not add authentication, a database, multi-process
 snapshot sharing, background jobs, uploads, Docker, or the frontend. Generated run
 artifacts are private under `backend/data/output/api_runs/<attempt-id>/` and are
 ignored by Git.
+# Investigation assistant
+
+`POST /api/assistant/query` accepts a question, optional planner mode, and optional
+typed conversation context. It reads exactly one active immutable snapshot and
+returns a status (`answered`, `needs_clarification`, or `unsupported`), grounded
+claims, optional table, citations, navigation actions, updated context, and planner
+telemetry. Template mode is the default and makes no network calls.
+
+Conversation context is client-owned and includes its snapshot ID. Context from an
+older snapshot is rejected with `request_validation_failed`; clients should clear it
+when the active snapshot changes. Live planning is disabled unless explicitly
+allowed and configured. No mode can mutate an anomaly, verdict, note match, output,
+or threshold.

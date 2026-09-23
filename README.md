@@ -307,6 +307,24 @@ reconstruction, accessible details, metrics, support, and caveats. Small samples
 descriptive association, and missing fuel, vehicle, invoice, contract, traffic, and
 capacity data remain known limitations.
 
+Phase 13 adds a read-only natural-language investigation assistant at
+`POST /api/assistant/query`. Template mode is fully offline: an ordered deterministic
+planner maps supported questions to a closed set of typed snapshot queries. Optional
+live mode may only produce a plan; policy validation, data access, calculations,
+verdicts, note IDs, citations, and final wording remain backend-owned and
+deterministic. Ambiguous requests return explicit choices, unsupported or mutating
+requests execute no tools, and stale conversation context is rejected.
+
+The dashboard’s **Ask** button opens the assistant panel. It supports anomaly
+explanation/list/ranking, route trends, evidence review, rejected evidence,
+operational leads, snapshot summary, evaluation status, run metrics, and help.
+Answers include snapshot-bound citations and preserve the boundary between accepted
+context evidence and descriptive operational leads.
+
+Assistant evaluation is part of the formal offline command below. Its 40-case
+golden/adversarial fixture checks every intent, ambiguity, mutation attempts, and
+prompt injection, with zero hosted calls.
+
 Phase 9 adds an independent, gate-based evaluation and reproducibility harness. Run
 the formal offline evaluation from the repository root with:
 
@@ -316,7 +334,7 @@ python -m backend.scripts.evaluate_pipeline --runs 3 --mode template
 
 A formal PASS means every blocking input, mathematics, baseline, candidate,
 compilation, retrieval, Evidence Gate, explanation, CSV, metamorphic, and
-reproducibility check passed. It also means three fresh Python processes generated
+investigation-assistant check passed. It also means three fresh Python processes generated
 byte-identical `final_submission.csv` files without network access. Live explanation
 mode is deliberately forbidden; a frozen validated replay cache is the only formal
 alternative to template mode.

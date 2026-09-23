@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import sys
 from pathlib import Path
 
@@ -28,9 +29,18 @@ from ..services.explanations.providers import (
     TemplateExplanationProvider,
 )
 from ..services.ingestion import load_input_bundle
-from ..services.reporting import build_evidence_reviewed_output, build_final_submission
+from ..services.reporting import (
+    EXPLANATION_AUDIT_FILENAME,
+    build_evidence_reviewed_output,
+    build_final_submission,
+)
 from ..services.retrieval import SentenceTransformerEmbeddingProvider
-from ..services.root_cause import RootCausePolicy, analyze_operational_root_causes
+from ..services.root_cause import (
+    ROOT_CAUSE_FILENAME,
+    RootCausePolicy,
+    analyze_operational_root_causes,
+)
+from .assistant import evaluate_assistant
 from .candidates import evaluate_candidates
 from .compilation import evaluate_compilation
 from .contracts import check, configuration_fingerprint, environment_fingerprint
@@ -339,5 +349,59 @@ def run_evaluation(
         reproducibility=reproducibility,
         artifacts=artifacts,
     )
+    from ..application.pipeline import PipelineExecutionResult
+    from ..application.snapshot_builder import build_snapshot
+
+    first_run = output_root / "runs" / "run_01"
+    audit_path = first_run / EXPLANATION_AUDIT_FILENAME
+    root_cause_path = first_run / ROOT_CAUSE_FILENAME
+    if first_final.is_file() and audit_path.is_file() and root_cause_path.is_file():
+        provisional = PipelineExecutionResult(
+            bundle=bundle,
+            weekly=weekly,
+            candidate_metrics=candidates,
+            notes=notes,
+            evidence=evidence,
+            explanation_records=records,
+            final_output=final,
+            final_csv_path=first_final,
+            final_csv_sha256=hashlib.sha256(first_final.read_bytes()).hexdigest(),
+            explanation_audit_path=audit_path,
+            explanation_audit_sha256=hashlib.sha256(audit_path.read_bytes()).hexdigest(),
+            root_causes=root_causes,
+            root_cause_artifact_path=root_cause_path,
+            root_cause_artifact_sha256=hashlib.sha256(root_cause_path.read_bytes()).hexdigest(),
+            evaluation=report,
+            evaluation_report_path=output_root / "evaluation_report.json",
+            evaluation_report_sha256="provisional",
+            stage_durations_ms={},
+            total_duration_ms=0,
+        )
+        assistant_checks, assistant_metrics = evaluate_assistant(
+            build_snapshot(
+                provisional,
+                mode=mode,
+                threshold=settings.anomaly_threshold_percent,
+            ),
+            FIXTURE_ROOT / "assistant_golden_questions.json",
+            planner_version=settings.assistant_planner_version,
+            default_limit=settings.assistant_default_result_limit,
+            max_limit=settings.assistant_max_result_limit,
+        )
+        checks, metric_tuple = normalize_registry(
+            (*checks, *assistant_checks), (*metric_tuple, *assistant_metrics)
+        )
+        report = EvaluationReport(
+            overall_status=derive_status(checks, metric_tuple, reproducibility),
+            evaluation_mode=mode,
+            run_count=run_count,
+            environment=report.environment,
+            inputs=before,
+            configuration_fingerprint=report.configuration_fingerprint,
+            checks=checks,
+            metrics=metric_tuple,
+            reproducibility=reproducibility,
+            artifacts=artifacts,
+        )
     paths = write_reports(report, output_root)
     return report, paths

@@ -48,6 +48,25 @@ class Settings(BaseSettings):
     root_cause_max_leads_per_lens: int = Field(default=3, ge=1, le=20)
     root_cause_metric_highlight_percent: float = Field(default=10.0, ge=0)
     root_cause_reconstruction_tolerance: float = Field(default=1e-9, gt=0)
+    assistant_enabled: bool = True
+    assistant_mode: str = "template"
+    assistant_allowed_modes: tuple[str, ...] = ("template", "replay")
+    assistant_planner_provider: str = "openai"
+    assistant_planner_model: str = ""
+    assistant_planner_version: str = "fg-assistant-plan-v1"
+    assistant_policy_version: str = "fg-assistant-policy-v1"
+    assistant_timeout_seconds: float = Field(default=20.0, gt=0, le=120)
+    assistant_max_question_chars: int = Field(default=800, ge=50, le=4000)
+    assistant_max_plan_steps: int = Field(default=3, ge=1, le=3)
+    assistant_default_result_limit: int = Field(default=10, ge=1, le=50)
+    assistant_max_result_limit: int = Field(default=20, ge=1, le=50)
+    assistant_max_citations: int = Field(default=30, ge=1, le=100)
+    assistant_max_context_candidates: int = Field(default=5, ge=1, le=10)
+    assistant_cache_enabled: bool = True
+    assistant_cache_path: Path = Path("backend/data/output/assistant_plan_cache.jsonl")
+    assistant_store_raw_questions: bool = False
+    assistant_audit_path: Path = Path("backend/data/output/assistant_query_audit.jsonl")
+    assistant_replay_fallback_to_template: bool = False
     explanation_mode: str = "template"
     explanation_provider: str = "openai"
     explanation_model: str = ""
@@ -75,7 +94,7 @@ class Settings(BaseSettings):
     evaluation_fail_on_dirty_inputs: bool = True
     api_title: str = "FreightGuard AI API"
     api_description: str = "Trusted freight anomaly analysis service"
-    api_version: str = "0.10.0"
+    api_version: str = "0.13.0"
     api_prefix: str = "/api"
     api_host: str = "127.0.0.1"
     api_port: int = Field(default=8000, ge=1, le=65535)
@@ -93,6 +112,13 @@ class Settings(BaseSettings):
     @field_validator("api_allowed_origins", mode="before")
     @classmethod
     def parse_allowed_origins(cls, value: object) -> object:
+        if isinstance(value, str):
+            return tuple(item.strip() for item in value.split(",") if item.strip())
+        return value
+
+    @field_validator("assistant_allowed_modes", mode="before")
+    @classmethod
+    def parse_assistant_modes(cls, value: object) -> object:
         if isinstance(value, str):
             return tuple(item.strip() for item in value.split(",") if item.strip())
         return value
@@ -123,6 +149,8 @@ class Settings(BaseSettings):
             "embedding_model_path",
             "explanation_cache_path",
             "evaluation_output_root",
+            "assistant_cache_path",
+            "assistant_audit_path",
         ):
             value = getattr(self, field_name)
             if value is None:
@@ -148,6 +176,24 @@ class Settings(BaseSettings):
             raise ValueError("Embedding model name must not be blank.")
         if not self.embedding_model_revision.strip():
             raise ValueError("Embedding model revision must not be blank.")
+        allowed_assistant_modes = {"template", "replay", "live"}
+        if (
+            not self.assistant_allowed_modes
+            or not set(self.assistant_allowed_modes) <= allowed_assistant_modes
+        ):
+            raise ValueError("Assistant allowed modes are invalid.")
+        if self.assistant_mode not in self.assistant_allowed_modes:
+            raise ValueError("Assistant default mode must be allowed.")
+        if self.assistant_planner_provider != "openai":
+            raise ValueError("Only the openai assistant planner is supported.")
+        if not self.assistant_planner_version.strip() or not self.assistant_policy_version.strip():
+            raise ValueError("Assistant policy and planner versions must not be blank.")
+        if self.assistant_default_result_limit > self.assistant_max_result_limit:
+            raise ValueError("Assistant default result limit exceeds its maximum.")
+        if self.assistant_mode == "live" and (
+            not self.assistant_planner_model.strip() or self.openai_api_key is None
+        ):
+            raise ValueError("Live assistant mode requires a model and API key.")
         if self.explanation_mode not in {"template", "live", "replay"}:
             raise ValueError("Explanation mode must be template, live, or replay.")
         if self.explanation_provider != "openai":

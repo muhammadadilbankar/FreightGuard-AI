@@ -9,10 +9,11 @@ import type {
   RootCauseEnvelope,
   SummaryEnvelope,
   TimelineEnvelope,
+  AssistantResponse,
 } from '../../api/contracts'
 
 export const snapshotId = 'snapshot-test-a'
-export const healthReady: Health = { status: 'ok', ready: true, service: 'FreightGuard AI API', version: '0.10.0', run_state: 'succeeded', has_snapshot: true, snapshot_id: snapshotId }
+export const healthReady: Health = { status: 'ok', ready: true, service: 'FreightGuard AI API', version: '0.13.0', run_state: 'succeeded', has_snapshot: true, snapshot_id: snapshotId }
 export const anomaly: Anomaly = {
   operational_root_cause_available: true,
   candidate_key: 'Test-Route|2024-01-08', route: 'Test-Route', route_type: 'Short', week_of: '2024-01-08', cost_per_tonne_km: 2.5,
@@ -33,3 +34,13 @@ export const timeline: TimelineEnvelope = { data: { route: anomaly.route, points
 export const evaluation = { data: { report: { schema_version: '1.0', overall_status: 'pass', evaluation_mode: 'template', run_count: 3, environment: { python: 'test', implementation: 'test', operating_system: 'test', architecture: 'test', timezone: 'UTC', locale: 'C', dependency_versions: {}, dependency_lock_sha256: null, embedding_model: 'test', embedding_revision: 'test', explanation_mode: 'template', prompt_version: 'test', provider_identity: 'template', git_commit: null, dirty_worktree: false }, inputs: [], configuration_fingerprint: 'b'.repeat(64), checks: [{ check_id: 'test', domain: 'output_contract', description: 'Output contract passes', blocking: true, status: 'pass', expected: null, actual: null, tolerance: null, details: [] }], metrics: [], reproducibility: { formal: true, run_count: 3, runs: [], comparisons: [], overall_reproducible: true }, artifacts: [] }, report_sha256: 'c'.repeat(64) }, meta } as EvaluationEnvelope
 export const metrics = { data: { stage_durations_ms: { analytics: 10 }, total_duration_ms: 100, row_counts: { candidates: 1 }, retrieval_hit_count: 2, explanation_request_count: 0, hosted_model_call_count: 0, input_tokens: null, output_tokens: null, estimated_cost_usd: null, cache_hits: 0, cache_misses: 0, fallback_count: 0, input_fingerprints: [], configuration_fingerprint: 'b'.repeat(64), artifact_fingerprints: [], latest_attempt: { state: 'succeeded', attempt_id: 'attempt', started_at: null, finished_at: null, latest_snapshot_id: snapshotId, failure_code: null, failure_message: null, previous_snapshot_available: true } }, meta } as MetricsEnvelope
 export const runResponse: RunEnvelope = { data: { attempt_id: 'attempt-2', snapshot_id: snapshotId, run_state: 'succeeded', started_at: '2024-01-01T00:00:00Z', finished_at: '2024-01-01T00:00:01Z', duration_ms: 1000, shipment_count: 100, weekly_record_count: 20, candidate_count: 1, justified_count: 0, partially_explained_count: 0, unexplained_count: 1, evaluation_status: 'pass', final_csv_sha256: 'a'.repeat(64), replaced_previous_snapshot: false }, meta }
+export const assistantResponse: AssistantResponse = {
+  data: {
+    status: 'answered', title: 'Analysis snapshot summary',
+    claims: [{ claim_id: 'claim:001', text: 'The snapshot contains 20 weekly route records and 1 anomaly.', citation_ids: ['analysis_summary:snapshot-test-a'] }],
+    table: null, clarification: null, limitations: [], actions: [],
+    citations: [{ citation_id: 'analysis_summary:snapshot-test-a', citation_type: 'analysis_summary', label: 'Analysis summary', snapshot_id: snapshotId, navigation_target: null }],
+    context: { schema_version: '1.0', snapshot_id: snapshotId, last_intent: 'analysis_summary', candidate_keys: [] },
+  },
+  meta: { schema_version: '1.0', snapshot_id: snapshotId, grounded: true, planner_mode: 'template', planner_source: 'deterministic', planner_version: 'test-v1', cache_hit: false, latency_ms: 1, tool_count: 1, result_count: 1, request_id: 'test-request', usage: { provider_calls: 0, input_tokens: 0, output_tokens: 0, estimated_cost_usd: null } },
+}

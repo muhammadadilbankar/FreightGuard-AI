@@ -17,6 +17,7 @@ from .core.logging import configure_logging
 from .state.models import RunAnalysisCommand
 from .state.run_coordinator import RunCoordinator
 from .state.snapshot_store import SnapshotStore
+from .services.assistant import InvestigationAssistantService
 
 LOGGER = logging.getLogger(__name__)
 
@@ -26,6 +27,7 @@ class ServiceOverrides:
     snapshot_store: SnapshotStore | None = None
     run_coordinator: RunCoordinator | None = None
     analysis_service: AnalysisService | None = None
+    assistant_service: InvestigationAssistantService | None = None
 
 
 def create_app(
@@ -39,6 +41,9 @@ def create_app(
     coordinator = supplied.run_coordinator or RunCoordinator()
     service = supplied.analysis_service or AnalysisService(
         app_settings, store, coordinator
+    )
+    assistant_service = supplied.assistant_service or InvestigationAssistantService(
+        app_settings
     )
 
     @asynccontextmanager
@@ -61,6 +66,7 @@ def create_app(
     application.state.snapshot_store = store
     application.state.run_coordinator = coordinator
     application.state.analysis_service = service
+    application.state.assistant_service = assistant_service
     application.add_middleware(
         CORSMiddleware,
         allow_origins=list(app_settings.api_allowed_origins),

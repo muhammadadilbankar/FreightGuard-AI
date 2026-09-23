@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright'
 import {
   anomalyDetail,
   anomalyList,
+  assistantResponse,
   evaluation,
   healthReady,
   metrics,
@@ -22,6 +23,7 @@ async function mockReadyApi(page: Page) {
   await page.route('**/api/evaluation/report?*', (route) => route.fulfill({ json: evaluation }))
   await page.route('**/api/run-metrics', (route) => route.fulfill({ json: metrics }))
   await page.route('**/api/analysis/run', async (route) => { await new Promise((resolve) => setTimeout(resolve, 1_000)); await route.fulfill({ json: runResponse }) })
+  await page.route('**/api/assistant/query', (route) => route.fulfill({ json: assistantResponse }))
   await page.route('**/api/analysis/export.csv', (route) => route.fulfill({ body: 'route,week_of\nTest-Route,2024-01-08\n', headers: { 'Content-Type': 'text/csv', 'Content-Disposition': 'attachment; filename="freightguard-test.csv"', 'Access-Control-Expose-Headers': 'Content-Disposition' } }))
 }
 
@@ -74,4 +76,17 @@ test('first run moves from guided not-ready state to dashboard', async ({ page }
   await page.getByRole('button', { name: /Run template analysis/ }).click()
   await page.getByRole('button', { name: 'Start analysis' }).click()
   await expect(page.getByRole('heading', { name: 'The freight network at a glance' })).toBeVisible()
+})
+
+test('assistant answers with a grounded citation and closes by keyboard', async ({ page }) => {
+  await mockReadyApi(page)
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Open investigation assistant' }).click()
+  await expect(page.getByRole('heading', { name: 'Investigation Assistant' })).toBeVisible()
+  await page.getByRole('button', { name: /How many anomalies/ }).click()
+  await expect(page.getByText(/20 weekly route records and 1 anomaly/)).toBeVisible()
+  await expect(page.getByText('template planner')).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Analysis summary' })).toBeDisabled()
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('heading', { name: 'Investigation Assistant' })).toBeHidden()
 })

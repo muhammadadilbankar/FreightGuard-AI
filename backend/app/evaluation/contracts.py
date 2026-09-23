@@ -71,6 +71,13 @@ def configuration_payload(settings: Settings, mode: str) -> dict[str, Any]:
             "metric_highlight_percent": settings.root_cause_metric_highlight_percent,
             "reconstruction_tolerance": settings.root_cause_reconstruction_tolerance,
         },
+        "investigation_assistant": {
+            "mode": "template",
+            "planner_version": settings.assistant_planner_version,
+            "policy_version": settings.assistant_policy_version,
+            "max_steps": settings.assistant_max_plan_steps,
+            "max_result_limit": settings.assistant_max_result_limit,
+        },
         "explanation_mode": mode,
         "prompt_version": settings.explanation_prompt_version,
         "fallback_template_version": "fg-fallback-v1",

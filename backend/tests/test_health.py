@@ -17,7 +17,7 @@ def test_default_health_response_matches_public_contract() -> None:
         "status": "ok",
         "ready": False,
         "service": "FreightGuard AI API",
-        "version": "0.10.0",
+        "version": "0.13.0",
         "run_state": "idle",
         "has_snapshot": False,
         "snapshot_id": None,

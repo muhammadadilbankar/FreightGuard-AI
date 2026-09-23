@@ -1,6 +1,6 @@
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import { endpoints } from './endpoints'
-import type { AnomalyFilters, RunRequest } from './contracts'
+import type { AnomalyFilters, AssistantRequest, RunRequest } from './contracts'
 import { queryKeys } from './queryKeys'
 
 export const useHealth = () =>
@@ -73,3 +73,6 @@ export const useMetrics = (enabled = true) =>
 
 export const useRunAnalysis = () =>
   useMutation({ mutationFn: (request: RunRequest) => endpoints.run(request) })
+
+export const useAssistant = () =>
+  useMutation({ mutationFn: (request: AssistantRequest) => endpoints.assistant(request) })

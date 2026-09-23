@@ -72,6 +72,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/assistant/query": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Query Assistant */
+        post: operations["query_investigation_assistant"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/anomalies/{route}/{week_of}/root-cause": {
         parameters: {
             query?: never;
@@ -303,6 +320,155 @@ export interface components {
             /** Run Id */
             run_id?: string | null;
         };
+        /** AssistantConversationContext */
+        AssistantConversationContext: {
+            /**
+             * Schema Version
+             * @default 1.0
+             * @constant
+             */
+            schema_version: "1.0";
+            /** Snapshot Id */
+            snapshot_id: string;
+            last_intent?: components["schemas"]["AssistantIntent"] | null;
+            /** Route */
+            route?: string | null;
+            /** Week Of */
+            week_of?: string | null;
+            /** Week From */
+            week_from?: string | null;
+            /** Week To */
+            week_to?: string | null;
+            /**
+             * Candidate Keys
+             * @default []
+             */
+            candidate_keys: string[];
+            /** Note Id */
+            note_id?: string | null;
+        };
+        /**
+         * AssistantIntent
+         * @enum {string}
+         */
+        AssistantIntent: "explain_anomaly" | "list_anomalies" | "rank_anomalies" | "route_trend" | "evidence_review" | "rejected_evidence" | "operational_leads" | "analysis_summary" | "evaluation_status" | "run_metrics" | "help" | "unsupported";
+        /**
+         * AssistantMode
+         * @enum {string}
+         */
+        AssistantMode: "template" | "replay" | "live";
+        /** AssistantRequest */
+        AssistantRequest: {
+            /** Question */
+            question: string;
+            mode?: components["schemas"]["AssistantMode"] | null;
+            context?: components["schemas"]["AssistantConversationContext"] | null;
+        };
+        /** AssistantResponseData */
+        AssistantResponseData: {
+            status: components["schemas"]["AssistantStatus"];
+            /** Title */
+            title: string;
+            /**
+             * Claims
+             * @default []
+             */
+            claims: components["schemas"]["GroundedClaim"][];
+            table?: components["schemas"]["ResultTable"] | null;
+            clarification?: components["schemas"]["ClarificationRequest"] | null;
+            /**
+             * Limitations
+             * @default []
+             */
+            limitations: string[];
+            /**
+             * Citations
+             * @default []
+             */
+            citations: components["schemas"]["Citation"][];
+            /**
+             * Actions
+             * @default []
+             */
+            actions: components["schemas"]["NavigationAction"][];
+            context: components["schemas"]["AssistantConversationContext"];
+        };
+        /** AssistantResponseEnvelope */
+        AssistantResponseEnvelope: {
+            data: components["schemas"]["AssistantResponseData"];
+            meta: components["schemas"]["AssistantResponseMeta"];
+        };
+        /** AssistantResponseMeta */
+        AssistantResponseMeta: {
+            /**
+             * Schema Version
+             * @default 1.0
+             * @constant
+             */
+            schema_version: "1.0";
+            /** Snapshot Id */
+            snapshot_id: string;
+            /**
+             * Grounded
+             * @default true
+             * @constant
+             */
+            grounded: true;
+            planner_mode: components["schemas"]["AssistantMode"];
+            /**
+             * Planner Source
+             * @enum {string}
+             */
+            planner_source: "deterministic" | "cache" | "provider" | "policy";
+            /** Planner Version */
+            planner_version: string;
+            /**
+             * Cache Hit
+             * @default false
+             */
+            cache_hit: boolean;
+            /** Latency Ms */
+            latency_ms: number;
+            /** Tool Count */
+            tool_count: number;
+            /** Result Count */
+            result_count: number;
+            /** Request Id */
+            request_id: string;
+            /**
+             * @default {
+             *       "provider_calls": 0,
+             *       "input_tokens": 0,
+             *       "output_tokens": 0
+             *     }
+             */
+            usage: components["schemas"]["AssistantUsage"];
+        };
+        /**
+         * AssistantStatus
+         * @enum {string}
+         */
+        AssistantStatus: "answered" | "needs_clarification" | "unsupported" | "failed";
+        /** AssistantUsage */
+        AssistantUsage: {
+            /**
+             * Provider Calls
+             * @default 0
+             */
+            provider_calls: number;
+            /**
+             * Input Tokens
+             * @default 0
+             */
+            input_tokens: number;
+            /**
+             * Output Tokens
+             * @default 0
+             */
+            output_tokens: number;
+            /** Estimated Cost Usd */
+            estimated_cost_usd?: number | null;
+        };
         /** CategoryContributionData */
         CategoryContributionData: {
             /** Category */
@@ -343,6 +509,52 @@ export interface components {
          * @enum {string}
          */
         CheckStatus: "pass" | "fail" | "skip";
+        /** Citation */
+        Citation: {
+            /** Citation Id */
+            citation_id: string;
+            citation_type: components["schemas"]["CitationType"];
+            /** Label */
+            label: string;
+            /** Route */
+            route?: string | null;
+            /** Week Of */
+            week_of?: string | null;
+            /** Candidate Key */
+            candidate_key?: string | null;
+            /** Note Id */
+            note_id?: string | null;
+            /** Check Id */
+            check_id?: string | null;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Navigation Target */
+            navigation_target?: string | null;
+        };
+        /**
+         * CitationType
+         * @enum {string}
+         */
+        CitationType: "anomaly" | "route_week" | "context_note" | "evidence_decision" | "root_cause" | "evaluation_check" | "run_metrics" | "analysis_summary";
+        /** ClarificationOption */
+        ClarificationOption: {
+            /** Option Id */
+            option_id: string;
+            /** Label */
+            label: string;
+            /** Value */
+            value: string;
+        };
+        /** ClarificationRequest */
+        ClarificationRequest: {
+            /** Question */
+            question: string;
+            /**
+             * Options
+             * @default []
+             */
+            options: components["schemas"]["ClarificationOption"][];
+        };
         /** DataEnvelope[AnalysisSummaryData] */
         DataEnvelope_AnalysisSummaryData_: {
             data: components["schemas"]["AnalysisSummaryData"];
@@ -619,6 +831,15 @@ export interface components {
             /** Byte Size */
             byte_size: number;
         };
+        /** GroundedClaim */
+        GroundedClaim: {
+            /** Claim Id */
+            claim_id: string;
+            /** Text */
+            text: string;
+            /** Citation Ids */
+            citation_ids: string[];
+        };
         /** HealthResponse */
         HealthResponse: {
             /**
@@ -674,6 +895,20 @@ export interface components {
             highlighted: boolean;
             /** Interpretation */
             interpretation: string;
+        };
+        /** NavigationAction */
+        NavigationAction: {
+            /** Label */
+            label: string;
+            /**
+             * Action
+             * @enum {string}
+             */
+            action: "open_anomaly" | "open_route_timeline" | "open_evidence" | "open_root_cause" | "apply_anomaly_filters" | "open_evaluation";
+            /** Params */
+            params: {
+                [key: string]: string;
+            };
         };
         /** NumericTolerance */
         NumericTolerance: {
@@ -762,6 +997,17 @@ export interface components {
             /** Snapshot Id */
             snapshot_id?: string | null;
             pagination?: components["schemas"]["PaginationMeta"] | null;
+        };
+        /** ResultTable */
+        ResultTable: {
+            /** Caption */
+            caption: string;
+            /** Columns */
+            columns: components["schemas"]["TableColumn"][];
+            /** Rows */
+            rows: unknown[][];
+            /** Citation Column Index */
+            citation_column_index?: number | null;
         };
         /** RootCauseData */
         RootCauseData: {
@@ -916,6 +1162,13 @@ export interface components {
          * @enum {string}
          */
         SupportLevel: "strong" | "moderate" | "limited" | "transition_only" | "unavailable";
+        /** TableColumn */
+        TableColumn: {
+            /** Key */
+            key: string;
+            /** Label */
+            label: string;
+        };
         /** TimelinePointData */
         TimelinePointData: {
             /**
@@ -1123,6 +1376,75 @@ export interface operations {
                 content: {
                     "application/json": unknown;
                     "text/csv": unknown;
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Run already in progress */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Invalid request */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Run failed */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Analysis unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    query_investigation_assistant: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssistantRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssistantResponseEnvelope"];
                 };
             };
             /** @description Not found */

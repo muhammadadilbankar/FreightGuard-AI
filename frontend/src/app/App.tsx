@@ -11,6 +11,7 @@ import { Card } from '../components/ui/Card'
 import { ErrorState } from '../components/ui/ErrorState'
 import { config } from '../config'
 import { RunAnalysisDialog } from '../features/analysis-run/RunAnalysisDialog'
+import { InvestigationAssistant } from '../features/assistant/InvestigationAssistant'
 import { downloadBlob } from '../lib/download'
 import { Dashboard } from './Dashboard'
 
@@ -22,6 +23,7 @@ export function App() {
   const [exporting, setExporting] = useState(false)
   const [notice, setNotice] = useState<string>()
   const [actionError, setActionError] = useState<unknown>()
+  const [assistantOpen, setAssistantOpen] = useState(false)
 
   const startRun = () => {
     setActionError(undefined)
@@ -59,7 +61,7 @@ export function App() {
   if (health.error) return <div className="shell"><main className="not-ready container"><ErrorState error={health.error} onRetry={() => void health.refetch()} title="FreightGuard API is unreachable" /></main></div>
 
   const hasOldSnapshot = Boolean(health.data?.ready)
-  return <div className="shell"><a className="skip-link" href="#main-content">Skip to investigation dashboard</a><AppHeader health={health.data} running={run.isPending} exporting={exporting} onRun={() => setDialogOpen(true)} onExport={() => void exportCsv()} />
+  return <div className="shell"><a className="skip-link" href="#main-content">Skip to investigation dashboard</a><AppHeader health={health.data} running={run.isPending} exporting={exporting} onRun={() => setDialogOpen(true)} onExport={() => void exportCsv()} onAssistant={() => setAssistantOpen(true)} />
     <main id="main-content">
       {run.isPending && <div className="container banner" role="status"><LoaderCircle aria-hidden="true" /> <div><strong>Running analytics and validation gates.</strong><br /><small>{hasOldSnapshot ? 'The previous validated snapshot remains available while this run completes.' : 'The first snapshot will appear only after every gate passes.'}</small></div></div>}
       {notice && <div className="container banner" role="status"><CheckCircle2 aria-hidden="true" />{notice}<Button variant="ghost" onClick={() => setNotice(undefined)}>Dismiss</Button></div>}
@@ -67,6 +69,7 @@ export function App() {
       {!health.data?.ready ? <NotReady onRun={() => setDialogOpen(true)} running={run.isPending} /> : <Dashboard onRun={() => setDialogOpen(true)} />}
     </main>
     <RunAnalysisDialog open={dialogOpen} onOpenChange={setDialogOpen} onConfirm={startRun} running={run.isPending} />
+    <InvestigationAssistant open={assistantOpen} onOpenChange={setAssistantOpen} snapshotId={health.data?.snapshot_id ?? undefined} />
   </div>
 }
 

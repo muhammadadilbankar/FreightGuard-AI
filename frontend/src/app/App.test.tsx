@@ -43,4 +43,15 @@ describe('FreightGuard dashboard', () => {
     const result = await axe.run(container)
     expect(result.violations.filter((item) => ['critical', 'serious'].includes(item.impact ?? ''))).toEqual([])
   })
+
+  it('opens the grounded investigation assistant and renders a cited answer', async () => {
+    renderApp(<App />)
+    await screen.findByRole('heading', { name: /freight network at a glance/i })
+    await userEvent.click(screen.getByRole('button', { name: /open investigation assistant/i }))
+    expect(await screen.findByRole('heading', { name: /investigation assistant/i })).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: /how many anomalies/i }))
+    expect(await screen.findByText(/20 weekly route records and 1 anomaly/i)).toBeInTheDocument()
+    expect(screen.getByText(/template planner/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /analysis summary/i })).toBeDisabled()
+  })
 })

@@ -11,6 +11,8 @@ import type {
   RootCauseEnvelope,
   SummaryEnvelope,
   TimelineEnvelope,
+  AssistantRequest,
+  AssistantResponse,
 } from '../contracts'
 
 const set = (params: URLSearchParams, key: string, value: string | number | undefined) => {
@@ -82,5 +84,7 @@ export const endpoints = {
     apiClient.get<MetricsEnvelope>('/api/run-metrics', undefined, signal),
   run: (body: RunRequest, signal?: AbortSignal) =>
     apiClient.post<RunEnvelope>('/api/analysis/run', body, signal),
+  assistant: (body: AssistantRequest, signal?: AbortSignal) =>
+    apiClient.post<AssistantResponse>('/api/assistant/query', body, signal),
   exportCsv: (signal?: AbortSignal) => apiClient.blob('/api/analysis/export.csv', signal),
 }

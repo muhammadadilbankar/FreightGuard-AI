@@ -53,8 +53,11 @@ OpenAPI types can be refreshed while the API is running with `npm run api:types`
   anomalies, and Verdict. Operational Leads load lazily and remain separate from
   accepted evidence.
 - Evaluation/run diagnostics and byte-preserving CSV download.
+- A read-only Investigation Assistant with deterministic offline planning,
+  explicit clarification, structured answers, and snapshot-bound citations that
+  navigate back into the dashboard.
 - Snapshot-ID guard that invalidates all snapshot query families once and refuses
   to combine resources if they still disagree.
 
-The dashboard is intentionally read-only. Phase 13 assistant behavior,
-authentication, uploads, and verdict overrides are not included.
+The dashboard and assistant are intentionally read-only. Authentication, uploads,
+predictions, external research, and verdict overrides are not included.

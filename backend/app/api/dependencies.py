@@ -6,6 +6,7 @@ from ..application.analysis_service import AnalysisService
 from ..core.config import Settings
 from ..state.run_coordinator import RunCoordinator
 from ..state.snapshot_store import SnapshotStore
+from ..services.assistant import InvestigationAssistantService
 
 
 def get_settings(request: Request) -> Settings:
@@ -22,3 +23,7 @@ def get_run_coordinator(request: Request) -> RunCoordinator:
 
 def get_analysis_service(request: Request) -> AnalysisService:
     return request.app.state.analysis_service
+
+
+def get_assistant_service(request: Request) -> InvestigationAssistantService:
+    return request.app.state.assistant_service

@@ -51,3 +51,19 @@ class ExportNotAvailableError(ApplicationError):
 
 class InvalidQueryError(ApplicationError):
     code = "request_validation_failed"
+
+
+class UnsupportedAssistantModeError(ApplicationError):
+    code = "unsupported_assistant_mode"
+
+
+class AssistantPlannerUnavailableError(ApplicationError):
+    code = "assistant_planner_unavailable"
+
+
+class AssistantExecutionError(ApplicationError):
+    code = "assistant_execution_failed"
+
+
+class AssistantGroundingError(ApplicationError):
+    code = "assistant_grounding_failed"
