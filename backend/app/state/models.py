@@ -25,7 +25,26 @@ class RunState(str, Enum):
 class EvidenceSummary:
     note_id: str
     evidence_level: str
+    role: str
     rejection_codes: tuple[str, ...]
+    original_text: str
+    scope_type: str
+    applies_to_routes: tuple[str, ...]
+    effective_from: date
+    effective_to: date | None
+    event_type: str
+    impact_direction: str
+    affects_transport_cost: bool | None
+    magnitude_text: str | None
+    gate_results: tuple["EvidenceGateResult", ...]
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceGateResult:
+    gate: str
+    status: str
+    reason_code: str | None
+    reason: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -39,6 +58,8 @@ class AnomalyView:
     peer_baseline: float | None
     vs_own_history_pct: float
     vs_similar_routes_pct: float | None
+    history_weeks_used: int
+    peer_routes_used: int
     own_threshold_breached: bool
     peer_threshold_breached: bool
     trigger: str
@@ -46,6 +67,7 @@ class AnomalyView:
     flagged: str
     matched_note_id: str | None
     supporting_note_ids: tuple[str, ...]
+    decision_code: str
     reason: str
     evidence: tuple[EvidenceSummary, ...]
     explanation_source: str

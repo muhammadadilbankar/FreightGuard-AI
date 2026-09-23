@@ -6,7 +6,7 @@ evidence so every result is reproducible and auditable.
 
 ## Status
 
-Phase 10 (FastAPI service layer) is implemented. The repository provides a typed,
+Phase 11 (React investigation dashboard) is implemented. The repository provides a typed,
 single-worker API over strict CSV ingestion, deterministic weekly
 route metrics, leak-free own-history and self-excluding peer baselines, full-
 precision percentage comparisons, configurable candidate detection, and an exact
@@ -15,8 +15,9 @@ versioned evidence claims, discovers candidate evidence with local hybrid retrie
 and applies deterministic validity gates before producing reviewed decisions. A
 provider-independent wording layer now produces strictly validated explanations or
 safe deterministic fallbacks without changing any canonical decision. Formal
-three-run evaluation gates atomic publication of immutable API snapshots. The
-React dashboard belongs to the next phase and is not implemented yet.
+three-run evaluation gates atomic publication of immutable API snapshots. The React
+dashboard consumes that contract without recomputing canonical values, guards against
+mixed snapshots, and provides a responsive, accessible investigation workflow.
 
 The unchanged challenge CSV files are stored in `backend/data/input/`. Their
 recorded byte sizes and SHA-256 hashes are documented in
@@ -26,6 +27,7 @@ recorded byte sizes and SHA-256 hashes are documented in
 
 - Python 3.11 or newer
 - `pip`
+- Node.js 20.19 or newer and `npm` for the Phase 11 dashboard
 
 ## Setup
 
@@ -70,6 +72,18 @@ python -m backend.scripts.generate_final_submission
 python -m backend.scripts.evaluate_pipeline
 python -m backend.scripts.run_api
 ```
+
+In a second terminal, start the dashboard:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The API defaults to <http://127.0.0.1:8000> and the Vite development UI to
+<http://127.0.0.1:5173>. See `frontend/README.md` for frontend verification and
+environment configuration.
 
 The validation command reads the three files under `backend/data/input/`, reports
 one deterministic summary per dataset, and writes nothing. A successful run ends
@@ -306,5 +320,5 @@ backend/data/output/  Generated artifacts from future phases
 backend/scripts/      Local validation commands
 backend/tests/        Backend tests
 docs/                 Product specification, roadmap, and decision log
-frontend/             Placeholder for the later dashboard phase
+frontend/             React investigation dashboard, tests, and generated API types
 ```

@@ -13,7 +13,11 @@ backend/data/models/*
 !backend/data/models/.gitkeep
 node_modules/
 dist/
+coverage/
+playwright-report/
+test-results/
 .DS_Store
 Thumbs.db
-# Internal AI implementation plans
+# Internal AI implementation documents
+FREIGHTGUARD_MASTER_IMPLEMENTATION_ROADMAP.md
 FREIGHTGUARD_PHASE_*_PLAN.md

@@ -56,6 +56,17 @@ def test_snapshot_endpoints_pagination_timeline_export_and_etag(
         "has_more": False,
     }
     assert detail.json()["data"]["candidate_key"] == "R1|2024-01-08"
+    assert detail.json()["data"]["history_weeks_used"] == 8
+    assert detail.json()["data"]["peer_routes_used"] == 2
+    assert detail.json()["data"]["decision_code"] == "justified"
+    evidence = detail.json()["data"]["evidence"][0]
+    assert evidence["original_text"] == "Fuel rates increased for this route."
+    assert evidence["gate_results"][0] == {
+        "gate": "route",
+        "status": "pass",
+        "reason_code": None,
+        "reason": "The deterministic Evidence Gate passed this check.",
+    }
     assert timeline.json()["data"]["points"][0]["candidate"] is True
     assert summary.json()["data"]["candidate_count"] == 1
     assert metrics.json()["data"]["latest_attempt"]["state"] == "idle"

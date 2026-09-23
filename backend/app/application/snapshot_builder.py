@@ -12,13 +12,14 @@ from types import MappingProxyType
 import pandas as pd
 
 from ..domain.evaluation import ArtifactFingerprint
-from ..domain.evidence import EvidenceVerdict
+from ..domain.evidence import EvidenceAssessment, EvidenceVerdict
 from ..evaluation.contracts import fingerprint_file
 from ..state.errors import AnalysisRunFailedError
 from ..state.models import (
     AnalysisSnapshot,
     AnalysisSummary,
     AnomalyView,
+    EvidenceGateResult,
     EvidenceSummary,
     RunMetricsView,
     TimelinePoint,
@@ -43,6 +44,7 @@ def build_snapshot(
         (row["route"], pd.Timestamp(row["week_of"]).date()): row
         for row in result.final_output.to_dict(orient="records")
     }
+    notes_by_id = {note.note_id: note for note in result.notes}
     anomalies = []
     timelines: dict[str, list[TimelinePoint]] = defaultdict(list)
     for row in result.candidate_metrics.itertuples(index=False):
@@ -90,6 +92,8 @@ def build_snapshot(
                 peer_baseline=_optional(row.similar_routes_avg_cost_per_tonne_km),
                 vs_own_history_pct=_finite(row.vs_own_history_pct),
                 vs_similar_routes_pct=_optional(row.vs_similar_routes_pct),
+                history_weeks_used=int(row.history_weeks_used),
+                peer_routes_used=int(row.peer_routes_used),
                 own_threshold_breached=bool(row.own_threshold_breached),
                 peer_threshold_breached=bool(row.peer_threshold_breached),
                 trigger=trigger,
@@ -97,14 +101,34 @@ def build_snapshot(
                 flagged=str(final_row["flagged"]),
                 matched_note_id=decision.selected_note_id,
                 supporting_note_ids=decision.supporting_note_ids,
+                decision_code=decision.reason_template_key.value,
                 reason=record.reason,
                 evidence=tuple(
                     EvidenceSummary(
                         note_id=item.note_id,
                         evidence_level=item.evidence_level.value,
+                        role=(
+                            "primary"
+                            if item.note_id == decision.selected_note_id
+                            else "supporting"
+                            if item.note_id in decision.supporting_note_ids
+                            else "rejected"
+                        ),
                         rejection_codes=tuple(
                             code.value for code in item.rejection_codes
                         ),
+                        original_text=notes_by_id[item.note_id].original_text,
+                        scope_type=notes_by_id[item.note_id].scope_type.value,
+                        applies_to_routes=notes_by_id[item.note_id].applies_to_routes,
+                        effective_from=notes_by_id[item.note_id].effective_from,
+                        effective_to=notes_by_id[item.note_id].effective_to,
+                        event_type=notes_by_id[item.note_id].event_type.value,
+                        impact_direction=notes_by_id[item.note_id].impact_direction.value,
+                        affects_transport_cost=notes_by_id[
+                            item.note_id
+                        ].affects_transport_cost,
+                        magnitude_text=notes_by_id[item.note_id].magnitude_text,
+                        gate_results=_gate_results(item),
                     )
                     for item in audit.assessments
                 ),
@@ -243,3 +267,50 @@ def _finite(value: object) -> float:
     if not math.isfinite(number):
         raise AnalysisRunFailedError("Snapshot contains a non-finite number.")
     return number
+
+
+def _gate_results(
+    assessment: EvidenceAssessment,
+) -> tuple[EvidenceGateResult, ...]:
+    """Project existing deterministic checks into UI-safe audit statements."""
+    rejection_codes = {code.value for code in assessment.rejection_codes}
+    definitions = (
+        ("route", assessment.route_check, ("route_mismatch",)),
+        ("date", assessment.date_check, ("date_no_overlap",)),
+        (
+            "direction",
+            assessment.direction_check,
+            ("impact_direction_not_increase",),
+        ),
+        (
+            "cost_impact",
+            assessment.cost_impact_check,
+            ("cost_impact_not_positive", "cost_increase_negated"),
+        ),
+        (
+            "scope",
+            assessment.scope_check,
+            (
+                "scope_outside_dataset",
+                "scope_unresolved",
+                "global_scope_cannot_explain_peer_premium",
+                "global_magnitude_insufficient",
+            ),
+        ),
+    )
+    labels = {
+        "pass": "The deterministic Evidence Gate passed this check.",
+        "fail": "The deterministic Evidence Gate rejected this check.",
+        "not_applicable": "This check was not applicable.",
+    }
+    return tuple(
+        EvidenceGateResult(
+            gate=gate,
+            status=status.value,
+            reason_code=next(
+                (code for code in codes if code in rejection_codes), None
+            ),
+            reason=labels[status.value],
+        )
+        for gate, status, codes in definitions
+    )

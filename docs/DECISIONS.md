@@ -504,3 +504,36 @@
 - **Status:** Accepted
 - **Decision:** Store the trusted CSV path and hash in the snapshot, recheck integrity on download, and support SHA-256 ETags.
 - **Consequences:** Export never reconstructs or rounds canonical rows in an API route.
+
+## ADR-064: Generate frontend contracts from OpenAPI
+
+- **Status:** Accepted
+- **Decision:** Generate TypeScript schema types from the running Phase 10 OpenAPI
+  document and keep all HTTP access behind one typed transport layer.
+- **Consequences:** Contract drift is reviewable and feature components do not invent
+  response shapes.
+
+## ADR-065: Keep canonical analysis out of the browser
+
+- **Status:** Accepted
+- **Decision:** Render backend-provided baselines, deviations, evidence gates,
+  verdicts, evaluation results, and export bytes without browser-side recomputation.
+- **Consequences:** Presentation changes cannot silently create a second decision
+  engine.
+
+## ADR-066: Refuse mixed analysis snapshots
+
+- **Status:** Accepted
+- **Decision:** Use the summary snapshot as the reference, invalidate all snapshot
+  query families once on disagreement, and show a blocking error if they do not
+  converge.
+- **Consequences:** A dashboard never combines old and new run values into an
+  apparently coherent investigation.
+
+## ADR-067: Store investigation state in the URL
+
+- **Status:** Accepted
+- **Decision:** Keep filters, sorting, pagination, and the selected route-week in
+  validated query parameters while TanStack Query owns remote server state.
+- **Consequences:** Investigations are shareable and reload-safe without persisting
+  canonical data in browser storage.
