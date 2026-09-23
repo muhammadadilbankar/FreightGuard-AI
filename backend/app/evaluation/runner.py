@@ -12,7 +12,7 @@ from ..domain.evaluation import (
     EvaluationMetric,
     derive_status,
 )
-from ..domain.evidence import EvidencePolicy, RetrievalConfig
+from ..domain.evidence import EvidencePolicy, EvidenceVerdict, RetrievalConfig
 from ..domain.explanations import ExplanationSettings, GenerationMode
 from ..services.analytics import (
     add_comparison_baselines,
@@ -30,6 +30,7 @@ from ..services.explanations.providers import (
 from ..services.ingestion import load_input_bundle
 from ..services.reporting import build_evidence_reviewed_output, build_final_submission
 from ..services.retrieval import SentenceTransformerEmbeddingProvider
+from ..services.root_cause import RootCausePolicy, analyze_operational_root_causes
 from .candidates import evaluate_candidates
 from .compilation import evaluate_compilation
 from .contracts import check, configuration_fingerprint, environment_fingerprint
@@ -48,6 +49,7 @@ from .registry import normalize_registry
 from .reporting import write_reports
 from .reproducibility import run_reproducibility
 from .retrieval import evaluate_retrieval
+from .root_cause import evaluate_root_causes
 
 FIXTURE_ROOT = PROJECT_ROOT / "backend" / "tests" / "fixtures" / "evaluation"
 
@@ -104,6 +106,20 @@ def run_evaluation(
         ),
     )
     decisions = tuple(packet.decision for packet in evidence.packets)
+    root_causes = analyze_operational_root_causes(
+        bundle.shipments,
+        candidates,
+        decisions,
+        RootCausePolicy(
+            min_current_category_shipments=settings.root_cause_min_current_category_shipments,
+            min_reference_category_shipments=settings.root_cause_min_reference_category_shipments,
+            min_lead_abs_effect=settings.root_cause_min_lead_abs_effect,
+            min_lead_abs_share_pct=settings.root_cause_min_lead_abs_share_pct,
+            max_leads_per_lens=settings.root_cause_max_leads_per_lens,
+            metric_highlight_percent=settings.root_cause_metric_highlight_percent,
+            reconstruction_tolerance=settings.root_cause_reconstruction_tolerance,
+        ),
+    )
     reviewed = build_evidence_reviewed_output(
         candidates, decisions, bundle.output_columns
     )
@@ -210,6 +226,15 @@ def run_evaluation(
     metrics.extend(section_metrics)
     section_checks, section_metrics = evaluate_explanations(
         evidence.packets, records, settings.explanation_prompt_version
+    )
+    checks.extend(section_checks)
+    metrics.extend(section_metrics)
+    section_checks, section_metrics = evaluate_root_causes(
+        root_causes,
+        expected_eligible=sum(
+            decision.verdict == EvidenceVerdict.UNEXPLAINED for decision in decisions
+        ),
+        tolerance=settings.root_cause_reconstruction_tolerance,
     )
     checks.extend(section_checks)
     metrics.extend(section_metrics)

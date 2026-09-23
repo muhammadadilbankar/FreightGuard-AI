@@ -55,6 +55,7 @@ class AnomalyData(WireModel):
     evidence: tuple[EvidenceSummaryData, ...]
     explanation_source: str
     fallback_used: bool
+    operational_root_cause_available: bool
 
 
 class AnomalyListData(WireModel):

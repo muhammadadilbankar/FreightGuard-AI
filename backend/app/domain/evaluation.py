@@ -23,6 +23,7 @@ class EvaluationDomain(str, Enum):
     RETRIEVAL_QUALITY = "retrieval_quality"
     EVIDENCE_GATE = "evidence_gate"
     EXPLANATION_GROUNDING = "explanation_grounding"
+    OPERATIONAL_ROOT_CAUSE = "operational_root_cause"
     OUTPUT_CONTRACT = "output_contract"
     METAMORPHIC_INVARIANTS = "metamorphic_invariants"
     REPRODUCIBILITY = "reproducibility"
@@ -134,7 +135,7 @@ class ReproducibilityResult(BaseModel):
 
 class EvaluationReport(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
-    schema_version: Literal["1.0"] = "1.0"
+    schema_version: Literal["1.0", "1.1"] = "1.1"
     overall_status: Literal["pass", "fail"]
     evaluation_mode: str
     run_count: int

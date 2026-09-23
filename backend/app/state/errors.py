@@ -25,6 +25,18 @@ class AnomalyNotFoundError(ApplicationError):
     code = "anomaly_not_found"
 
 
+class RootCauseNotApplicableError(ApplicationError):
+    code = "root_cause_not_applicable"
+
+
+class RootCauseUnavailableError(ApplicationError):
+    code = "root_cause_unavailable"
+
+
+class RootCauseInvariantError(ApplicationError):
+    code = "root_cause_invariant_failed"
+
+
 class RouteNotFoundError(ApplicationError):
     code = "route_not_found"
 

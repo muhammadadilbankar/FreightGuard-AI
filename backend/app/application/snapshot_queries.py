@@ -5,7 +5,15 @@ from __future__ import annotations
 from datetime import date
 
 from ..domain.evidence import EvidenceVerdict
-from ..state.errors import AnomalyNotFoundError, InvalidQueryError, RouteNotFoundError
+from ..domain.root_cause import RootCauseAnalysis
+from ..state.errors import (
+    AnomalyNotFoundError,
+    InvalidQueryError,
+    RootCauseNotApplicableError,
+    RootCauseInvariantError,
+    RootCauseUnavailableError,
+    RouteNotFoundError,
+)
 from ..state.models import AnalysisSnapshot, AnomalyView, TimelinePoint
 
 SORT_FIELDS = {
@@ -91,6 +99,26 @@ def get_anomaly(snapshot: AnalysisSnapshot, route: str, week_of: date) -> Anomal
     if match is None:
         raise AnomalyNotFoundError("No anomaly exists for that route and week.")
     return match
+
+
+def get_root_cause(
+    snapshot: AnalysisSnapshot, route: str, week_of: date
+) -> RootCauseAnalysis:
+    anomaly = get_anomaly(snapshot, route, week_of)
+    if anomaly.verdict != EvidenceVerdict.UNEXPLAINED:
+        raise RootCauseNotApplicableError(
+            "Operational root-cause analysis applies only to unexplained anomalies."
+        )
+    if not anomaly.operational_root_cause_available:
+        raise RootCauseUnavailableError(
+            "Operational root-cause analysis is unavailable for this anomaly."
+        )
+    result = snapshot.root_causes.get(anomaly.candidate_key)
+    if result is None:
+        raise RootCauseInvariantError(
+            "The published root-cause snapshot is internally inconsistent."
+        )
+    return result
 
 
 def get_timeline(snapshot: AnalysisSnapshot, route: str) -> tuple[TimelinePoint, ...]:

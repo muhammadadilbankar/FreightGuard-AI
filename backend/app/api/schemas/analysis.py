@@ -54,6 +54,7 @@ class AnalysisSummaryData(WireModel):
     explanation_mode: str
     evaluation_status: str
     final_csv_sha256: str
+    operational_root_causes_available: int
     run_state: RunState
 
 

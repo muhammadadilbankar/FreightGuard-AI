@@ -12,6 +12,7 @@ from typing import Mapping
 
 from ..domain.evaluation import ArtifactFingerprint, EvaluationReport, FileFingerprint
 from ..domain.evidence import EvidenceVerdict
+from ..domain.root_cause import RootCauseAnalysis
 
 
 class RunState(str, Enum):
@@ -72,6 +73,7 @@ class AnomalyView:
     evidence: tuple[EvidenceSummary, ...]
     explanation_source: str
     fallback_used: bool
+    operational_root_cause_available: bool
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,6 +107,7 @@ class AnalysisSummary:
     explanation_mode: str
     evaluation_status: str
     final_csv_sha256: str
+    operational_root_causes_available: int
 
 
 @dataclass(frozen=True, slots=True)
@@ -133,6 +136,8 @@ class AnalysisSnapshot:
     summary: AnalysisSummary
     anomalies: tuple[AnomalyView, ...]
     route_timelines: Mapping[str, tuple[TimelinePoint, ...]]
+    root_causes: Mapping[str, RootCauseAnalysis]
+    root_cause_artifact_sha256: str | None
     evaluation: EvaluationReport | None
     evaluation_report_sha256: str | None
     run_metrics: RunMetricsView
@@ -143,6 +148,12 @@ class AnalysisSnapshot:
     def freeze_timelines(
         value: Mapping[str, tuple[TimelinePoint, ...]],
     ) -> Mapping[str, tuple[TimelinePoint, ...]]:
+        return MappingProxyType(dict(sorted(value.items())))
+
+    @staticmethod
+    def freeze_root_causes(
+        value: Mapping[str, RootCauseAnalysis],
+    ) -> Mapping[str, RootCauseAnalysis]:
         return MappingProxyType(dict(sorted(value.items())))
 
 

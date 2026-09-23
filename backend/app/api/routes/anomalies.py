@@ -16,9 +16,16 @@ from ..schemas import (
     ResponseMeta,
     RouteTimelineData,
     RouteTimelineResponse,
+    RootCauseData,
+    RootCauseResponse,
     TimelinePointData,
 )
-from ...application.snapshot_queries import get_anomaly, get_timeline, list_anomalies
+from ...application.snapshot_queries import (
+    get_anomaly,
+    get_root_cause,
+    get_timeline,
+    list_anomalies,
+)
 from ...core.config import Settings
 from ...domain.evidence import EvidenceVerdict
 from ...state.errors import InvalidQueryError
@@ -26,6 +33,26 @@ from ...state.snapshot_store import SnapshotStore
 from .common import ERROR_RESPONSES, validate_monday, validate_weeks
 
 router = APIRouter(tags=["anomalies"])
+
+
+@router.get(
+    "/anomalies/{route}/{week_of}/root-cause",
+    response_model=RootCauseResponse,
+    responses=ERROR_RESPONSES,
+    operation_id="get_anomaly_root_cause",
+)
+def anomaly_root_cause(
+    route: str,
+    week_of: date,
+    store: Annotated[SnapshotStore, Depends(get_snapshot_store)],
+) -> RootCauseResponse:
+    validate_monday(week_of)
+    snapshot = store.require()
+    result = get_root_cause(snapshot, route, week_of)
+    return DataEnvelope(
+        data=RootCauseData.model_validate(result),
+        meta=ResponseMeta(snapshot_id=snapshot.snapshot_id),
+    )
 
 
 @router.get("/anomalies", response_model=AnomalyListResponse, responses=ERROR_RESPONSES, operation_id="list_anomalies")

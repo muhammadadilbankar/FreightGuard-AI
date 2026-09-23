@@ -72,6 +72,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/anomalies/{route}/{week_of}/root-cause": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Anomaly Root Cause */
+        get: operations["get_anomaly_root_cause"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/anomalies": {
         parameters: {
             query?: never;
@@ -197,6 +214,8 @@ export interface components {
             evaluation_status: string;
             /** Final Csv Sha256 */
             final_csv_sha256: string;
+            /** Operational Root Causes Available */
+            operational_root_causes_available: number;
             run_state: components["schemas"]["RunState"];
         };
         /** AnomalyData */
@@ -252,6 +271,8 @@ export interface components {
             explanation_source: string;
             /** Fallback Used */
             fallback_used: boolean;
+            /** Operational Root Cause Available */
+            operational_root_cause_available: boolean;
         };
         /** AnomalyListData */
         AnomalyListData: {
@@ -282,6 +303,41 @@ export interface components {
             /** Run Id */
             run_id?: string | null;
         };
+        /** CategoryContributionData */
+        CategoryContributionData: {
+            /** Category */
+            category: string;
+            /** Current Shipment Count */
+            current_shipment_count: number;
+            /** Reference Shipment Count */
+            reference_shipment_count: number;
+            /** Reference Weeks Present */
+            reference_weeks_present: number;
+            /** Current Tonne Km Share */
+            current_tonne_km_share: number | null;
+            /** Reference Mean Tonne Km Share */
+            reference_mean_tonne_km_share: number | null;
+            /** Current Cost Per Tonne Km */
+            current_cost_per_tonne_km: number | null;
+            /** Reference Mean Cost Per Tonne Km */
+            reference_mean_cost_per_tonne_km: number | null;
+            /** Mix Effect */
+            mix_effect: number;
+            /** Rate Effect */
+            rate_effect: number;
+            /** Entry Effect */
+            entry_effect: number;
+            /** Exit Effect */
+            exit_effect: number;
+            /** Net Contribution */
+            net_contribution: number;
+            /** Absolute Effect Share Pct */
+            absolute_effect_share_pct: number | null;
+            direction: components["schemas"]["EffectDirection"];
+            support_level: components["schemas"]["SupportLevel"];
+            /** Caveats */
+            caveats: string[];
+        };
         /**
          * CheckStatus
          * @enum {string}
@@ -307,6 +363,11 @@ export interface components {
             data: components["schemas"]["EvaluationReportData"];
             meta: components["schemas"]["ResponseMeta"];
         };
+        /** DataEnvelope[RootCauseData] */
+        DataEnvelope_RootCauseData_: {
+            data: components["schemas"]["RootCauseData"];
+            meta: components["schemas"]["ResponseMeta"];
+        };
         /** DataEnvelope[RouteTimelineData] */
         DataEnvelope_RouteTimelineData_: {
             data: components["schemas"]["RouteTimelineData"];
@@ -322,6 +383,31 @@ export interface components {
             data: components["schemas"]["RunMetricsData"];
             meta: components["schemas"]["ResponseMeta"];
         };
+        /** DecompositionLensData */
+        DecompositionLensData: {
+            /**
+             * Lens
+             * @enum {string}
+             */
+            lens: "transporter" | "material";
+            /** Target Gap */
+            target_gap: number;
+            /** Reconstructed Gap */
+            reconstructed_gap: number;
+            /** Reconstruction Error */
+            reconstruction_error: number;
+            /** Contributions */
+            contributions: components["schemas"]["CategoryContributionData"][];
+            /** Leads */
+            leads: components["schemas"]["OperationalLeadData"][];
+            /** Offsets */
+            offsets: components["schemas"]["OperationalLeadData"][];
+        };
+        /**
+         * EffectDirection
+         * @enum {string}
+         */
+        EffectDirection: "increases_gap" | "offsets_gap" | "neutral";
         /** EnvironmentFingerprint */
         EnvironmentFingerprint: {
             /** Python */
@@ -402,7 +488,7 @@ export interface components {
          * EvaluationDomain
          * @enum {string}
          */
-        EvaluationDomain: "input_integrity" | "weekly_analytics" | "baseline_correctness" | "candidate_detection" | "context_compilation" | "retrieval_quality" | "evidence_gate" | "explanation_grounding" | "output_contract" | "metamorphic_invariants" | "reproducibility";
+        EvaluationDomain: "input_integrity" | "weekly_analytics" | "baseline_correctness" | "candidate_detection" | "context_compilation" | "retrieval_quality" | "evidence_gate" | "explanation_grounding" | "operational_root_cause" | "output_contract" | "metamorphic_invariants" | "reproducibility";
         /** EvaluationMetric */
         EvaluationMetric: {
             /** Metric Id */
@@ -433,10 +519,10 @@ export interface components {
         EvaluationReport: {
             /**
              * Schema Version
-             * @default 1.0
-             * @constant
+             * @default 1.1
+             * @enum {string}
              */
-            schema_version: "1.0";
+            schema_version: "1.0" | "1.1";
             /**
              * Overall Status
              * @enum {string}
@@ -571,6 +657,24 @@ export interface components {
             /** Previous Snapshot Available */
             previous_snapshot_available: boolean;
         };
+        /** MetricComparisonData */
+        MetricComparisonData: {
+            metric: components["schemas"]["OperationalMetric"];
+            /** Unit */
+            unit: string;
+            /** Current Value */
+            current_value: number;
+            /** Reference Mean */
+            reference_mean: number;
+            /** Absolute Change */
+            absolute_change: number;
+            /** Percentage Change */
+            percentage_change: number | null;
+            /** Highlighted */
+            highlighted: boolean;
+            /** Interpretation */
+            interpretation: string;
+        };
         /** NumericTolerance */
         NumericTolerance: {
             /** Relative */
@@ -578,6 +682,21 @@ export interface components {
             /** Absolute */
             absolute: number;
         };
+        /** OperationalLeadData */
+        OperationalLeadData: {
+            /** Category */
+            category: string;
+            /** Effect */
+            effect: number;
+            support_level: components["schemas"]["SupportLevel"];
+            /** Narrative */
+            narrative: string;
+        };
+        /**
+         * OperationalMetric
+         * @enum {string}
+         */
+        OperationalMetric: "shipment_count" | "average_load_tonnes" | "weighted_average_distance_km" | "total_quantity_tonnes" | "total_tonne_km" | "freight_cost_per_shipment" | "shipments_per_100_tonnes";
         /** PaginationMeta */
         PaginationMeta: {
             /** Total */
@@ -643,6 +762,52 @@ export interface components {
             /** Snapshot Id */
             snapshot_id?: string | null;
             pagination?: components["schemas"]["PaginationMeta"] | null;
+        };
+        /** RootCauseData */
+        RootCauseData: {
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: "1.0";
+            /** Candidate Key */
+            candidate_key: string;
+            /** Route */
+            route: string;
+            /** Route Type */
+            route_type: string;
+            /**
+             * Week Of
+             * Format: date
+             */
+            week_of: string;
+            /**
+             * Canonical Verdict
+             * @constant
+             */
+            canonical_verdict: "unexplained";
+            /**
+             * Availability
+             * @constant
+             */
+            availability: "available";
+            /** Reference Weeks */
+            reference_weeks: string[];
+            /** Reference Week Count */
+            reference_week_count: number;
+            support_level: components["schemas"]["SupportLevel"];
+            /** Current Cost Per Tonne Km */
+            current_cost_per_tonne_km: number;
+            /** Own History Baseline */
+            own_history_baseline: number;
+            /** Target Gap */
+            target_gap: number;
+            transporter: components["schemas"]["DecompositionLensData"];
+            material: components["schemas"]["DecompositionLensData"];
+            /** Operational Metrics */
+            operational_metrics: components["schemas"]["MetricComparisonData"][];
+            /** Caveats */
+            caveats: string[];
         };
         /** RouteTimelineData */
         RouteTimelineData: {
@@ -746,6 +911,11 @@ export interface components {
          * @enum {string}
          */
         RunState: "idle" | "running" | "succeeded" | "failed";
+        /**
+         * SupportLevel
+         * @enum {string}
+         */
+        SupportLevel: "strong" | "moderate" | "limited" | "transition_only" | "unavailable";
         /** TimelinePointData */
         TimelinePointData: {
             /**
@@ -953,6 +1123,74 @@ export interface operations {
                 content: {
                     "application/json": unknown;
                     "text/csv": unknown;
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Run already in progress */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Invalid request */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Run failed */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Analysis unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_anomaly_root_cause: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                route: string;
+                week_of: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DataEnvelope_RootCauseData_"];
                 };
             };
             /** @description Not found */

@@ -16,6 +16,10 @@ export type RunEnvelope = Schemas['DataEnvelope_RunAnalysisData_']
 export type RunRequest = Schemas['RunAnalysisRequest']
 export type ErrorEnvelope = Schemas['ErrorResponse']
 export type ResponseMeta = Schemas['ResponseMeta']
+export type RootCauseEnvelope = Schemas['DataEnvelope_RootCauseData_']
+export type RootCause = Schemas['RootCauseData']
+export type DecompositionLens = Schemas['DecompositionLensData']
+export type CategoryContribution = Schemas['CategoryContributionData']
 
 export type Verdict = 'justified' | 'partially_explained' | 'unexplained'
 export type Trigger = 'own_history' | 'peer' | 'both'

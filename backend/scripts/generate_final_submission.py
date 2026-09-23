@@ -51,6 +51,12 @@ from backend.app.services.reporting import (
     write_final_submission,
 )
 from backend.app.services.retrieval import SentenceTransformerEmbeddingProvider
+from backend.app.services.root_cause import (
+    ROOT_CAUSE_FILENAME,
+    RootCausePolicy,
+    analyze_operational_root_causes,
+    write_root_cause_artifact,
+)
 
 
 def main(settings: Settings | None = None) -> int:
@@ -96,6 +102,20 @@ def main(settings: Settings | None = None) -> int:
             ),
         )
         decisions = tuple(packet.decision for packet in evidence.packets)
+        root_causes = analyze_operational_root_causes(
+            bundle.shipments,
+            detected,
+            decisions,
+            RootCausePolicy(
+                min_current_category_shipments=active.root_cause_min_current_category_shipments,
+                min_reference_category_shipments=active.root_cause_min_reference_category_shipments,
+                min_lead_abs_effect=active.root_cause_min_lead_abs_effect,
+                min_lead_abs_share_pct=active.root_cause_min_lead_abs_share_pct,
+                max_leads_per_lens=active.root_cause_max_leads_per_lens,
+                metric_highlight_percent=active.root_cause_metric_highlight_percent,
+                reconstruction_tolerance=active.root_cause_reconstruction_tolerance,
+            ),
+        )
         reviewed = build_evidence_reviewed_output(
             detected, decisions, bundle.output_columns
         )
@@ -108,6 +128,9 @@ def main(settings: Settings | None = None) -> int:
         write_explanation_audit_jsonl(audits, audit_path)
         validate_explanation_audit_jsonl(audit_path, audits)
         write_final_submission(final_output, final_path)
+        write_root_cause_artifact(
+            root_causes, active.output_data_dir / ROOT_CAUSE_FILENAME
+        )
         validate_final_submission_csv(final_path, reviewed, records)
         audit_hash = explanation_audit_sha256(audit_path)
         final_hash = candidate_csv_sha256(final_path)

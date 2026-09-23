@@ -275,6 +275,38 @@ configured. It writes:
 The supplied data remains 19 rows with 3 justified, 12 partially explained, and 4
 unexplained decisions.
 
+Phase 12 adds deterministic operational investigation leads for unexplained
+anomalies without changing those verdicts. The reference window is the same prior
+eight available route and route-type observations used by the own-history baseline;
+it is not calendar-filled and never looks ahead. Transporter and material are
+independent lenses over the same rate gap. Tonne-km shares and category rates use
+the symmetric two-factor identity for shared categories, while categories appearing
+or disappearing use explicit entry or exit effects. Each lens must satisfy:
+
+```text
+sum(category mix + rate + entry + exit effects) = current rate - own baseline
+```
+
+The lens totals are not additive. Seven descriptive operational metrics cover
+shipment count, average load, tonne-weighted distance, tonnage, tonne-km, freight
+per shipment, and shipments per 100 tonnes. Support labels describe sample coverage,
+not causality. These patterns are not validated context evidence and cannot select
+note IDs, alter flags, or change verdicts.
+
+The atomic schema-versioned artifact is
+`backend/data/output/operational_root_causes.json`. Inspect it without a model call
+or file mutation:
+
+```bash
+python -m backend.scripts.inspect_root_causes --route "Delhi-Jaipur" --week-of 2024-11-11
+```
+
+The API exposes `GET /api/anomalies/{route}/{week_of}/root-cause`. The Cost
+Courtroom lazily shows eligible results with a trust boundary, independent lenses,
+reconstruction, accessible details, metrics, support, and caveats. Small samples,
+descriptive association, and missing fuel, vehicle, invoice, contract, traffic, and
+capacity data remain known limitations.
+
 Phase 9 adds an independent, gate-based evaluation and reproducibility harness. Run
 the formal offline evaluation from the repository root with:
 

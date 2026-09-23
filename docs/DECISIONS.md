@@ -537,3 +537,17 @@
   validated query parameters while TanStack Query owns remote server state.
 - **Consequences:** Investigations are shareable and reload-safe without persisting
   canonical data in browser storage.
+
+## ADR-068: Operational leads cannot modify canonical Evidence Gate verdicts
+
+- **Status:** Accepted
+- **Decision:** Compute deterministic operational leads only after the Evidence
+  Gate. They cannot select notes, clear flags, or change a canonical verdict.
+- **Consequences:** Shipment patterns remain descriptive investigation aids.
+
+## ADR-069: Keep transporter and material decompositions independent
+
+- **Status:** Accepted
+- **Decision:** Each lens separately partitions the same own-history cost gap with
+  symmetric mix/rate and explicit category entry/exit effects.
+- **Consequences:** Both lenses reconstruct the gap but must never be added together.

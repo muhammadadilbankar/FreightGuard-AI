@@ -8,6 +8,7 @@ import type {
   MetricsEnvelope,
   RunEnvelope,
   RunRequest,
+  RootCauseEnvelope,
   SummaryEnvelope,
   TimelineEnvelope,
 } from '../contracts'
@@ -52,6 +53,12 @@ export const endpoints = {
   anomaly: (route: string, week: string, signal?: AbortSignal) =>
     apiClient.get<AnomalyEnvelope>(
       `/api/anomalies/${encodeURIComponent(route)}/${encodeURIComponent(week)}`,
+      undefined,
+      signal,
+    ),
+  rootCause: (route: string, week: string, signal?: AbortSignal) =>
+    apiClient.get<RootCauseEnvelope>(
+      `/api/anomalies/${encodeURIComponent(route)}/${encodeURIComponent(week)}/root-cause`,
       undefined,
       signal,
     ),

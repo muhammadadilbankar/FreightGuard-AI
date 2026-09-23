@@ -45,6 +45,9 @@ def build_snapshot(
         for row in result.final_output.to_dict(orient="records")
     }
     notes_by_id = {note.note_id: note for note in result.notes}
+    root_causes = AnalysisSnapshot.freeze_root_causes(
+        {item.candidate_key: item for item in result.root_causes}
+    )
     anomalies = []
     timelines: dict[str, list[TimelinePoint]] = defaultdict(list)
     for row in result.candidate_metrics.itertuples(index=False):
@@ -134,6 +137,9 @@ def build_snapshot(
                 ),
                 explanation_source=record.explanation_source.value,
                 fallback_used=record.explanation_source.value == "fallback",
+                operational_root_cause_available=(
+                    f"{row.route}|{week.isoformat()}" in root_causes
+                ),
             )
         )
     anomalies.sort(key=lambda item: (item.week_of, item.route, item.route_type))
@@ -165,6 +171,7 @@ def build_snapshot(
         explanation_mode=mode,
         evaluation_status=result.evaluation.overall_status,
         final_csv_sha256=result.final_csv_sha256,
+        operational_root_causes_available=len(root_causes),
     )
     if (
         summary.justified_count
@@ -202,6 +209,8 @@ def build_snapshot(
                 "weekly": len(result.weekly),
                 "candidates": len(anomalies),
                 "compiled_notes": len(result.notes),
+                "root_cause_eligible": verdicts[EvidenceVerdict.UNEXPLAINED],
+                "root_cause_results": len(root_causes),
             }
         ),
         retrieval_hit_count=sum(
@@ -231,7 +240,7 @@ def build_snapshot(
     )
     config = result.evaluation.configuration_fingerprint
     snapshot_id = hashlib.sha256(
-        f"{result.final_csv_sha256}:{config}".encode()
+        f"{result.final_csv_sha256}:{result.root_cause_artifact_sha256}:{config}".encode()
     ).hexdigest()[:16]
     return AnalysisSnapshot(
         snapshot_id=snapshot_id,
@@ -246,10 +255,16 @@ def build_snapshot(
                 **fingerprint_file(result.explanation_audit_path).model_dump(),
                 run_id=None,
             ),
+            ArtifactFingerprint(
+                **fingerprint_file(result.root_cause_artifact_path).model_dump(),
+                run_id=None,
+            ),
         ),
         summary=summary,
         anomalies=tuple(anomalies),
         route_timelines=frozen_timelines,
+        root_causes=root_causes,
+        root_cause_artifact_sha256=result.root_cause_artifact_sha256,
         evaluation=result.evaluation,
         evaluation_report_sha256=result.evaluation_report_sha256,
         run_metrics=metrics,

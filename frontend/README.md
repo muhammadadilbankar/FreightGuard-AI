@@ -49,10 +49,12 @@ OpenAPI types can be refreshed while the API is running with `npm run api:types`
 - Trusted overview, precisely labelled attention spotlight, URL-backed queue
   filters/sort/pagination, and shareable selected route-week deep links.
 - Route trend chart with a text alternative and a Cost Courtroom showing Charge,
-  Evidence, deterministic validation gates, and Verdict.
+  Evidence, deterministic validation gates, Operational Leads for unexplained
+  anomalies, and Verdict. Operational Leads load lazily and remain separate from
+  accepted evidence.
 - Evaluation/run diagnostics and byte-preserving CSV download.
 - Snapshot-ID guard that invalidates all snapshot query families once and refuses
   to combine resources if they still disagree.
 
-The dashboard is intentionally read-only. Phase 12 root-cause analytics, Phase 13
-assistant behavior, authentication, uploads, and verdict overrides are not included.
+The dashboard is intentionally read-only. Phase 13 assistant behavior,
+authentication, uploads, and verdict overrides are not included.

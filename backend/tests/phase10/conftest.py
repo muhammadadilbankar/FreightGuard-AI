@@ -73,6 +73,7 @@ def snapshot_factory(tmp_path: Path):
             ),
             explanation_source="template",
             fallback_used=False,
+            operational_root_cause_available=False,
         )
         point = TimelinePoint(
             week_of=anomaly.week_of,
@@ -109,9 +110,12 @@ def snapshot_factory(tmp_path: Path):
                 explanation_mode="template",
                 evaluation_status="pass",
                 final_csv_sha256=digest,
+                operational_root_causes_available=0,
             ),
             anomalies=(anomaly,),
             route_timelines=AnalysisSnapshot.freeze_timelines({"R1": (point,)}),
+            root_causes=AnalysisSnapshot.freeze_root_causes({}),
+            root_cause_artifact_sha256=None,
             evaluation=None,
             evaluation_report_sha256=None,
             run_metrics=RunMetricsView(

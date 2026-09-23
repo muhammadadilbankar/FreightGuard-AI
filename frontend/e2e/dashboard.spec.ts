@@ -6,6 +6,7 @@ import {
   evaluation,
   healthReady,
   metrics,
+  rootCause,
   runResponse,
   summary,
   timeline,
@@ -14,7 +15,8 @@ import {
 async function mockReadyApi(page: Page) {
   await page.route('**/health', (route) => route.fulfill({ json: healthReady }))
   await page.route('**/api/analysis/summary', (route) => route.fulfill({ json: summary }))
-  await page.route(/\/api\/anomalies\/[^/]+\/\d{4}-\d{2}-\d{2}/, (route) => route.fulfill({ json: anomalyDetail }))
+  await page.route('**/api/anomalies/*/*/root-cause', (route) => route.fulfill({ json: rootCause }))
+  await page.route(/\/api\/anomalies\/[^/]+\/\d{4}-\d{2}-\d{2}$/, (route) => route.fulfill({ json: anomalyDetail }))
   await page.route('**/api/anomalies?*', (route) => route.fulfill({ json: anomalyList }))
   await page.route('**/api/routes/*/timeline*', (route) => route.fulfill({ json: timeline }))
   await page.route('**/api/evaluation/report?*', (route) => route.fulfill({ json: evaluation }))
@@ -29,6 +31,10 @@ test('investigation, deep-link, keyboard, rerun, and export flow', async ({ page
   await expect(page.getByRole('heading', { name: 'Cost Courtroom' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'CHARGE' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'EVIDENCE' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Operational Leads' })).toBeVisible()
+  await expect(page.getByRole('note')).toContainText('do not change the unexplained verdict')
+  await page.getByRole('tab', { name: 'Material lens' }).click()
+  await expect(page.getByText('Steel').first()).toBeVisible()
   await expect(page.getByRole('heading', { name: 'VERDICT' })).toBeVisible()
   await page.keyboard.press('Escape')
   await expect(page.getByRole('heading', { name: 'Cost Courtroom' })).toBeHidden()
@@ -51,6 +57,7 @@ test('ready dashboard and courtroom have no serious accessibility violations', a
   expect(results.violations.filter((item) => ['critical', 'serious'].includes(item.impact ?? ''))).toEqual([])
   await page.getByRole('button', { name: /Investigate (Test-Route|anomaly)/ }).first().click()
   await expect(page.getByRole('heading', { name: 'Cost Courtroom' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Operational Leads' })).toBeVisible()
   results = await new AxeBuilder({ page }).analyze()
   expect(results.violations.filter((item) => ['critical', 'serious'].includes(item.impact ?? ''))).toEqual([])
 })

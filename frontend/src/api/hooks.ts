@@ -43,6 +43,13 @@ export const useAnomaly = (route?: string, week?: string, enabled = true) =>
     enabled: enabled && Boolean(route && week),
   })
 
+export const useRootCause = (route?: string, week?: string, enabled = true) =>
+  useQuery({
+    queryKey: queryKeys.rootCause(route ?? '', week ?? ''),
+    queryFn: ({ signal }) => endpoints.rootCause(route!, week!, signal),
+    enabled: enabled && Boolean(route && week),
+  })
+
 export const useTimeline = (route?: string, from?: string, to?: string, enabled = true) =>
   useQuery({
     queryKey: queryKeys.timeline(route ?? '', from, to),

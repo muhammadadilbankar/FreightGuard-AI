@@ -26,6 +26,9 @@ active snapshot and run coordinator are intentionally process-local.
 - `GET /api/analysis/summary` — dashboard counts and analysis coverage.
 - `GET /api/anomalies` — exact filters, allowlisted sorting, and bounded pagination.
 - `GET /api/anomalies/{route}/{week_of}` — candidate and safe evidence detail.
+- `GET /api/anomalies/{route}/{week_of}/root-cause` — snapshot-backed operational
+  decomposition for unexplained anomalies (`409` when not applicable and `422`
+  when unavailable).
 - `GET /api/routes/{route}/timeline` — chronological weekly route data.
 - `GET /api/evaluation/report` — the in-memory Phase 9 report for the snapshot.
 - `GET /api/run-metrics` — safe operational metrics and latest-attempt status.

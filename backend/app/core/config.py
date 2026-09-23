@@ -41,6 +41,13 @@ class Settings(BaseSettings):
     embedding_model_path: Path | None = Path("backend/data/models/all-MiniLM-L6-v2")
     embedding_local_only: bool = True
     global_magnitude_tolerance_percent: float = Field(default=2.0, ge=0)
+    root_cause_min_current_category_shipments: int = Field(default=2, ge=1)
+    root_cause_min_reference_category_shipments: int = Field(default=3, ge=1)
+    root_cause_min_lead_abs_effect: float = Field(default=0.01, ge=0)
+    root_cause_min_lead_abs_share_pct: float = Field(default=10.0, ge=0, le=100)
+    root_cause_max_leads_per_lens: int = Field(default=3, ge=1, le=20)
+    root_cause_metric_highlight_percent: float = Field(default=10.0, ge=0)
+    root_cause_reconstruction_tolerance: float = Field(default=1e-9, gt=0)
     explanation_mode: str = "template"
     explanation_provider: str = "openai"
     explanation_model: str = ""
@@ -129,6 +136,14 @@ class Settings(BaseSettings):
             raise ValueError("At least one retrieval weight must be positive.")
         if not math.isfinite(self.global_magnitude_tolerance_percent):
             raise ValueError("Global magnitude tolerance must be finite.")
+        root_cause_numbers = (
+            self.root_cause_min_lead_abs_effect,
+            self.root_cause_min_lead_abs_share_pct,
+            self.root_cause_metric_highlight_percent,
+            self.root_cause_reconstruction_tolerance,
+        )
+        if any(not math.isfinite(value) for value in root_cause_numbers):
+            raise ValueError("Root-cause numeric settings must be finite.")
         if not self.embedding_model_name.strip():
             raise ValueError("Embedding model name must not be blank.")
         if not self.embedding_model_revision.strip():

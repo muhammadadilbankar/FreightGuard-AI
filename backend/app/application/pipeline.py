@@ -18,6 +18,7 @@ from ..domain.explanations import (
     FinalExplanationRecord,
     GenerationMode,
 )
+from ..domain.root_cause import RootCauseAnalysis
 from ..evaluation.contracts import configuration_fingerprint
 from ..evaluation.inputs import fingerprint_inputs
 from ..services.analytics import (
@@ -48,6 +49,12 @@ from ..services.reporting import (
     write_final_submission,
 )
 from ..services.retrieval import SentenceTransformerEmbeddingProvider
+from ..services.root_cause import (
+    ROOT_CAUSE_FILENAME,
+    RootCausePolicy,
+    analyze_operational_root_causes,
+    write_root_cause_artifact,
+)
 from ..state.errors import AnalysisRunFailedError
 
 
@@ -64,6 +71,9 @@ class PipelineExecutionResult:
     final_csv_sha256: str
     explanation_audit_path: Path
     explanation_audit_sha256: str
+    root_causes: tuple[RootCauseAnalysis, ...]
+    root_cause_artifact_path: Path
+    root_cause_artifact_sha256: str
     evaluation: EvaluationReport
     evaluation_report_path: Path
     evaluation_report_sha256: str
@@ -119,6 +129,25 @@ def execute_pipeline(settings: Settings, mode: str) -> PipelineExecutionResult:
     durations["retrieval_and_evidence"] = _elapsed_ms(started)
 
     started = perf_counter()
+    root_causes = analyze_operational_root_causes(
+        bundle.shipments,
+        detected,
+        tuple(packet.decision for packet in evidence.packets),
+        RootCausePolicy(
+            min_current_category_shipments=settings.root_cause_min_current_category_shipments,
+            min_reference_category_shipments=settings.root_cause_min_reference_category_shipments,
+            min_lead_abs_effect=settings.root_cause_min_lead_abs_effect,
+            min_lead_abs_share_pct=settings.root_cause_min_lead_abs_share_pct,
+            max_leads_per_lens=settings.root_cause_max_leads_per_lens,
+            metric_highlight_percent=settings.root_cause_metric_highlight_percent,
+            reconstruction_tolerance=settings.root_cause_reconstruction_tolerance,
+        ),
+    )
+    root_cause_path = settings.output_data_dir / ROOT_CAUSE_FILENAME
+    root_cause_hash = write_root_cause_artifact(root_causes, root_cause_path)
+    durations["operational_root_cause"] = _elapsed_ms(started)
+
+    started = perf_counter()
     runtime = _explanation_settings(settings, mode)
     records = generate_explanations(
         evidence.packets,
@@ -166,6 +195,9 @@ def execute_pipeline(settings: Settings, mode: str) -> PipelineExecutionResult:
         final_csv_sha256=final_hash,
         explanation_audit_path=audit_path,
         explanation_audit_sha256=audit_hash,
+        root_causes=root_causes,
+        root_cause_artifact_path=root_cause_path,
+        root_cause_artifact_sha256=root_cause_hash,
         evaluation=evaluation,
         evaluation_report_path=evaluation_path,
         evaluation_report_sha256=evaluation_hash,
@@ -245,6 +277,24 @@ def _load_associated_evaluation(
     ):
         raise AnalysisRunFailedError(
             "Final CSV hash is not covered by the passing Phase 9 report."
+        )
+    root_comparison = next(
+        (
+            item
+            for item in report.reproducibility.comparisons
+            if item.artifact_name == ROOT_CAUSE_FILENAME
+        ),
+        None,
+    )
+    root_path = settings.output_data_dir / ROOT_CAUSE_FILENAME
+    root_hash = hashlib.sha256(root_path.read_bytes()).hexdigest()
+    if (
+        root_comparison is None
+        or not root_comparison.identical
+        or root_hash not in root_comparison.hashes
+    ):
+        raise AnalysisRunFailedError(
+            "Root-cause artifact hash is not covered by the passing evaluation."
         )
     return report, hashlib.sha256(raw).hexdigest()
 
