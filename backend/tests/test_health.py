@@ -15,17 +15,19 @@ def test_default_health_response_matches_public_contract() -> None:
     assert response.status_code == 200
     assert response.json() == {
         "status": "ok",
+        "ready": False,
         "service": "FreightGuard AI API",
-        "version": "0.1.0",
-        "environment": "development",
+        "version": "0.10.0",
+        "run_state": "idle",
+        "has_snapshot": False,
+        "snapshot_id": None,
     }
 
 
 def test_health_metadata_comes_from_settings() -> None:
     settings = Settings(
-        app_name="FreightGuard Test API",
-        app_version="9.9.9",
-        app_env="test",
+        api_title="FreightGuard Test API",
+        api_version="9.9.9",
         _env_file=None,
     )
     application = create_app(settings)
@@ -36,7 +38,10 @@ def test_health_metadata_comes_from_settings() -> None:
     assert response.status_code == 200
     assert response.json() == {
         "status": "ok",
+        "ready": False,
         "service": "FreightGuard Test API",
         "version": "9.9.9",
-        "environment": "test",
+        "run_state": "idle",
+        "has_snapshot": False,
+        "snapshot_id": None,
     }

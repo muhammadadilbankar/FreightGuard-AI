@@ -1,16 +1,5 @@
-"""Health endpoint schemas."""
+"""Compatibility import for the Phase 10 health response."""
 
-from typing import Literal
+from ..api.schemas import HealthResponse
 
-from pydantic import BaseModel, ConfigDict
-
-
-class HealthResponse(BaseModel):
-    """Stable response contract for the health endpoint."""
-
-    model_config = ConfigDict(extra="forbid")
-
-    status: Literal["ok"]
-    service: str
-    version: str
-    environment: str
+__all__ = ["HealthResponse"]

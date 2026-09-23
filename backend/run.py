@@ -10,10 +10,11 @@ def main() -> None:
     settings = get_settings()
     uvicorn.run(
         "app.main:app",
-        host=settings.host,
-        port=settings.port,
-        log_level=settings.log_level.lower(),
-        reload=settings.app_env.lower() == "development",
+        host=settings.api_host,
+        port=settings.api_port,
+        log_level=settings.api_log_level.lower(),
+        reload=False,
+        workers=settings.api_workers,
     )
 
 

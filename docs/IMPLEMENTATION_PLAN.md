@@ -19,9 +19,10 @@ phase plan remain authoritative for detailed completion gates.
    route, date, direction, impact, and scope validation.
 8. **Grounded explanation generation (complete):** Provider-independent constrained wording,
    schema checks, fallback templates, and usage logging.
-9. **Evaluation and reproducibility:** Adversarial cases, regressions, three-run
+9. **Evaluation and reproducibility (complete):** Adversarial cases, regressions, three-run
    byte identity, recorded hashes, and a readable report.
-10. **FastAPI service layer:** Thin typed endpoints around stable services.
+10. **FastAPI service layer (complete):** Thin typed endpoints, immutable snapshots,
+    one-run coordination, stable errors, exact export, and OpenAPI contracts.
 11. **React investigation dashboard:** Overview, queue, trends, evidence drawer,
     validation checklist, export, and metrics.
 12. **Operational root-cause analysis:** Investigative mix and pricing clues that

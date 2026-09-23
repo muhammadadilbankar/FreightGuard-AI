@@ -474,3 +474,33 @@
 - **Status:** Accepted
 - **Decision:** Record SHA-256 input hashes, a canonical non-secret configuration hash, dependency versions, and safe environment identity.
 - **Consequences:** A report states precisely which data and deterministic settings it evaluated without exposing credentials or personal paths.
+
+## ADR-059: Publish one immutable in-memory snapshot atomically
+
+- **Status:** Accepted
+- **Decision:** Build all Phase 2–9 results privately and replace a single snapshot reference only after every invariant and evaluation gate passes.
+- **Consequences:** Concurrent reads belong wholly to the old or new run; a failed refresh preserves the last good result.
+
+## ADR-060: Enforce one analysis run and one API worker
+
+- **Status:** Accepted
+- **Decision:** Reject overlapping run attempts with `409` and configure Uvicorn for exactly one worker.
+- **Consequences:** Process-local coordination is deterministic without pretending to provide distributed locking.
+
+## ADR-061: Bind API publication to the existing formal Phase 9 report
+
+- **Status:** Accepted
+- **Decision:** Require a passing three-run report whose input fingerprints, output-affecting configuration fingerprint, and final CSV hash match the requested run.
+- **Consequences:** A normal API refresh avoids launching three subprocesses while it cannot publish content outside the proven evaluation envelope.
+
+## ADR-062: Keep transport contracts separate from domain models
+
+- **Status:** Accepted
+- **Decision:** Serialize explicit Pydantic wire models from immutable application read models.
+- **Consequences:** HTTP evolution cannot silently weaken analytical contracts or expose internal provider data.
+
+## ADR-063: Serve exact validated export bytes
+
+- **Status:** Accepted
+- **Decision:** Store the trusted CSV path and hash in the snapshot, recheck integrity on download, and support SHA-256 ETags.
+- **Consequences:** Export never reconstructs or rounds canonical rows in an API route.

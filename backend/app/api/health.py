@@ -1,20 +1,5 @@
-"""Service health route."""
+"""Compatibility import for the Phase 10 health router."""
 
-from fastapi import APIRouter, Request
+from .routes import health_router as router
 
-from ..core.config import Settings
-from ..schemas.health import HealthResponse
-
-router = APIRouter(tags=["health"])
-
-
-@router.get("/health", response_model=HealthResponse)
-def health(request: Request) -> HealthResponse:
-    """Return process-local service metadata without touching challenge data."""
-    settings: Settings = request.app.state.settings
-    return HealthResponse(
-        status="ok",
-        service=settings.app_name,
-        version=settings.app_version,
-        environment=settings.app_env,
-    )
+__all__ = ["router"]

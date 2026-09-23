@@ -43,3 +43,24 @@ def test_absolute_paths_are_preserved(tmp_path: Path) -> None:
     settings = Settings(input_data_dir=tmp_path, _env_file=None)
 
     assert settings.input_data_dir == tmp_path.resolve()
+
+
+def test_api_origins_parse_and_invalid_combinations_fail() -> None:
+    settings = Settings(
+        api_allowed_origins="https://one.example, https://two.example",
+        _env_file=None,
+    )
+    assert settings.api_allowed_origins == (
+        "https://one.example",
+        "https://two.example",
+    )
+    with pytest.raises(ValidationError, match="default page size"):
+        Settings(api_default_page_size=11, api_max_page_size=10, _env_file=None)
+    with pytest.raises(ValidationError, match="Wildcard"):
+        Settings(
+            api_allowed_origins=("*",),
+            api_allow_credentials=True,
+            _env_file=None,
+        )
+    with pytest.raises(ValidationError, match="exactly one worker"):
+        Settings(api_workers=2, _env_file=None)

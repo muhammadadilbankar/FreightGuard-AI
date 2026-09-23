@@ -66,6 +66,29 @@ class Settings(BaseSettings):
     evaluation_output_root: Path = Path("backend/data/output/evaluation")
     evaluation_preserve_run_artifacts: bool = True
     evaluation_fail_on_dirty_inputs: bool = True
+    api_title: str = "FreightGuard AI API"
+    api_description: str = "Trusted freight anomaly analysis service"
+    api_version: str = "0.10.0"
+    api_prefix: str = "/api"
+    api_host: str = "127.0.0.1"
+    api_port: int = Field(default=8000, ge=1, le=65535)
+    api_allowed_origins: tuple[str, ...] = ("http://localhost:5173",)
+    api_allow_credentials: bool = False
+    api_auto_run_on_startup: bool = False
+    api_hydrate_from_artifacts: bool = False
+    api_default_page_size: int = Field(default=20, ge=1)
+    api_max_page_size: int = Field(default=100, ge=1, le=100)
+    api_max_request_bytes: int = Field(default=65536, ge=1024)
+    api_log_level: str = "INFO"
+    api_live_explanations_enabled: bool = False
+    api_workers: int = Field(default=1, ge=1)
+
+    @field_validator("api_allowed_origins", mode="before")
+    @classmethod
+    def parse_allowed_origins(cls, value: object) -> object:
+        if isinstance(value, str):
+            return tuple(item.strip() for item in value.split(",") if item.strip())
+        return value
 
     @field_validator("embedding_model_path", mode="before")
     @classmethod
@@ -145,6 +168,20 @@ class Settings(BaseSettings):
         evaluation_root = self.evaluation_output_root.resolve()
         if evaluation_root == input_root or input_root in evaluation_root.parents:
             raise ValueError("Evaluation output root must not overlap input data.")
+        if not self.api_prefix.startswith("/") or self.api_prefix.endswith("/"):
+            raise ValueError(
+                "API prefix must start with '/' and have no trailing slash."
+            )
+        if self.api_default_page_size > self.api_max_page_size:
+            raise ValueError("API default page size cannot exceed the maximum.")
+        if not self.api_allowed_origins:
+            raise ValueError("At least one exact API allowed origin is required.")
+        if self.api_allow_credentials and "*" in self.api_allowed_origins:
+            raise ValueError("Wildcard CORS origins are forbidden with credentials.")
+        if self.api_workers != 1:
+            raise ValueError(
+                "The in-memory snapshot service requires exactly one worker."
+            )
         return self
 
 

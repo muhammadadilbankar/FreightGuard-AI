@@ -6,16 +6,17 @@ evidence so every result is reproducible and auditable.
 
 ## Status
 
-Phase 8 (grounded explanation generation) is implemented. The repository
-provides a typed FastAPI foundation, strict CSV ingestion, deterministic weekly
+Phase 10 (FastAPI service layer) is implemented. The repository provides a typed,
+single-worker API over strict CSV ingestion, deterministic weekly
 route metrics, leak-free own-history and self-excluding peer baselines, full-
 precision percentage comparisons, configurable candidate detection, and an exact
 eight-column preliminary CSV. It also compiles source context notes into immutable,
 versioned evidence claims, discovers candidate evidence with local hybrid retrieval,
 and applies deterministic validity gates before producing reviewed decisions. A
 provider-independent wording layer now produces strictly validated explanations or
-safe deterministic fallbacks without changing any canonical decision. Evaluation
-reports and the dashboard belong to later phases and are not implemented yet.
+safe deterministic fallbacks without changing any canonical decision. Formal
+three-run evaluation gates atomic publication of immutable API snapshots. The
+React dashboard belongs to the next phase and is not implemented yet.
 
 The unchanged challenge CSV files are stored in `backend/data/input/`. Their
 recorded byte sizes and SHA-256 hashes are documented in
@@ -66,7 +67,8 @@ python -m backend.scripts.compile_context_notes
 python -m backend.scripts.prepare_embedding_model
 python -m backend.scripts.review_candidate_evidence
 python -m backend.scripts.generate_final_submission
-python backend/run.py
+python -m backend.scripts.evaluate_pipeline
+python -m backend.scripts.run_api
 ```
 
 The validation command reads the three files under `backend/data/input/`, reports
@@ -289,14 +291,16 @@ available. Output paths, timeouts, logging, and secrets are excluded from the
 configuration fingerprint; every setting capable of changing canonical content is
 included.
 
-With the API running, open <http://127.0.0.1:8000/health>. It returns service
-status, name, version, and environment without reading shipment data or calling an
-external service.
+With the API running, open <http://127.0.0.1:8000/health>. It reports liveness and
+readiness without forcing analysis. Use `POST /api/analysis/run` to publish the
+first snapshot, then inspect the typed endpoints through <http://127.0.0.1:8000/docs>.
+The service must run with one worker; see `docs/API.md` for its endpoint and failure
+contracts.
 
 ## Project structure
 
 ```text
-backend/app/          API foundation, domain contracts, ingestion, analytics, context
+backend/app/          API, application state, domain contracts, and trusted services
 backend/data/input/   Unmodified challenge inputs (supplied separately)
 backend/data/output/  Generated artifacts from future phases
 backend/scripts/      Local validation commands
