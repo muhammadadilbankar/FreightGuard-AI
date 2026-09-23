@@ -1,0 +1,12 @@
+[
+  {"note_id":"N001","scope_type":"route","scope_status":"in_dataset","cost_impact_status":"explicit_increase","effective_to_open":false},
+  {"note_id":"N002","scope_type":"route","scope_status":"in_dataset","cost_impact_status":"explicit_increase","effective_to_open":false},
+  {"note_id":"N003","scope_type":"global","scope_status":"in_dataset","cost_impact_status":"explicit_increase","effective_to_open":true},
+  {"note_id":"N004","scope_type":"global","scope_status":"outside_dataset","cost_impact_status":"not_stated","effective_to_open":true},
+  {"note_id":"N005","scope_type":"route","scope_status":"in_dataset","cost_impact_status":"explicit_no_material_impact","effective_to_open":false},
+  {"note_id":"N006","scope_type":"global","scope_status":"in_dataset","cost_impact_status":"normal_or_stable_operations","effective_to_open":false},
+  {"note_id":"N007","scope_type":"route","scope_status":"in_dataset","cost_impact_status":"not_stated","effective_to_open":true},
+  {"note_id":"N008","scope_type":"route","scope_status":"in_dataset","cost_impact_status":"normal_or_stable_operations","effective_to_open":false},
+  {"note_id":"N009","scope_type":"route","scope_status":"in_dataset","cost_impact_status":"normal_or_stable_operations","effective_to_open":true},
+  {"note_id":"N010","scope_type":"global","scope_status":"in_dataset","cost_impact_status":"explicit_no_rate_change","effective_to_open":true}
+]

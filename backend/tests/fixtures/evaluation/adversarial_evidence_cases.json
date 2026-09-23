@@ -1,0 +1,22 @@
+[
+  {"case_id":"valid_exact_route_and_week","expected":"full"},
+  {"case_id":"wrong_route","expected":"rejected"},
+  {"case_id":"reverse_direction_route","expected":"rejected"},
+  {"case_id":"wrong_date_before_start","expected":"rejected"},
+  {"case_id":"wrong_date_after_end","expected":"rejected"},
+  {"case_id":"one_day_overlap","expected":"full"},
+  {"case_id":"outside_dataset_scope","expected":"rejected"},
+  {"case_id":"negated_cost_impact","expected":"rejected"},
+  {"case_id":"explicit_no_rate_change","expected":"rejected"},
+  {"case_id":"normal_operations","expected":"rejected"},
+  {"case_id":"cost_impact_not_stated","expected":"rejected"},
+  {"case_id":"no_evidence","expected":"unexplained"},
+  {"case_id":"global_own_only_full","expected":"full"},
+  {"case_id":"global_peer_partial","expected":"partial"},
+  {"case_id":"high_similarity_but_invalid","expected":"rejected"},
+  {"case_id":"low_similarity_structured_recall_valid","expected":"full"},
+  {"case_id":"multiple_full_deterministic_selection","expected":"justified"},
+  {"case_id":"multiple_partial_no_full_combination","expected":"partially_explained"},
+  {"case_id":"full_and_partial_full_wins","expected":"justified"},
+  {"case_id":"independent_no_impact_note_does_not_cancel_valid_note","expected":"justified"}
+]

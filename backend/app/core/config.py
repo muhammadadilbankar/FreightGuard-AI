@@ -37,12 +37,8 @@ class Settings(BaseSettings):
     retrieval_sparse_weight: float = Field(default=1.0, ge=0)
     retrieval_dense_weight: float = Field(default=1.0, ge=0)
     embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
-    embedding_model_revision: str = (
-        "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
-    )
-    embedding_model_path: Path | None = Path(
-        "backend/data/models/all-MiniLM-L6-v2"
-    )
+    embedding_model_revision: str = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+    embedding_model_path: Path | None = Path("backend/data/models/all-MiniLM-L6-v2")
     embedding_local_only: bool = True
     global_magnitude_tolerance_percent: float = Field(default=2.0, ge=0)
     explanation_mode: str = "template"
@@ -56,14 +52,20 @@ class Settings(BaseSettings):
     explanation_max_attempts: int = Field(default=2, ge=1, le=5)
     explanation_max_concurrency: int = Field(default=3, ge=1, le=16)
     explanation_cache_enabled: bool = True
-    explanation_cache_path: Path = Path(
-        "backend/data/output/explanation_cache.jsonl"
-    )
+    explanation_cache_path: Path = Path("backend/data/output/explanation_cache.jsonl")
     model_input_cost_per_1m_usd: Decimal | None = None
     model_cached_input_cost_per_1m_usd: Decimal | None = None
     model_output_cost_per_1m_usd: Decimal | None = None
     model_pricing_snapshot_date: date | None = None
     openai_api_key: SecretStr | None = None
+    evaluation_runs: int = Field(default=3, ge=1)
+    evaluation_run_timeout_seconds: int = Field(default=300, gt=0)
+    evaluation_mode: str = "template"
+    evaluation_rel_tolerance: float = Field(default=1e-12, ge=0)
+    evaluation_abs_tolerance: float = Field(default=1e-12, ge=0)
+    evaluation_output_root: Path = Path("backend/data/output/evaluation")
+    evaluation_preserve_run_artifacts: bool = True
+    evaluation_fail_on_dirty_inputs: bool = True
 
     @field_validator("embedding_model_path", mode="before")
     @classmethod
@@ -90,6 +92,7 @@ class Settings(BaseSettings):
             "output_data_dir",
             "embedding_model_path",
             "explanation_cache_path",
+            "evaluation_output_root",
         ):
             value = getattr(self, field_name)
             if value is None:
@@ -122,10 +125,26 @@ class Settings(BaseSettings):
             self.model_cached_input_cost_per_1m_usd,
             self.model_output_cost_per_1m_usd,
         )
-        if any(rate is not None and (not rate.is_finite() or rate < 0) for rate in rates):
+        if any(
+            rate is not None and (not rate.is_finite() or rate < 0) for rate in rates
+        ):
             raise ValueError("Model cost rates must be finite and non-negative.")
-        if any(rate is not None for rate in rates) and self.model_pricing_snapshot_date is None:
-            raise ValueError("A pricing snapshot date is required with model cost rates.")
+        if (
+            any(rate is not None for rate in rates)
+            and self.model_pricing_snapshot_date is None
+        ):
+            raise ValueError(
+                "A pricing snapshot date is required with model cost rates."
+            )
+        if self.evaluation_mode not in {"template", "replay"}:
+            raise ValueError("Formal evaluation mode must be template or replay.")
+        tolerances = (self.evaluation_rel_tolerance, self.evaluation_abs_tolerance)
+        if any(not math.isfinite(value) for value in tolerances):
+            raise ValueError("Evaluation tolerances must be finite.")
+        input_root = self.input_data_dir.resolve()
+        evaluation_root = self.evaluation_output_root.resolve()
+        if evaluation_root == input_root or input_root in evaluation_root.parents:
+            raise ValueError("Evaluation output root must not overlap input data.")
         return self
 
 

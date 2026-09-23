@@ -1,0 +1,21 @@
+[
+  {"route":"Ahmedabad-Mumbai","week_of":"2025-01-20","verdict":"justified","selected_note_id":"N002","supporting_note_ids":[]},
+  {"route":"Chennai-Bangalore","week_of":"2025-02-24","verdict":"justified","selected_note_id":"N001","supporting_note_ids":[]},
+  {"route":"Chennai-Bangalore","week_of":"2025-03-03","verdict":"justified","selected_note_id":"N001","supporting_note_ids":[]},
+  {"route":"Chennai-Bangalore","week_of":"2025-03-10","verdict":"unexplained","selected_note_id":null,"supporting_note_ids":[]},
+  {"route":"Chennai-Bangalore","week_of":"2025-03-17","verdict":"unexplained","selected_note_id":null,"supporting_note_ids":[]},
+  {"route":"Delhi-Jaipur","week_of":"2024-11-11","verdict":"unexplained","selected_note_id":null,"supporting_note_ids":[]},
+  {"route":"Delhi-Jaipur","week_of":"2024-11-18","verdict":"unexplained","selected_note_id":null,"supporting_note_ids":[]},
+  {"route":"Mumbai-Pune","week_of":"2025-06-23","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-09-15","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-10-06","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-10-20","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-10-27","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-11-03","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-11-17","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-11-24","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-12-01","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-12-08","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-12-15","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]},
+  {"route":"Mumbai-Pune","week_of":"2025-12-22","verdict":"partially_explained","selected_note_id":null,"supporting_note_ids":["N003"]}
+]

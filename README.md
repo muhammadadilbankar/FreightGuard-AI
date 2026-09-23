@@ -257,7 +257,37 @@ configured. It writes:
 - `backend/data/output/final_submission.csv`
 
 The supplied data remains 19 rows with 3 justified, 12 partially explained, and 4
-unexplained decisions. Phase 9 still owns the formal three-run evaluation report.
+unexplained decisions.
+
+Phase 9 adds an independent, gate-based evaluation and reproducibility harness. Run
+the formal offline evaluation from the repository root with:
+
+```bash
+python -m backend.scripts.evaluate_pipeline --runs 3 --mode template
+```
+
+A formal PASS means every blocking input, mathematics, baseline, candidate,
+compilation, retrieval, Evidence Gate, explanation, CSV, metamorphic, and
+reproducibility check passed. It also means three fresh Python processes generated
+byte-identical `final_submission.csv` files without network access. Live explanation
+mode is deliberately forbidden; a frozen validated replay cache is the only formal
+alternative to template mode.
+
+Reports are written under `backend/data/output/evaluation/`:
+
+- `evaluation_report.json` contains typed checks, metrics, and fingerprints.
+- `evaluation_report.md` is the judge-readable summary and lists blocking failures.
+- `reproducibility_manifest.json` records every run and canonical artifact hash.
+- `runs/run_01` through `runs/run_03` retain isolated run artifacts.
+
+For the supplied data, the expected headline results are 2,940 shipments, 728
+weekly route groups, 19 candidates, 10 notes, a 3/12/4 verdict split, zero false
+clearances, and zero unsafe evidence acceptances. When a run fails, inspect the
+`Blocking failures` section of the Markdown report or the `checks` array in JSON,
+then rerun the same command from a clean shell with the pinned local embedding model
+available. Output paths, timeouts, logging, and secrets are excluded from the
+configuration fingerprint; every setting capable of changing canonical content is
+included.
 
 With the API running, open <http://127.0.0.1:8000/health>. It returns service
 status, name, version, and environment without reading shipment data or calling an

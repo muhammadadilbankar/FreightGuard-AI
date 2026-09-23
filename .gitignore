@@ -15,3 +15,5 @@ node_modules/
 dist/
 .DS_Store
 Thumbs.db
+# Internal AI implementation plans
+FREIGHTGUARD_PHASE_*_PLAN.md

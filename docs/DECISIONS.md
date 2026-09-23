@@ -426,3 +426,51 @@
 - **Decision:** Calculate estimates with `Decimal` and configured per-million-token
   rates tied to a pricing snapshot date.
 - **Consequences:** Missing rates yield unavailable cost instead of stale fake values.
+
+## ADR-051: Use explicit blocking gates instead of an opaque overall score
+
+- **Status:** Accepted
+- **Decision:** Phase 9 passes only when every blocking check and metric target passes.
+- **Consequences:** A high score cannot conceal a safety or reproducibility failure.
+
+## ADR-052: Evaluate production outputs through independent read paths
+
+- **Status:** Accepted
+- **Decision:** Recompute mathematical properties and parse final CSV bytes independently of production validators.
+- **Consequences:** Evaluation cannot pass merely by trusting pipeline summaries.
+
+## ADR-053: Treat false anomaly clearance as a zero-tolerance safety metric
+
+- **Status:** Accepted
+- **Decision:** Any incorrectly justified anomaly or unsafe accepted note fails formal evaluation.
+- **Consequences:** Retrieval quality cannot compensate for an evidence-safety failure.
+
+## ADR-054: Test the evaluator with deliberate output corruption
+
+- **Status:** Accepted
+- **Decision:** Mutate headers, fields, flags, note IDs, row cardinality, uniqueness, and quoting in valid CSV copies.
+- **Consequences:** A negative control that escapes detection fails the evaluator itself.
+
+## ADR-055: Run reproducibility in three fresh isolated processes
+
+- **Status:** Accepted
+- **Decision:** Formal evaluation invokes the complete Phase 8 command three times with isolated output directories and explicit timeouts.
+- **Consequences:** Hidden process state, import order, and output-path coupling become observable.
+
+## ADR-056: Restrict formal reproducibility to template or frozen replay mode
+
+- **Status:** Accepted
+- **Decision:** Live provider generation is forbidden in formal evaluation.
+- **Consequences:** Formal output never depends on network access or fresh model sampling.
+
+## ADR-057: Separate canonical artifact equality from operational telemetry
+
+- **Status:** Accepted
+- **Decision:** Byte-compare canonical CSV output while validating latency and audit metadata semantically.
+- **Consequences:** Legitimate timing variation cannot create a false reproducibility failure.
+
+## ADR-058: Fingerprint inputs, output-affecting configuration, and environment
+
+- **Status:** Accepted
+- **Decision:** Record SHA-256 input hashes, a canonical non-secret configuration hash, dependency versions, and safe environment identity.
+- **Consequences:** A report states precisely which data and deterministic settings it evaluated without exposing credentials or personal paths.
